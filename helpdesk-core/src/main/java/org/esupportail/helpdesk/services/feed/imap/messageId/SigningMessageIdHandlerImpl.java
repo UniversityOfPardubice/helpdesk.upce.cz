@@ -7,6 +7,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.esupportail.commons.exceptions.ConfigException;
 import org.esupportail.commons.services.logging.Logger;
@@ -29,7 +31,7 @@ public class SigningMessageIdHandlerImpl extends AbstractMessageIdHandler implem
 	/**
 	 * Regular expression patter to find ticket number.
 	 */
-	private static final String TICKET_ID_PATTERN = "<ticketId\\.(\\d+)\\.([0-9a-v]+)@.*>";
+	private static final Pattern TICKET_ID_PATTERN = Pattern.compile(".*<ticketId\\.(\\d+)\\.([0-9a-z]+)@[^>]*>.*", Pattern.DOTALL);
 
 	/**
 	 * The base used to hash.
@@ -122,21 +124,24 @@ public class SigningMessageIdHandlerImpl extends AbstractMessageIdHandler implem
     @Override
 	public Long getTicketIdFromMessageId(
     		final String messageId) throws MessageIdException {
-    	if (!messageId.matches(TICKET_ID_PATTERN)) {
+        logger.debug("Trying to get ticketId from [" + messageId + "]");
+        Matcher messageIdMatcher = TICKET_ID_PATTERN.matcher(messageId);
+    	if (!messageIdMatcher.matches()) {
     		throw new MessageIdException(
     				"messageId does not match pattern [ticketId.<id>.<hash>@"
     				+ emailDomain + "]");
     	}
 		long ticketId;
 		try {
-			ticketId = Long.valueOf(messageId.replaceAll(TICKET_ID_PATTERN, "$1"));
+			ticketId = Long.valueOf(messageIdMatcher.replaceFirst("$1"));
 		} catch (NumberFormatException e1) {
-			throw new MessageIdException("invalid ticketId");
+			throw new MessageIdException("invalid ticketId", e1);
 		}
-		String hash = messageId.replaceAll(TICKET_ID_PATTERN, "$2");
+		String hash = messageIdMatcher.replaceFirst("$2");
 		if (!getHash(ticketId).equals(hash)) {
-			throw new MessageIdException("invalid hash");
+			throw new MessageIdException("invalid hash (was: [" + hash + "]; expected: [" + getHash(ticketId) + "]");
 		}
+                logger.info("Got ticket #" + ticketId + " from [" + messageId + "]");
 		return ticketId;
     }
 
