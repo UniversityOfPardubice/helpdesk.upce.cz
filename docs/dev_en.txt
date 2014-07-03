@@ -1,0 +1,15 @@
+Useful commands:
+
+Location of environment ($configFile):
+
+Installing of modules in the local maven repository:
+mvn -Dconfig.location=$configFile clean install
+
+Running war file::
+debug:
+cd helpdesk-web-jsf-servlet ; mvnDebug -Dconfig.location=$configFile jetty:run ; cd -
+normal :
+cd esup-opi-web-jsf-servlet ; mvn -Dconfig.location=$configFile jetty:run ; cd -
+
+Batch operations:
+java -Dconfig.location=$configFile helpdesk-batch/target/helpdesk-batch-$version.jar init-data
