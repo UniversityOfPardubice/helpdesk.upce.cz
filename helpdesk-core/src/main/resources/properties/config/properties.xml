@@ -22,7 +22,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:/properties/defaults.properties</value>
-				<value>file:${config.location}</value>
+				<value>file:/etc/helpdesk/config.properties</value>
 			</list>
 		</property>
 	</bean>
