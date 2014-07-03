@@ -14,7 +14,7 @@
 		</id> 
 		<property name="name" column="name" index="i_icon_name" not-null="true" />
 		<property name="contentType" column="cont_type" />
-		<property  name="data" column="data" type="binary" length="8192" />
+		<property  name="data" column="data" type="binary" length="32768" />
 	</class>
 
 </hibernate-mapping>

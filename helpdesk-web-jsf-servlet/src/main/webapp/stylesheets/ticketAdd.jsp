@@ -75,7 +75,7 @@
 					<f:facet name="department">
 						<h:panelGroup>
 							<t:graphicImage value="#{departmentIconUrlProvider[node.department]}" />
-							<e:text value=" #{msgs['TICKET_ACTION.TEXT.ADD.DEPARTMENT_LABEL']}">
+							<e:text value=" #{msgs['TICKET_ACTION.TEXT.ADD.DEPARTMENT_LABEL']}" escape="false" >
 								<f:param value="#{node.department.label}" />
 								<f:param value="#{node.department.xlabel}" />
 							</e:text>
@@ -157,7 +157,7 @@
 						</t:tree2>
 						<t:htmlTag value="hr" />
 					</h:panelGroup>
-					<e:panelGrid columns="1" columnClasses="colRightMaxNowrap" width="100%" >
+					<e:panelGrid columns="1" columnClasses="colRightMaxNowrap" width="100%" rendered="#{ticketController.userCanSetOrigin}" >
 						<h:panelGroup style="cursor: pointer" 
 							onclick="javascript:{showHideElement('ticketActionForm:advanced');showHideElement('ticketActionForm:showAdvanced');showHideElement('ticketActionForm:hideAdvanced');return false;}" >
 							<h:panelGroup id="showAdvanced" >
@@ -170,7 +170,7 @@
 							</h:panelGroup>
 						</h:panelGroup>
 					</e:panelGrid>
-					<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftNowrap" id="advanced" style="display: none" >
+					<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftNowrap" id="advanced" style="display: none" rendered="#{ticketController.userCanSetOrigin}" >
 						<e:outputLabel for="scope" value="#{msgs['TICKET_ACTION.TEXT.ADD.SCOPE_PROMPT']} " />
 						<h:panelGroup>
 							<e:selectOneMenu id="scope" 
@@ -237,6 +237,22 @@
 					</e:panelGrid>
 				</h:panelGroup>
 			</e:panelGrid>
+
+            <h:panelGroup rendered="#{not empty ticketController.ticketAttributes}">
+                <t:htmlTag value="hr" />
+                <h:dataTable value="#{ticketController.ticketAttributes}" var="attribute">
+                    <h:column>
+                        <e:bold value="#{attribute.label}"/>
+                    </h:column>
+                    <h:column>
+                        <e:inputText value="#{attribute.value}" rendered="#{attribute.type == 'TEXT'}"/>
+                        <e:selectOneMenu value="#{attribute.value}" rendered="#{(attribute.type == 'SELECT') || (attribute.type == 'DB')}">
+                            <f:selectItems value="#{attribute.values}" />
+                        </e:selectOneMenu>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+
 			<t:htmlTag value="hr" />
 			<e:panelGrid columns="2" width="100%" columnClasses="colLeftMax,colRightNowrap">
 				<h:panelGroup>

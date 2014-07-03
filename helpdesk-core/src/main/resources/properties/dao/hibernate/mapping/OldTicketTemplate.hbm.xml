@@ -15,7 +15,7 @@
 		<property name="xlabel" column="xlab" not-null="true"/>
 		<property name="ticketTemplatePriorityLevel" column="tick_temp_prio_leve"/>
 		<property name="ticketTemplateLabel" column="tick_temp_labe"/>
-		<property name="ticketTemplateMessage" column="tick_temp_mess" length="4096"/>
+		<property name="ticketTemplateMessage" column="tick_temp_mess" type="text"/>
 		<property name="useCategoryMessage" column="use_cate_mess"/>
 		<property name="useCategoryPriority" column="use_cate_prio"/>
 		<property name="order" column="orde"/>

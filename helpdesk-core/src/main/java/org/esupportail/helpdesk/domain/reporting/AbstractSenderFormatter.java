@@ -28,6 +28,7 @@ import org.esupportail.helpdesk.domain.beans.DepartmentManager;
 import org.esupportail.helpdesk.domain.beans.FileInfo;
 import org.esupportail.helpdesk.domain.beans.Invitation;
 import org.esupportail.helpdesk.domain.beans.Ticket;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
 import org.esupportail.helpdesk.domain.beans.TicketMonitoring;
 import org.esupportail.helpdesk.domain.beans.User;
 import org.esupportail.helpdesk.domain.userFormatting.UserFormattingService;
@@ -612,6 +613,43 @@ public class AbstractSenderFormatter extends AbstractSender implements DomainSer
 		}
 		return result;
 	}
+	
+	/**
+	 * @param user
+	 * @param ticket
+	 * @return the attributes to include in prints and emails
+	 */
+	protected String getEmailOrPrintAttributes(
+			final User user, 
+			final Ticket ticket) {
+		String result = "";
+		
+		List<TicketAttribute> ticketAttributes = getDomainService().getTicketAttributes(ticket);
+		if ((ticketAttributes != null) && (!ticketAttributes.isEmpty())) {
+			Locale locale = getDomainService().getUserStore().getUserLocale(user);
+			result += getI18nService().getString(
+					"EMAIL.TICKET.COMMON.ATTRIBUTES.TITLE", locale);
+			result += getI18nService().getString(
+					"EMAIL.TICKET.COMMON.ATTRIBUTES.HEADER", locale);
+			boolean alternateColor = false;
+			for (TicketAttribute ticketAttribute : ticketAttributes) {
+				String trClass = "table-";
+				if (alternateColor) {
+					trClass += "odd";
+				} else {
+					trClass += "even";
+				}
+				result += getI18nService().getString(
+						"EMAIL.TICKET.COMMON.ATTRIBUTES.ENTRY", locale,
+						trClass, ticketAttribute.getLabel(), ticketAttribute.getValue());
+				
+				alternateColor = !alternateColor;
+			}
+			result += getI18nService().getString(
+					"EMAIL.TICKET.COMMON.ATTRIBUTES.FOOTER", locale);
+		}
+		return result;
+	}
 
 	/**
 	 * @param user
@@ -629,6 +667,7 @@ public class AbstractSenderFormatter extends AbstractSender implements DomainSer
 				String.valueOf(ticket.getId()), ticket.getLabel());
 		htmlContent += getEmailOrPrintHeader(locale, subject);
 		htmlContent += getEmailOrPrintHistory(user, ticket);
+		htmlContent += getEmailOrPrintAttributes(user, ticket);
 		htmlContent += getEmailOrPrintProperties(user, ticket);
 		htmlContent += getEmailOrPrintFiles(user, ticket);
 		htmlContent += getEmailOrPrintInvitations(user, ticket);

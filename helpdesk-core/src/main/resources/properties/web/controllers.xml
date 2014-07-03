@@ -115,6 +115,9 @@
 		<property name="departmentPaginator" ref="departmentPaginator" />
 		<property name="departmentManagerPaginator" ref="departmentManagerPaginator" />
 		<property name="departmentInvitationPaginator" ref="departmentInvitationPaginator" />
+		<property name="categoryAttributeTypeFormatter" ref="categoryAttributeTypeFormatter">
+			<description>The category attribute type formatter.</description>
+		</property>
 	</bean>
 
 	<bean id="departmentPaginator"
@@ -301,7 +304,7 @@
 	</bean>
 
 	<bean id="ticketController"
-		class="org.esupportail.helpdesk.web.controllers.TicketController"
+		class="cz.upce.helpdesk.web.controllers.TicketControllerUPa"
 		parent="abstractContextAwareController"
 		scope="session"
 		lazy-init="true"

@@ -192,7 +192,10 @@ public class MonitoringSenderImpl extends AbstractAlertSender implements Monitor
 		long now = System.currentTimeMillis();
 		for (Action action : actions) {
 			if (action != null) {
-				if (now - action.getDate().getTime() > 5000) {
+				if (now - action.getDate().getTime() > 20000) {
+                                        logger.warn("The action is too old (" + (now - action.getDate().getTime())+"); "
+                                                + "ActionId: " + action.getId()+"; "
+                                                + "Ticket: " + action.getTicket());
 					break;
 				}
 				theActions.add(action);

@@ -122,6 +122,17 @@ public class StatisticsController extends AbstractContextAwareController {
 	 */
 	private static final String PERIOD_WEEK = "w";
 
+    private static final String PERIOD_THIS_YEAR = "ty";
+    private static final String PERIOD_LAST_YEAR = "ly";
+    private static final String PERIOD_Q1 = "q1";
+    private static final String PERIOD_Q2 = "q2";
+    private static final String PERIOD_Q3 = "q3";
+    private static final String PERIOD_Q4 = "q4";
+    private static final String PERIOD_LAST_Q1 = "lq1";
+    private static final String PERIOD_LAST_Q2 = "lq2";
+    private static final String PERIOD_LAST_Q3 = "lq3";
+    private static final String PERIOD_LAST_Q4 = "lq4";
+
 	/**
 	 * A constant for intervals.
 	 */
@@ -552,6 +563,26 @@ public class StatisticsController extends AbstractContextAwareController {
 						"m", getString("STATISTICS.PERIOD_FILTER.MONTH")));
 				creationPeriodSpecItems.add(new SelectItem(
 						"w", getString("STATISTICS.PERIOD_FILTER.WEEK")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"ly", getString("STATISTICS.PERIOD_FILTER.LAST_YEAR")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"ty", getString("STATISTICS.PERIOD_FILTER.THIS_YEAR")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"lq1", getString("STATISTICS.PERIOD_FILTER.LAST_Q1")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"lq2", getString("STATISTICS.PERIOD_FILTER.LAST_Q2")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"lq3", getString("STATISTICS.PERIOD_FILTER.LAST_Q3")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"lq4", getString("STATISTICS.PERIOD_FILTER.LAST_Q4")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"q1", getString("STATISTICS.PERIOD_FILTER.Q1")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"q2", getString("STATISTICS.PERIOD_FILTER.Q2")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"q3", getString("STATISTICS.PERIOD_FILTER.Q3")));
+				creationPeriodSpecItems.add(new SelectItem(
+						"q4", getString("STATISTICS.PERIOD_FILTER.Q4")));
 			}
 		}
 		return creationPeriodSpecItems;
@@ -661,15 +692,30 @@ public class StatisticsController extends AbstractContextAwareController {
 	/**
 	 * Set the ticket creations history chart title.
 	 * @param start
+     * @param end
 	 */
 	protected void setTicketCreationChartXYtitle(
-			final Timestamp start) {
+			final Timestamp start,
+            final Timestamp end) {
 		if (start != null) {
-			chartXtitle = getString(
-					"STATISTICS.CHART.TICKET_CREATIONS.XTITLE",
-					String.valueOf(getDay(start)),
-					getMonth(start) + 1,
-					String.valueOf(getYear(start)));
+            if (end == null) {
+                chartXtitle = getString(
+                        "STATISTICS.CHART.TICKET_CREATIONS.XTITLE",
+                        String.valueOf(getDay(start)),
+                        getMonth(start) + 1,
+                        String.valueOf(getYear(start)));
+            } else {
+                chartXtitle = getString(
+                        "STATISTICS.CHART.TICKET_CREATIONS.XTITLE_END",
+                        String.valueOf(getDay(start)),
+                        getMonth(start) + 1,
+                        String.valueOf(getYear(start)),
+                        getString(
+                            "STATISTICS.CHART.TICKET_CREATIONS.XTITLE_END_DATE",
+                            String.valueOf(getDay(end)),
+                            getMonth(end) + 1,
+                            String.valueOf(getYear(end))));
+            }
 			chartYtitle = getString(
 					"STATISTICS.CHART.TICKET_CREATIONS.YTITLE");
 		} else {
@@ -837,6 +883,17 @@ public class StatisticsController extends AbstractContextAwareController {
 		boolean periodWeek = false;
 		boolean periodMonth = false;
 		boolean periodYear = false;
+        boolean periodThisYear = false;
+        boolean periodLastYear = false;
+        boolean useEndTime = false;
+        boolean periodQ1 = false;
+        boolean periodQ2 = false;
+        boolean periodQ3 = false;
+        boolean periodQ4 = false;
+        boolean periodLastQ1 = false;
+        boolean periodLastQ2 = false;
+        boolean periodLastQ3 = false;
+        boolean periodLastQ4 = false;
 		@SuppressWarnings("unused")
 		boolean periodAll = false;
 		boolean intervalDay = false;
@@ -858,6 +915,120 @@ public class StatisticsController extends AbstractContextAwareController {
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
 			intervalMonth = true;
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodThisYear = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+			intervalMonth = true;
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodLastYear = true;
+            useEndTime = true;
+			now = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(now);
+			intervalMonth = true;
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+			periodQ1 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+			periodQ2 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+			periodQ3 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+			periodQ4 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ1 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ2 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ3 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ4 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
 		} else {
 			periodAll = true;
 			start = getDomainService().getOldestTicketDate();
@@ -867,13 +1038,13 @@ public class StatisticsController extends AbstractContextAwareController {
 				intervalMonth = true;
 			}
 		}
-		setTicketCreationChartXYtitle(start);
+		setTicketCreationChartXYtitle(start, useEndTime?now:null);
 		chartData = new DefaultCategoryDataset();
 		if (start != null) {
 			fillTicketCreationsHistoryStats(
 					start, now,
 					intervalDay, intervalMonth,
-					periodWeek, periodMonth, periodYear);
+					periodWeek, periodMonth, periodYear||periodThisYear||useEndTime);
 			String chartTitlePrefix = "STATISTICS.CHART.TICKET_CREATIONS.HISTORY.TITLE_";
 			if (periodWeek) {
 				chartTitle = getString(chartTitlePrefix + "WEEK");
@@ -881,6 +1052,26 @@ public class StatisticsController extends AbstractContextAwareController {
 				chartTitle = getString(chartTitlePrefix + "MONTH");
 			} else if (periodYear) {
 				chartTitle = getString(chartTitlePrefix + "YEAR");
+			} else if (periodThisYear) {
+				chartTitle = getString(chartTitlePrefix + "THIS_YEAR");
+			} else if (periodLastYear) {
+				chartTitle = getString(chartTitlePrefix + "LAST_YEAR");
+			} else if (periodQ1) {
+				chartTitle = getString(chartTitlePrefix + "Q1");
+			} else if (periodQ2) {
+				chartTitle = getString(chartTitlePrefix + "Q2");
+			} else if (periodQ3) {
+				chartTitle = getString(chartTitlePrefix + "Q3");
+			} else if (periodQ4) {
+				chartTitle = getString(chartTitlePrefix + "Q4");
+			} else if (periodLastQ1) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q1");
+			} else if (periodLastQ2) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q2");
+			} else if (periodLastQ3) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q3");
+			} else if (periodLastQ4) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q4");
 			} else {
 				chartTitle = getString(
 						chartTitlePrefix + "ALL",
@@ -1001,10 +1192,22 @@ public class StatisticsController extends AbstractContextAwareController {
 	 */
 	protected void computeTicketCreationsDistribution() {
 		Timestamp start = null;
+        Timestamp end = null;
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		boolean periodWeek = false;
 		boolean periodMonth = false;
 		boolean periodYear = false;
+        boolean periodThisYear = false;
+        boolean periodLastYear = false;
+        boolean useEndTime = false;
+        boolean periodQ1 = false;
+        boolean periodQ2 = false;
+        boolean periodQ3 = false;
+        boolean periodQ4 = false;
+        boolean periodLastQ1 = false;
+        boolean periodLastQ2 = false;
+        boolean periodLastQ3 = false;
+        boolean periodLastQ4 = false;
 		@SuppressWarnings("unused")
 		boolean periodAll = false;
 		boolean intervalDayOfWeek = false;
@@ -1023,6 +1226,110 @@ public class StatisticsController extends AbstractContextAwareController {
 			periodYear = true;
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodThisYear = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodLastYear = true;
+            useEndTime = true;
+			now = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(now);
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+			periodQ1 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+			periodQ2 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+			periodQ3 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+			periodQ4 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ1 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ2 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ3 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ4 = true;
+            useEndTime = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
 		} else {
 			periodAll = true;
 			start = getDomainService().getOldestTicketDate();
@@ -1035,7 +1342,7 @@ public class StatisticsController extends AbstractContextAwareController {
 			intervalHourOfWeek = true;
 		}
 		chartData = new DefaultCategoryDataset();
-		setTicketCreationChartXYtitle(start);
+		setTicketCreationChartXYtitle(start, useEndTime?now:null);
 		if (start != null) {
 			fillTicketCreationsDistributionStats(start, now, intervalDayOfWeek, intervalHourOfDay);
 			String chartTitlePrefix = "STATISTICS.CHART.TICKET_CREATIONS.DISTRIBUTION.";
@@ -1053,6 +1360,26 @@ public class StatisticsController extends AbstractContextAwareController {
 				chartTitle = getString(chartTitlePrefix + "MONTH");
 			} else if (periodYear) {
 				chartTitle = getString(chartTitlePrefix + "YEAR");
+			} else if (periodThisYear) {
+				chartTitle = getString(chartTitlePrefix + "THIS_YEAR");
+			} else if (periodLastYear) {
+				chartTitle = getString(chartTitlePrefix + "LAST_YEAR");
+			} else if (periodQ1) {
+				chartTitle = getString(chartTitlePrefix + "Q1");
+			} else if (periodQ2) {
+				chartTitle = getString(chartTitlePrefix + "Q2");
+			} else if (periodQ3) {
+				chartTitle = getString(chartTitlePrefix + "Q3");
+			} else if (periodQ4) {
+				chartTitle = getString(chartTitlePrefix + "Q4");
+			} else if (periodLastQ1) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q1");
+			} else if (periodLastQ2) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q2");
+			} else if (periodLastQ3) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q3");
+			} else if (periodLastQ4) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q4");
 			} else {
 				chartTitle = getString(
 						chartTitlePrefix + "ALL",
@@ -1070,6 +1397,16 @@ public class StatisticsController extends AbstractContextAwareController {
 		boolean periodWeek = false;
 		boolean periodMonth = false;
 		boolean periodYear = false;
+        boolean periodThisYear = false;
+        boolean periodLastYear = false;
+        boolean periodQ1 = false;
+        boolean periodQ2 = false;
+        boolean periodQ3 = false;
+        boolean periodQ4 = false;
+        boolean periodLastQ1 = false;
+        boolean periodLastQ2 = false;
+        boolean periodLastQ3 = false;
+        boolean periodLastQ4 = false;
 		@SuppressWarnings("unused")
 		boolean periodAll = false;
 		if (PERIOD_WEEK.equals(ticketCreationsPeriodSpec)) {
@@ -1084,6 +1421,101 @@ public class StatisticsController extends AbstractContextAwareController {
 			periodYear = true;
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodThisYear = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodLastYear = true;
+			now = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(now);
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+			periodQ1 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+			periodQ2 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+			periodQ3 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+			periodQ4 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ1 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ2 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ3 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+			periodLastQ4 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
 		} else {
 			periodAll = true;
 			start = getDomainService().getOldestTicketDate();
@@ -1097,6 +1529,26 @@ public class StatisticsController extends AbstractContextAwareController {
 			chartTitle = getString(chartTitlePrefix + "MONTH", ticketCreatorsMaxNumber);
 		} else if (periodYear) {
 			chartTitle = getString(chartTitlePrefix + "YEAR", ticketCreatorsMaxNumber);
+		} else if (periodThisYear) {
+			chartTitle = getString(chartTitlePrefix + "THIS_YEAR", ticketCreatorsMaxNumber);
+		} else if (periodLastYear) {
+			chartTitle = getString(chartTitlePrefix + "LAST_YEAR", ticketCreatorsMaxNumber);
+		} else if (periodQ1) {
+			chartTitle = getString(chartTitlePrefix + "Q1", ticketCreatorsMaxNumber);
+		} else if (periodQ2) {
+			chartTitle = getString(chartTitlePrefix + "Q2", ticketCreatorsMaxNumber);
+		} else if (periodQ3) {
+			chartTitle = getString(chartTitlePrefix + "Q3", ticketCreatorsMaxNumber);
+		} else if (periodQ4) {
+			chartTitle = getString(chartTitlePrefix + "Q4", ticketCreatorsMaxNumber);
+		} else if (periodLastQ1) {
+			chartTitle = getString(chartTitlePrefix + "LAST_Q1", ticketCreatorsMaxNumber);
+		} else if (periodLastQ2) {
+			chartTitle = getString(chartTitlePrefix + "LAST_Q2", ticketCreatorsMaxNumber);
+		} else if (periodLastQ3) {
+			chartTitle = getString(chartTitlePrefix + "LAST_Q3", ticketCreatorsMaxNumber);
+		} else if (periodLastQ4) {
+			chartTitle = getString(chartTitlePrefix + "LAST_Q4", ticketCreatorsMaxNumber);
 		} else {
 			chartTitle = getString(
 					chartTitlePrefix + "ALL", ticketCreatorsMaxNumber,
@@ -1108,10 +1560,12 @@ public class StatisticsController extends AbstractContextAwareController {
 	 * Set the charge time chart title.
 	 * @param charge
 	 * @param start
+     * @param end
 	 */
 	protected void setChargeOrClosureChartXYtitle(
 			final boolean charge,
-			final Timestamp start) {
+			final Timestamp start,
+            final Timestamp end) {
 		String prefix;
 		if (charge) {
 			prefix = "STATISTICS.CHART.CHARGE.";
@@ -1119,11 +1573,24 @@ public class StatisticsController extends AbstractContextAwareController {
 			prefix = "STATISTICS.CHART.CLOSURE.";
 		}
 		if (start != null) {
-			chartXtitle = getString(
-					prefix + "XTITLE",
-					String.valueOf(getDay(start)),
-					getMonth(start) + 1,
-					String.valueOf(getYear(start)));
+            if (end == null) {
+                chartXtitle = getString(
+                        prefix + "XTITLE",
+                        String.valueOf(getDay(start)),
+                        getMonth(start) + 1,
+                        String.valueOf(getYear(start)));
+            } else {
+                chartXtitle = getString(
+                        prefix + "XTITLE_END",
+                        String.valueOf(getDay(start)),
+                        getMonth(start) + 1,
+                        String.valueOf(getYear(start)),
+                        getString(
+                            prefix + "XTITLE_END_DATE",
+                            String.valueOf(getDay(end)),
+                            getMonth(end) + 1,
+                            String.valueOf(getYear(end))));
+            }
 			chartYtitle = getString(prefix + "YTITLE");
 		} else {
 			chartXtitle = "";
@@ -1190,6 +1657,17 @@ public class StatisticsController extends AbstractContextAwareController {
 		boolean periodWeek = false;
 		boolean periodMonth = false;
 		boolean periodYear = false;
+        boolean periodThisYear = false;
+        boolean periodLastYear = false;
+        boolean useEndTime = false;
+        boolean periodQ1 = false;
+        boolean periodQ2 = false;
+        boolean periodQ3 = false;
+        boolean periodQ4 = false;
+        boolean periodLastQ1 = false;
+        boolean periodLastQ2 = false;
+        boolean periodLastQ3 = false;
+        boolean periodLastQ4 = false;
 		@SuppressWarnings("unused")
 		boolean periodAll = false;
 		boolean intervalDay = false;
@@ -1211,6 +1689,120 @@ public class StatisticsController extends AbstractContextAwareController {
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
 			intervalMonth = true;
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodThisYear = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+			intervalMonth = true;
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodLastYear = true;
+            useEndTime = true;
+			now = StatisticsUtils.getYearRoundedDate(now);
+			start = StatisticsUtils.getPreviousYearDate(now);
+			intervalMonth = true;
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ1 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ2 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ3 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ4 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ1 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+			start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ2 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+			start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ3 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+			start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ4 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+			start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			intervalMonth = true;
 		} else {
 			periodAll = true;
 			start = getDomainService().getOldestTicketDate();
@@ -1220,13 +1812,13 @@ public class StatisticsController extends AbstractContextAwareController {
 				intervalMonth = true;
 			}
 		}
-		setChargeOrClosureChartXYtitle(charge, start);
+		setChargeOrClosureChartXYtitle(charge, start, useEndTime?now:null);
 		chartData = new DefaultCategoryDataset();
 		if (start != null) {
 			fillChargeOrClosureHistoryStats(
 					charge, start, now,
 					intervalDay, intervalMonth,
-					periodWeek, periodMonth, periodYear);
+					periodWeek, periodMonth, periodYear||periodThisYear||useEndTime);
 			String chartTitlePrefix;
 			if (charge) {
 				chartTitlePrefix = "STATISTICS.CHART.CHARGE.HISTORY.TITLE_";
@@ -1239,6 +1831,26 @@ public class StatisticsController extends AbstractContextAwareController {
 				chartTitle = getString(chartTitlePrefix + "MONTH");
 			} else if (periodYear) {
 				chartTitle = getString(chartTitlePrefix + "YEAR");
+			} else if (periodThisYear) {
+				chartTitle = getString(chartTitlePrefix + "THIS_YEAR");
+			} else if (periodLastYear) {
+				chartTitle = getString(chartTitlePrefix + "LAST_YEAR");
+			} else if (periodQ1) {
+				chartTitle = getString(chartTitlePrefix + "Q1");
+			} else if (periodQ2) {
+				chartTitle = getString(chartTitlePrefix + "Q2");
+			} else if (periodQ3) {
+				chartTitle = getString(chartTitlePrefix + "Q3");
+			} else if (periodQ4) {
+				chartTitle = getString(chartTitlePrefix + "Q4");
+			} else if (periodLastQ1) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q1");
+			} else if (periodLastQ2) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q2");
+			} else if (periodLastQ3) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q3");
+			} else if (periodLastQ4) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q4");
 			} else {
 				chartTitle = getString(
 						chartTitlePrefix + "ALL",
@@ -1300,6 +1912,17 @@ public class StatisticsController extends AbstractContextAwareController {
 		boolean periodWeek = false;
 		boolean periodMonth = false;
 		boolean periodYear = false;
+        boolean periodThisYear = false;
+        boolean periodLastYear = false;
+        boolean useEndTime = true;
+        boolean periodQ1 = false;
+        boolean periodQ2 = false;
+        boolean periodQ3 = false;
+        boolean periodQ4 = false;
+        boolean periodLastQ1 = false;
+        boolean periodLastQ2 = false;
+        boolean periodLastQ3 = false;
+        boolean periodLastQ4 = false;
 		@SuppressWarnings("unused")
 		boolean periodAll = false;
 		boolean intervalDayOfWeek = false;
@@ -1318,6 +1941,110 @@ public class StatisticsController extends AbstractContextAwareController {
 			periodYear = true;
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodThisYear = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			periodLastYear = true;
+            useEndTime = true;
+			now = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(now);
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ1 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ2 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ3 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodQ4 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ1 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ2 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ3 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+            useEndTime = true;
+			periodLastQ4 = true;
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
 		} else {
 			periodAll = true;
 			start = getDomainService().getOldestTicketDate();
@@ -1330,7 +2057,7 @@ public class StatisticsController extends AbstractContextAwareController {
 			intervalHourOfWeek = true;
 		}
 		chartData = new DefaultCategoryDataset();
-		setChargeOrClosureChartXYtitle(charge, start);
+		setChargeOrClosureChartXYtitle(charge, start, useEndTime?now:null);
 		if (start != null) {
 			fillChargeOrClosureDistributionStats(charge, start, now, intervalDayOfWeek, intervalHourOfDay);
 			String chartTitlePrefix;
@@ -1353,6 +2080,26 @@ public class StatisticsController extends AbstractContextAwareController {
 				chartTitle = getString(chartTitlePrefix + "MONTH");
 			} else if (periodYear) {
 				chartTitle = getString(chartTitlePrefix + "YEAR");
+			} else if (periodThisYear) {
+				chartTitle = getString(chartTitlePrefix + "THIS_YEAR");
+			} else if (periodLastYear) {
+				chartTitle = getString(chartTitlePrefix + "LAST_YEAR");
+			} else if (periodQ1) {
+				chartTitle = getString(chartTitlePrefix + "Q1");
+			} else if (periodQ2) {
+				chartTitle = getString(chartTitlePrefix + "Q2");
+			} else if (periodQ3) {
+				chartTitle = getString(chartTitlePrefix + "Q3");
+			} else if (periodQ4) {
+				chartTitle = getString(chartTitlePrefix + "Q4");
+			} else if (periodLastQ1) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q1");
+			} else if (periodLastQ2) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q2");
+			} else if (periodLastQ3) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q3");
+			} else if (periodLastQ4) {
+				chartTitle = getString(chartTitlePrefix + "LAST_Q4");
 			} else {
 				chartTitle = getString(
 						chartTitlePrefix + "ALL",
@@ -1388,6 +2135,101 @@ public class StatisticsController extends AbstractContextAwareController {
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
 			chartTitle = getString(chartTitlePrefix + "YEAR", ticketsMaxNumber);
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+			chartTitle = getString(chartTitlePrefix + "THIS_YEAR", ticketsMaxNumber);
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			now = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(now);
+			chartTitle = getString(chartTitlePrefix + "LAST_YEAR", ticketsMaxNumber);
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q1", ticketsMaxNumber);
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q2", ticketsMaxNumber);
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q3", ticketsMaxNumber);
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q4", ticketsMaxNumber);
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q1", ticketsMaxNumber);
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q2", ticketsMaxNumber);
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q3", ticketsMaxNumber);
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q4", ticketsMaxNumber);
 		} else {
 			start = getDomainService().getOldestTicketDate();
 			chartTitle = getString(
@@ -1508,6 +2350,101 @@ public class StatisticsController extends AbstractContextAwareController {
 			start = StatisticsUtils.getMonthUpperRoundedDate(
 							StatisticsUtils.getPreviousYearDate(now));
 			chartTitle = getString(chartTitlePrefix + "YEAR");
+		} else if (PERIOD_THIS_YEAR.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+			chartTitle = getString(chartTitlePrefix + "THIS_YEAR");
+		} else if (PERIOD_LAST_YEAR.equals(ticketCreationsPeriodSpec)) {
+			now = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(now);
+			chartTitle = getString(chartTitlePrefix + "LAST_YEAR");
+		} else if (PERIOD_Q1.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q1");
+		} else if (PERIOD_Q2.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q2");
+		} else if (PERIOD_Q3.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q3");
+		} else if (PERIOD_Q4.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "Q4");
+		} else if (PERIOD_LAST_Q1.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q1");
+		} else if (PERIOD_LAST_Q2.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q2");
+		} else if (PERIOD_LAST_Q3.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q3");
+		} else if (PERIOD_LAST_Q4.equals(ticketCreationsPeriodSpec)) {
+			start = StatisticsUtils.getYearRoundedDate(now);
+            start = StatisticsUtils.getPreviousYearDate(start);
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            start = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+            now = StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(
+                    StatisticsUtils.getNextMonthDate(start)));
+			chartTitle = getString(chartTitlePrefix + "LAST_Q4");
 		} else {
 			start = getDomainService().getOldestTicketDate();
 			chartTitle = getString(

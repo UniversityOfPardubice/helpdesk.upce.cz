@@ -25,6 +25,7 @@ import org.esupportail.commons.web.controllers.LdapSearchCaller;
 import org.esupportail.helpdesk.domain.DomainService;
 import org.esupportail.helpdesk.domain.TicketScope;
 import org.esupportail.helpdesk.domain.beans.Category;
+import org.esupportail.helpdesk.domain.beans.CategoryAttribute;
 import org.esupportail.helpdesk.domain.beans.CategoryMember;
 import org.esupportail.helpdesk.domain.beans.Department;
 import org.esupportail.helpdesk.domain.beans.DepartmentInvitation;
@@ -49,6 +50,8 @@ import org.esupportail.helpdesk.domain.comparators.DepartmentOrderComparator;
 import org.esupportail.helpdesk.domain.comparators.DepartmentXlabelComparator;
 import org.esupportail.helpdesk.web.beans.AbstractFirstLastNode;
 import org.esupportail.helpdesk.web.beans.AuthTypeI18nKeyProvider;
+import org.esupportail.helpdesk.web.beans.CategoryAttributeTypeFormatter;
+import org.esupportail.helpdesk.web.beans.CategoryAttributeTypeI18nKeyProvider;
 import org.esupportail.helpdesk.web.beans.CategoryMonitoringI18nKeyProvider;
 import org.esupportail.helpdesk.web.beans.CategoryNode;
 import org.esupportail.helpdesk.web.beans.CategoryTreeModel;
@@ -345,6 +348,41 @@ public class DepartmentsController extends AbstractContextAwareController implem
 	private List<Department> deleteTargetDepartments;
 
 	/**
+	 * The attributes of the category to update.
+	 */
+	private List<CategoryAttribute> categoryAttributes;
+
+	/**
+	 * The inherited category attributes.
+	 */
+	private List<CategoryAttribute> inheritedCategoryAttributes;
+
+	/**
+	 * The category attribute to remove.
+	 */
+	private CategoryAttribute categoryAttributeToDelete;
+
+	/**
+	 * The category attribute to move.
+	 */
+	private CategoryAttribute categoryAttributeToMove;
+
+	/**
+	 * The category attribute to add.
+	 */
+	private CategoryAttribute categoryAttributeToAdd;
+
+	/**
+	 * The category attribute to edit.
+	 */
+	private CategoryAttribute categoryAttributeToUpdate;
+
+	/**
+	 * The category attribute type formatter.
+	 */
+	private CategoryAttributeTypeFormatter categoryAttributeTypeFormatter;
+
+	/**
 	 * Bean constructor.
 	 */
 	public DepartmentsController() {
@@ -365,6 +403,9 @@ public class DepartmentsController extends AbstractContextAwareController implem
 				+ this.getClass().getName() + " can not be null");
 		Assert.notNull(departmentInvitationPaginator,
 				"property departmentInvitationPaginator of class "
+				+ this.getClass().getName() + " can not be null");
+		Assert.notNull(categoryAttributeTypeFormatter, 
+				"property categoryAttributeTypeFormatter of class "
 				+ this.getClass().getName() + " can not be null");
 	}
 
@@ -403,6 +444,11 @@ public class DepartmentsController extends AbstractContextAwareController implem
 		faqLinkToMove = null;
 		faqTree = null;
 		deleteTargetDepartments = null;
+		categoryAttributes = null;
+		categoryAttributeToDelete = null;
+		categoryAttributeToUpdate = null;
+		categoryAttributeToMove = null;
+		categoryAttributeToAdd = new CategoryAttribute();
 	}
 
 	/**
@@ -421,6 +467,7 @@ public class DepartmentsController extends AbstractContextAwareController implem
 		+ ", categoryToUpdate=" + categoryToUpdate
 		+ ", targetCategory=" + targetCategory
 		+ ", targetDepartment=" + targetDepartment
+		+ ", categoryAttributeToAdd=" + categoryAttributeToAdd
 		+ "]";
 	}
 
@@ -1223,6 +1270,7 @@ public class DepartmentsController extends AbstractContextAwareController implem
         	subCategoryNode.setVirtualCategories(getDomainService().getVirtualCategories(subCategory));
         	subCategoryNode.setMembers(getDomainService().getCategoryMembers(subCategory));
         	subCategoryNode.setFaqLinks(getDomainService().getFaqLinks(subCategory));
+        	subCategoryNode.setCategoryAttributes(getDomainService().getCategoryAttributes(subCategory));
         	categoryNode.getChildren().add(subCategoryNode);
         	addCategoryTreeSubCategories(subCategoryNode, getDomainService().getSubCategories(subCategory));
     		categoryNode.setLeaf(false);
@@ -1928,6 +1976,7 @@ public class DepartmentsController extends AbstractContextAwareController implem
 		}
 		addCategoriesActionItem(items, "MEMBERS");
 		addCategoriesActionItem(items, "FAQ_LINKS");
+		addCategoriesActionItem(items, "ATTRIBUTES");
 		return items;
 	}
 
@@ -2712,6 +2761,9 @@ public class DepartmentsController extends AbstractContextAwareController implem
 		if ("FAQ_LINKS".equals(categoriesAction)) {
 			return categoriesAction;
 		}
+		if ("ATTRIBUTES".equals(categoriesAction)) {
+			return categoriesAction;
+		}
 		categoriesAction = "PROPERTIES";
 		return categoriesAction;
 	}
@@ -2735,6 +2787,326 @@ public class DepartmentsController extends AbstractContextAwareController implem
 	 */
 	protected void setDeleteTargetDepartments(final List<Department> deleteTargetDepartments) {
 		this.deleteTargetDepartments = deleteTargetDepartments;
+	}
+
+	/**
+	 * Compute the attributes of the category to update.
+	 */
+	protected void computeCategoryAttributes() {
+		categoryAttributes = getDomainService().getCategoryAttributes(categoryToUpdate);
+		inheritedCategoryAttributes = getDomainService().getInheritedCategoryAttributes(categoryToUpdate);
+}
+
+	/**
+	 * JSF callback.
+	 * @return a String.
+	 */
+	public String editCategoryAttributes() {
+		resetCategoryAttributes();
+		return "editCategoryAttributes";
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String.
+	 */
+	public String updateCategoryAttribute() {
+		resetCategoryAttributes();
+		return "updateCategoryAttribute";
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String.
+	 */
+	public String addCategoryAttributeOpen() {
+		resetCategoryAttributes();
+		return "addCategoryAttributeOpen";
+	}
+
+	/**
+	 * @return the attributes of the category to update.
+	 */
+	public List<CategoryAttribute> getCategoryAttributes() {
+		if (categoryAttributes == null) {
+			computeCategoryAttributes();
+		}
+		return categoryAttributes;
+	}
+
+	/**
+	 * @return the attributes of the category to update.
+	 */
+	public List<CategoryAttribute> getInheritedCategoryAttributes() {
+		if (inheritedCategoryAttributes == null) {
+			computeCategoryAttributes();
+		}
+		return inheritedCategoryAttributes;
+	}
+
+    /**
+	 * Reset the attributes of the category to update (to force them to be computed again).
+	 */
+	public void resetCategoryAttributes() {
+		categoryAttributes = null;
+	}
+
+    /**
+	 * @return the number of attributes of the category to update.
+	 */
+	public int getCategoryAttributesNumber() {
+		return getCategoryAttributes().size();
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String moveCategoryAttributeDown() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		getDomainService().moveCategoryAttributeDown(categoryAttributeToMove);
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return null;
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String moveCategoryAttributeUp() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		getDomainService().moveCategoryAttributeUp(categoryAttributeToMove);
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return null;
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String moveCategoryAttributeFirst() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		getDomainService().moveCategoryAttributeFirst(categoryAttributeToMove);
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return null;
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String moveCategoryAttributeLast() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		getDomainService().moveCategoryAttributeLast(categoryAttributeToMove);
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return null;
+	}
+
+	/**
+	 * @param categoryAttributeToDelete the categoryAttributeToDelete to set
+	 */
+	public void setCategoryAttributeToDelete(final CategoryAttribute categoryAttributeToDelete) {
+		this.categoryAttributeToDelete = categoryAttributeToDelete;
+	}
+
+	/**
+	 * @param categoryAttributeToUpdate the categoryAttributeToUpdate to set
+	 */
+	public void setCategoryAttributeToUpdate(final CategoryAttribute categoryAttributeToUpdate) {
+		this.categoryAttributeToUpdate = categoryAttributeToUpdate;
+	}
+
+	/**
+	 * @return the categoryAttributeToUpdate
+	 */
+	public CategoryAttribute getCategoryAttributeToUpdate() {
+		return categoryAttributeToUpdate;
+	}
+
+	/**
+	 * @param categoryAttributeToMove the categoryAttributeToMove to set
+	 */
+	public void setCategoryAttributeToMove(final CategoryAttribute categoryAttributeToMove) {
+		this.categoryAttributeToMove = categoryAttributeToMove;
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String deleteCategoryAttribute() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		getDomainService().deleteCategoryAttribute(categoryAttributeToDelete);
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return null;
+	}
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String saveCategoryAttribute() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		if (!org.springframework.util.StringUtils.hasText(categoryAttributeToUpdate.getName())) {
+			addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_NAME");
+			return null;
+		}
+		if (!org.springframework.util.StringUtils.hasText(categoryAttributeToUpdate.getLabel())) {
+			addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_LABEL");
+			return null;
+		}
+        if (CategoryAttribute.SELECT.equals(categoryAttributeToUpdate.getType())) {
+            if (!org.springframework.util.StringUtils.hasText(categoryAttributeToUpdate.getValues())) {
+                addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_VALUES");
+                return null;
+            }
+        }
+        if (CategoryAttribute.DB.equals(categoryAttributeToUpdate.getType())) {
+            if (!org.springframework.util.StringUtils.hasText(categoryAttributeToUpdate.getDbConnectionJndi())) {
+                addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_DB_JNDI");
+                return null;
+            }
+            if (!org.springframework.util.StringUtils.hasText(categoryAttributeToUpdate.getDbConnectionSql())) {
+                addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_DB_SQL");
+                return null;
+            }
+        }
+		getDomainService().updateCategoryAttribute(categoryAttributeToUpdate);
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return "categoryAttributeSaved";
+	}
+
+	/**
+	 * @return the categoryAttributeToAdd
+	 */
+	public CategoryAttribute getCategoryAttributeToAdd() {
+		return categoryAttributeToAdd;
+	}
+
+    /**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String addCategoryAttribute() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		if (!org.springframework.util.StringUtils.hasText(categoryAttributeToAdd.getName())) {
+			addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_NAME");
+			return null;
+		}
+		if (!org.springframework.util.StringUtils.hasText(categoryAttributeToAdd.getLabel())) {
+			addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_LABEL");
+			return null;
+		}
+        if (CategoryAttribute.SELECT.equals(categoryAttributeToAdd.getType())) {
+            if (!org.springframework.util.StringUtils.hasText(categoryAttributeToAdd.getValues())) {
+                addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_VALUES");
+                return null;
+            }
+        }
+        if (CategoryAttribute.DB.equals(categoryAttributeToAdd.getType())) {
+            if (!org.springframework.util.StringUtils.hasText(categoryAttributeToAdd.getDbConnectionJndi())) {
+                addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_DB_JNDI");
+                return null;
+            }
+            if (!org.springframework.util.StringUtils.hasText(categoryAttributeToAdd.getDbConnectionSql())) {
+                addErrorMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ENTER_DB_SQL");
+                return null;
+            }
+        }
+        categoryAttributeToAdd.setCategory(categoryToUpdate);
+		getDomainService().addCategoryAttribute(categoryAttributeToAdd);
+		addInfoMessage(null, "CATEGORY_ATTRIBUTES.MESSAGE.ATTRIBUTE_ADDED", categoryAttributeToAdd.getLabel());
+		categoryAttributeToAdd = new CategoryAttribute();
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return "categoryAttributeAdded";
+    }
+
+	/**
+	 * JSF callback.
+	 * @return a String
+	 */
+	public String toggleInheritCategoryAttributes() {
+		if (!isCurrentUserCanManageDepartmentCategories()) {
+			addUnauthorizedActionMessage();
+			return null;
+		}
+		categoryToUpdate.setInheritAttributes(!categoryToUpdate.getInheritAttributes());
+		getDomainService().updateCategory(categoryToUpdate);
+		if (categoryToUpdate.getInheritAttributes()) {
+			for (CategoryAttribute categoryAttribute : getDomainService().getCategoryAttributes(categoryToUpdate)) {
+				getDomainService().deleteCategoryAttribute(categoryAttribute);
+			}
+		}
+		refreshCategoryTree();
+		resetCategoryAttributes();
+		return null;
+	}
+
+	/**
+	 * Add a category type item.
+	 * @param categoryAttributeTypes
+	 * @param categoryAttributeType
+	 */
+	private void addCategoryAttributeType(
+			final List<SelectItem> categoryAttributeTypes,
+			final String categoryAttributeType) {
+		categoryAttributeTypes.add(new SelectItem(
+				categoryAttributeType,
+				getString(CategoryAttributeTypeI18nKeyProvider.getI18nKey(categoryAttributeType))));
+	}
+
+	/**
+	 * @return the categoryAttributeTypes
+	 */
+	@RequestCache
+	public List<SelectItem> getCategoryAttributeTypes() {
+		List<SelectItem> categoryAttributeTypes = new ArrayList<SelectItem>();
+		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.TEXT);
+		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.SELECT);
+		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.DB);
+		return categoryAttributeTypes;
+	}
+
+	/**
+	 * @return the categoryAttributeTypeFormatter
+	 */
+	protected CategoryAttributeTypeFormatter getCategoryAttributeTypeFormatter() {
+		return categoryAttributeTypeFormatter;
+	}
+
+	/**
+	 * @param categoryAttributeTypeFormatter the categoryAttributeTypeFormatter to set
+	 */
+	public void setCategoryAttributeTypeFormatter(final CategoryAttributeTypeFormatter categoryAttributeTypeFormatter) {
+		this.categoryAttributeTypeFormatter = categoryAttributeTypeFormatter;
 	}
 
 }

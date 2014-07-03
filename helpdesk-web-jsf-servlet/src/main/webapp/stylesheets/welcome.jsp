@@ -11,8 +11,8 @@
 		id="welcomeForm" >
 			<e:section value="#{msgs['WELCOME.TITLE']}" />
 			<e:messages />
-			<e:paragraph value="#{msgs['WELCOME.TEXT.WELCOME']}" />
-			<e:paragraph value="#{msgs['WELCOME.TEXT.SHORTCUTS']}" />
+			<e:paragraph value="#{msgs['WELCOME.TEXT.WELCOME']}" escape="false" />
+			<e:paragraph value="#{msgs['WELCOME.TEXT.SHORTCUTS']}" escape="false" />
 	 		<e:panelGrid columns="2" cellpadding="5" cellspacing="0" columnClasses="colRight,colLeft" >
 				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('welcomeForm:addTicketButton');" >
 					<t:graphicImage value="/media/images/ticket.png" />
@@ -57,7 +57,7 @@
 						value="#{msgs['WELCOME.BUTTON.SEARCH']}" immediate="true" />
 				</h:panelGroup>
 	 		</e:panelGrid>
-			<e:paragraph value="#{msgs['WELCOME.TEXT.BOOKMARKS']}" />
+			<e:paragraph value="#{msgs['WELCOME.TEXT.BOOKMARKS']}" escape="false" />
 		</e:form>
 	</h:panelGroup>
 

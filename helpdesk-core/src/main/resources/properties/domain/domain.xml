@@ -3,87 +3,203 @@
 <beans 
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
-	>
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<bean 
 		id="domainService"
-		class="org.esupportail.helpdesk.domain.DomainServiceImpl"
-		lazy-init="true"
-		>
-		<property name="daoService" ref="daoService" />
-		<property name="userStore" ref="userStore" />
-		<property name="i18nService" ref="i18nService" /> 
-		<property name="applicationService" ref="applicationService" /> 
-		<property name="departmentSelector" ref="departmentSelector" /> 
-		<property name="minPriority" value="${minPriority}" /> 
-		<property name="maxPriority" value="${maxPriority}" /> 
-		<property name="originKeys" value="${origins}" />
-		<property name="webOrigin" value="${webOrigin}" /> 
-		<property name="emailOrigin" value="${emailOrigin}" /> 
-		<property name="categoryConfigurator" ref="categoryConfigurator" />
-		<property name="departmentConfigurator" ref="departmentConfigurator" />
-		<property name="departmentManagerConfigurator" ref="departmentManagerConfigurator" />
-		<property name="departmentDefaultTicketScope" value="${defaultTicketScope}" />
-		<property name="departmentDefaultTicketPriorityLevel" value="${defaultTicketPriorityLevel}" />
-		<property name="departmentDefaultFaqScope" value="${defaultFaqScope}" />
-		<property name="userInfoProvider" ref="userInfoProvider" />
-		<property name="indexIdProvider" ref="indexIdProvider" />
-		<property name="assignmentAlgorithmStore" ref="assignmentAlgorithmStore" />
-		<property name="defaultAssignmentAlgorithmName" value="${defaultAssignmentAlgorithmName}" />
-		<property name="computerUrlBuilderStore" ref="computerUrlBuilderStore" />
-		<property name="defaultComputerUrlBuilderName" value="${defaultComputerUrlBuilderName}" />
-		<property name="defaultControlPanelRefreshDelay" value="${controlPanel.defaultRefreshDelay}" />
-		<property name="historyMaxLength" value="${history.maxLength}" />
-		<property name="fckEditorCodeCleaner" ref="fckEditorCodeCleaner" />
-		<property name="ticketPrinter" ref="ticketPrinter" />
-		<property name="invitationSender" ref="invitationSender" />
-		<property name="monitoringSender" ref="monitoringSender" />
-		<property name="ticketReporter" ref="ticketReporter" />
-		<property name="faqReporter" ref="faqReporter" />
+		class="cz.upce.helpdesk.domain.ami.DomainServiceImplAmi"
+		lazy-init="true">
+            <property name="daoService" ref="daoService" />
+            <property name="userStore" ref="userStore" />
+            <property name="i18nService" ref="i18nService" />
+            <property name="applicationService" ref="applicationService" />
+            <property name="departmentSelector" ref="departmentSelector" />
+            <property name="minPriority" value="${minPriority}" />
+            <property name="maxPriority" value="${maxPriority}" />
+            <property name="originKeys" value="${origins}" />
+            <property name="webOrigin" value="${webOrigin}" />
+            <property name="emailOrigin" value="${emailOrigin}" />
+            <property name="categoryConfigurator" ref="categoryConfigurator" />
+            <property name="departmentConfigurator" ref="departmentConfigurator" />
+            <property name="departmentManagerConfigurator" ref="departmentManagerConfigurator" />
+            <property name="departmentDefaultTicketScope" value="${defaultTicketScope}" />
+            <property name="departmentDefaultTicketPriorityLevel" value="${defaultTicketPriorityLevel}" />
+            <property name="departmentDefaultFaqScope" value="${defaultFaqScope}" />
+            <property name="userInfoProvider" ref="userInfoProvider" />
+            <property name="indexIdProvider" ref="indexIdProvider" />
+            <property name="assignmentAlgorithmStore" ref="assignmentAlgorithmStore" />
+            <property name="defaultAssignmentAlgorithmName" value="${defaultAssignmentAlgorithmName}" />
+            <property name="computerUrlBuilderStore" ref="computerUrlBuilderStore" />
+            <property name="defaultComputerUrlBuilderName" value="${defaultComputerUrlBuilderName}" />
+            <property name="defaultControlPanelRefreshDelay" value="${controlPanel.defaultRefreshDelay}" />
+            <property name="historyMaxLength" value="${history.maxLength}" />
+            <property name="fckEditorCodeCleaner" ref="fckEditorCodeCleaner" />
+            <property name="ticketPrinter" ref="ticketPrinter" />
+            <property name="invitationSender" ref="invitationSender" />
+            <property name="monitoringSender" ref="monitoringSender" />
+            <property name="ticketReporter" ref="ticketReporter" />
+            <property name="faqReporter" ref="faqReporter" />
+            <property name="amiConnector" ref="amiConnector" />
 	</bean>
 
 	<bean id="ticketExtractor"
 		class="org.esupportail.helpdesk.domain.TicketExtractorImpl"
-		lazy-init="true"
-    	> 
-		<description>A bean used to extract tickets (used by the control panel).</description>
-		<property name="domainService" ref="domainService" />
-		<property name="daoService" ref="daoService" />
+		lazy-init="true"> 
+            <description>A bean used to extract tickets (used by the control panel).</description>
+            <property name="domainService" ref="domainService" />
+            <property name="daoService" ref="daoService" />
 	</bean>
 
 	<bean id="ticketNavigator"
 		class="org.esupportail.helpdesk.domain.TicketNavigatorImpl"
-		lazy-init="true"
-    	> 
-		<description>A bean used to navigate through tickets (used by the control panel).</description>
-		<property name="domainService" ref="domainService" />
-		<property name="daoService" ref="daoService" />
+		lazy-init="true"> 
+            <description>A bean used to navigate through tickets (used by the control panel).</description>
+            <property name="domainService" ref="domainService" />
+            <property name="daoService" ref="daoService" />
 	</bean>
 
 	<bean id="actionI18nTitleFormatter"
-		class="org.esupportail.helpdesk.domain.ActionI18nTitleFormatterImpl"
-		lazy-init="true"
-    	> 
-		<description>A bean used to get format action i18n titles.</description>
-		<property name="i18nService" ref="i18nService" />
-		<property name="userFormattingService" ref="userFormattingService" />
+		class="cz.upce.helpdesk.domain.AnonymizingActionI18nTitleFormatterImpl"
+		lazy-init="true"> 
+            <description>A bean used to get format action i18n titles.</description>
+            <property name="i18nService" ref="i18nService" />
+            <property name="userFormattingService" ref="userFormattingService" />
 	</bean>
 
 	<bean id="userFormattingService"
 		class="org.esupportail.helpdesk.domain.userFormatting.UserFormattingServiceImpl"
-		lazy-init="true"
-    	> 
-		<description>A bean used to format users.</description>
-		<property name="i18nService" ref="i18nService" />
-		<property name="printId" value="${userFormat.printId}" />
-		<property name="displayNameMaxLength" value="${userFormat.displayNameMaxLength}" />
-		<property name="idMaxLength" value="${userFormat.idMaxLength}" />
+		lazy-init="true"> 
+            <description>A bean used to format users.</description>
+            <property name="i18nService" ref="i18nService" />
+            <property name="printId" value="${userFormat.printId}" />
+            <property name="displayNameMaxLength" value="${userFormat.displayNameMaxLength}" />
+            <property name="idMaxLength" value="${userFormat.idMaxLength}" />
 	</bean>
 
 	<bean id="fckEditorCodeCleaner"
 		class="org.esupportail.helpdesk.domain.FckEditorCodeCleanerImpl"
-		lazy-init="true"
-    	/>
+		lazy-init="true"/>
+
+    <bean id="amiConnector"
+        class="cz.upce.helpdesk.domain.ami.AmiConnector"
+        lazy-init="true">
+        <property name="testing" value="true"/>
+        <property name="jndiContext" value="java:comp/env" />
+        <property name="jndiSource" value="jdbc/ora-ost" />
+        <property name="categoryTemplateMapping">
+            <!-- Mapování kategorie v HD na template v AMI -->
+            <map key-type="java.lang.Long" value-type="java.lang.Long">
+                <entry key="56" value="2"/><!-- úklid -->
+                <entry key="57" value="4"/><!-- údržba -->
+                <entry key="58" value="11"/><!-- energie -->
+                <entry key="59" value="7"/><!-- BOZP -->
+                <entry key="60" value="8"/><!-- klíče, karty -->
+                <entry key="61" value="1"/><!-- úklid - havárie -->
+                <entry key="62" value="2"/><!-- úklid - nehavárie -->
+                <entry key="63" value="3"/><!-- údržba - havárie -->
+                <entry key="64" value="4"/><!-- údržba - nehavárie -->
+                <entry key="65" value="10"/><!-- energie - havárie -->
+                <entry key="66" value="11"/><!-- energie - nehavárie -->
+                <entry key="73" value="9"/><!-- pasportizace -->
+                <entry key="78" value="6"/><!-- údržba FChT -->
+                <entry key="79" value="5"/><!-- údržba FChT - havárie -->
+                <entry key="80" value="6"/><!-- údržba FChT - nehavárie -->
+                <entry key="285" value="25"/><!-- údržba Legie -->
+                <entry key="286" value="23"/><!-- údržba Legie - havárie -->
+                <entry key="287" value="25"/><!-- údržba Legie - nehavárie -->
+                <entry key="297" value="29"/><!-- údržba Doubravice -->
+                <entry key="298" value="27"/><!-- údržba Doubravice - havárie -->
+                <entry key="299" value="29"/><!-- údržba Doubravice - nehavárie -->
+            </map>
+        </property>
+        <property name="priorityMapping">
+            <!-- Mapování priority v HD na prioritu v AMI -->
+            <map key-type="java.lang.Integer" value-type="java.lang.Long">
+                <entry key="1" value="4"/>
+                <entry key="2" value="4"/>
+                <entry key="3" value="3"/>
+                <entry key="4" value="2"/>
+                <entry key="5" value="1"/>
+            </map>
+        </property>
+        <property name="priorityInverseMapping">
+            <!-- Mapování priority v AMI na prioritu v HD -->
+            <map key-type="java.lang.Long" value-type="java.lang.Integer">
+                <entry key="1" value="2"/>
+                <entry key="2" value="3"/>
+                <entry key="3" value="4"/>
+                <entry key="4" value="5"/>
+            </map>
+        </property>
+<!--
+        1	Zadán       = FREE          Požadavek je zadán uživatelem
+        2	Přijat      = INPROGRESS    Požadavek je přijat konkrétním řešitelem, který je zodpovědný za řešení požadavku
+        3	Schvalován	= INPROGRESS    Požadavek je přijat správcem požadavku a je zaslán požadavek na schválení ke schvalovatelům
+        4	Schválen	= INPROGRESS    Požadavek je schválen a čeká na řešení
+        5	Zrušen      = CANCELLED     Požadavek je zrušen zadavatelem
+        6	Neschválen	= REFUSED       Požadavek nesplnil podmínky pro schválení
+        7	V řešení	= INPROGRESS    Požadavek je v řešení
+        8	Vyřešen     = CLOSED        Požadavek je vyřešen a čeká na hodnocení
+        9	Odmítnut	= REFUSED       Požadavek je odmítnut řešitelem
+        10	Uzavřen     = APPROVED      Požadavek je hodnocen a schválen zadavatelem
+
+        FREE                = 1     Nepřidělené
+        INPROGRESS          = 7     V řešení
+        CANCELLED           = 5     Zrušené
+        INCOMPLETE          = 7     Nekompletní
+        POSTPONED           = 7     Odložené
+        CLOSED              = 8     Ukončené
+        APPROVED            = 10    Ukončené/schválené
+        EXPIRED             = 10    Neaktivní
+        CONNECTED_TO_TICKET = 10    Ukončené -> Požadavek
+        CONNECTED_TO_FAQ    = 10    Ukončené -> FAQ
+        REFUSED             = 9     Odmítnuté
+        ARCHIVED            = 10    Archivované
+-->
+        <property name="statusMapping">
+            <map key-type="java.lang.String" value-type="java.lang.Long">
+                <entry key="FREE" value="1"/>
+                <entry key="INPROGRESS" value="7"/>
+                <entry key="CANCELLED" value="5"/>
+                <entry key="INCOMPLETE" value="7"/>
+                <entry key="POSTPONED" value="7"/>
+                <entry key="CLOSED" value="8"/>
+                <entry key="APPROVED" value="10"/>
+                <entry key="EXPIRED" value="10"/>
+                <entry key="CONNECTED_TO_TICKET" value="8"/>
+                <entry key="CONNECTED_TO_FAQ" value="8"/>
+                <entry key="REFUSED" value="9"/>
+                <entry key="ARCHIVED" value="10"/>
+            </map>
+        </property>
+
+        <property name="actionMapping">
+            <map key-type="java.lang.String" value-type="java.lang.Long">
+                <entry key="REFUSE_CLOSURE" value="1"/>
+                <entry key="REOPEN" value="1"/>
+                <entry key="ASSIGN" value="1"/>
+            </map>
+        </property>
+        
+        <property name="statusInverseMapping">
+            <map key-type="java.lang.Long" value-type="java.lang.String">
+                <entry key="1" value="FREE"/>
+                <entry key="2" value="INPROGRESS"/>
+                <entry key="3" value="INPROGRESS"/>
+                <entry key="4" value="INPROGRESS"/>
+                <entry key="5" value="CANCELLED"/>
+                <entry key="6" value="REFUSED"/>
+                <entry key="7" value="INPROGRESS"/>
+                <entry key="8" value="CLOSED"/>
+                <entry key="9" value="REFUSED"/>
+                <entry key="10" value="APPROVED"/>
+            </map>
+        </property>
+        <property name="userStore" ref="userStore" />
+        <property name="jdbcDriverClass" value="${feed.ami.jdbcClass}" />
+        <property name="jdbcUrl" value="${feed.ami.jdbcUrl}" />
+        <property name="jdbcUsername" value="${feed.ami.jdbcUsername}" />
+        <property name="jdbcPassword" value="${feed.ami.jdbcPassword}" />
+    </bean>
 
 </beans>

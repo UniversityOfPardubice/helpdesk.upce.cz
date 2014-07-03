@@ -6,8 +6,8 @@
 		<f:param value="#{ticketController.ticket.department.label}" />
 		<f:param value="#{ticketController.ticket.category.label}" />
 	</e:bold>
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " />
-	<h:panelGroup>
+	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " rendered="#{(sessionController.currentUser eq ticketController.ticket.owner) || (sessionController.currentUser eq ticketController.ticket.manager)}"/>
+	<h:panelGroup rendered="#{(sessionController.currentUser eq ticketController.ticket.owner) || (sessionController.currentUser eq ticketController.ticket.manager)}">
 		<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftMaxNowrap" >
 			<h:panelGroup>
 				<h:panelGroup rendered="#{ticketController.ownerInfo != null}" >
@@ -44,7 +44,7 @@
 				value="#{ticketController.ownerInfo}" />
 		</h:panelGroup>
 	</h:panelGroup>
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.MANAGER']} " />
+        <e:text value="#{msgs['TICKET_VIEW.PROPERTIES.MANAGER']} " />
 	<h:panelGroup>
 		<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftMaxNowrap" >
 			<h:panelGroup>
@@ -64,6 +64,7 @@
 					<e:bold value=" #{msgs['TICKET_VIEW.PROPERTIES.USER']} " >
 						<f:param value="#{userFormatter[ticketController.ticket.manager]}" />
 					</e:bold>
+                                        <e:bold style="color: red; display: block" value=" #{managerController[ticketController.ticket.manager]}" />
 				</h:panelGroup>
 				<e:italic 
 					rendered="#{ticketController.ticket.manager == null}" 
@@ -274,8 +275,8 @@
 			action="#{ticketController.move}" 
 			rendered="#{ticketController.userCanMove}" />
 	</h:panelGroup>
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SCOPE']}" />
-	<h:panelGroup>
+	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SCOPE']}" rendered="#{ticketController.userCanChangeScope}" />
+	<h:panelGroup rendered="#{ticketController.userCanChangeScope}" >
 		<h:panelGroup
 			style="#{ticketController.userCanChangeScope ? 'cursor: pointer' : ''}" 
 			onclick="showHideElement('viewTicketForm:editTicketScope');" >
@@ -312,7 +313,7 @@
 			/>
 		</h:panelGroup >
 	</h:panelGroup>
-	<h:panelGroup>
+	<h:panelGroup rendered="#{ticketController.userCanChangeScope}" >
 		<h:panelGroup
 			style="cursor: pointer" 
 			onclick="showHideElement('viewTicketForm:editTicketScope');" 
@@ -321,8 +322,8 @@
 			<t:graphicImage value="/media/images/edit.png" />
 		</h:panelGroup>
 	</h:panelGroup>
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PRIORITY']}" />
-	<h:panelGroup>
+	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PRIORITY']}" rendered="#{ticketController.userCanChangePriority}" />
+	<h:panelGroup rendered="#{ticketController.userCanChangePriority}" >
 		<h:panelGroup
 			style="#{ticketController.userCanChangePriority ? 'cursor: pointer' : ''}" 
 			onclick="showHideElement('viewTicketForm:editTicketPriority');" >
@@ -356,7 +357,7 @@
 			/>
 		</h:panelGroup >
 	</h:panelGroup>
-	<h:panelGroup>
+	<h:panelGroup rendered="#{ticketController.userCanChangePriority}" >
 		<h:panelGroup
 			style="cursor: pointer" 
 			onclick="showHideElement('viewTicketForm:editTicketPriority');" 
@@ -414,8 +415,8 @@
 				<t:graphicImage value="/media/images/edit.png" />
 		</h:panelGroup>
 	</h:panelGroup>
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SPENT_TIME']}" />
-	<h:panelGroup>
+	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SPENT_TIME']}" rendered="#{ticketController.userCanChangeSpentTime}" />
+	<h:panelGroup rendered="#{ticketController.userCanChangeSpentTime}" >
 		<h:panelGroup
 			style="#{ticketController.userCanChangeSpentTime ? 'cursor: pointer' : ''}" 
 			onclick="showHideElement('viewTicketForm:editTicketSpentTime');" >
@@ -446,7 +447,7 @@
 			</h:panelGroup>
 		</h:panelGroup >
 	</h:panelGroup> 
-	<h:panelGroup>
+	<h:panelGroup rendered="#{ticketController.userCanChangeSpentTime}" >
 		<h:panelGroup
 			style="#{ticketController.userCanChangeSpentTime ? 'cursor: pointer' : ''}" 
 			onclick="showHideElement('viewTicketForm:editTicketSpentTime');" 
@@ -513,8 +514,8 @@
 		<e:bold value="#{elapsedTimeI18nFormatter[ticketController.ticket.closureTime]}" />
 	</h:panelGroup>
 	<h:panelGroup rendered="#{ticketController.ticket.closureTime != null}" />
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PERM_LINKS']}" />
-	<h:panelGroup >
+	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PERM_LINKS']}" rendered="#{ticketController.userCanChangeScope}" />
+	<h:panelGroup rendered="#{ticketController.userCanChangeScope}" >
 		<e:text value=" #{msgs['COMMON.PERM_LINKS.APPLICATION']}" escape="false" >
 			<f:param value="#{ticketController.applicationPermLink}" />
 		</e:text>
@@ -525,6 +526,6 @@
 			<f:param value="#{ticketController.shibbolethPermLink}" />
 		</e:text>
 	</h:panelGroup>
-	<h:panelGroup />
+	<h:panelGroup  rendered="#{ticketController.userCanChangeScope}" />
 </e:panelGrid>
 

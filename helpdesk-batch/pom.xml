@@ -4,14 +4,14 @@
 	<parent>
 		<artifactId>helpdesk</artifactId>
 		<groupId>org.esupportail</groupId>
-		<version>3.30.8-SNAPSHOT</version>
+		<version>3.30.8-upa-SNAPSHOT</version>
 	</parent>
 	<artifactId>helpdesk-batch</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>org.esupportail</groupId>
 			<artifactId>helpdesk-core</artifactId>
-			<version>3.30.8-SNAPSHOT</version>
+			<version>3.30.8-upa-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -40,7 +40,7 @@
 							<transformers>
 								<!-- signals the main class -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.esupportail.helpdesk.batch.Batch</mainClass>
+									<mainClass>cz.upce.helpdesk.batch.BatchAmi</mainClass>
 								</transformer>
 								<!-- concat spring file -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">

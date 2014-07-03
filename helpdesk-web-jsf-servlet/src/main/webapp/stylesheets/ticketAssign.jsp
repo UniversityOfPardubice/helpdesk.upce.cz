@@ -57,6 +57,7 @@
 							<e:bold value=" #{msgs['TICKET_ACTION.TEXT.ASSIGN.USER']}" >
 								<f:param value="#{userFormatter[departmentManager.user]}" />
 							</e:bold>
+                                                        <e:bold style="color: red" value=" #{managerController[departmentManager.user]}" />
 						</h:panelGroup>
 					</t:column>
 					<t:column>
@@ -100,6 +101,7 @@
 							<e:bold value=" #{msgs['TICKET_ACTION.TEXT.ASSIGN.USER']}" >
 								<f:param value="#{userFormatter[departmentManager.user]}" />
 							</e:bold>
+                                                        <e:bold style="color: red" value=" #{managerController[departmentManager.user]}" />
 						</h:panelGroup>
 					</t:column>
 					<t:column>

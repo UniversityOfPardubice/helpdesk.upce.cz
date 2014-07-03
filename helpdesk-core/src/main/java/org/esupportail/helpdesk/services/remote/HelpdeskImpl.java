@@ -136,7 +136,7 @@ public class HelpdeskImpl extends AbstractIpProtectedWebService implements Helpd
 		Assert.contains(domainService.getOrigins(), "origin", origin);
 		Ticket ticket = domainService.addWebTicket(
 				author, null, creationDepartment, category, label,
-				theComputer, priorityLevel, theMessage, ticketScope, origin);
+				theComputer, priorityLevel, theMessage, ticketScope, origin, null);
 		domainService.updateTicket(ticket);
 		getDomainService().ticketMonitoringSendAlerts(author, ticket, null, false);
 		return ticket.getId();

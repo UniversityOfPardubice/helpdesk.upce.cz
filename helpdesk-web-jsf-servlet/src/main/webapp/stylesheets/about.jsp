@@ -20,7 +20,7 @@
 	</e:ul>
 
 	<e:subSection value="#{msgs['ABOUT.SUBTITLE.COPYRIGHT']}" />
-	<e:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}">
+	<e:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}" escape="false" >
 		<f:param value="#{applicationService.name}" />
 		<f:param value="#{applicationService.version}" />
 		<f:param value="#{applicationService.copyright}" />

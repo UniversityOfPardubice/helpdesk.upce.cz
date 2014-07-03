@@ -46,7 +46,7 @@
 
     <bean id="ticketReporter"
     	parent="abstractSenderFormatter"
-        class="org.esupportail.helpdesk.domain.reporting.TicketReporterImpl"
+        class="cz.upce.helpdesk.domain.reporting.TicketReporterImplUPa"
         lazy-init="true"
         > 
         <description>A bean used to send ticket reports.</description>
@@ -62,7 +62,7 @@
 
     <bean id="invitationSender"
 	    parent="abstractSenderFormatter"
-        class="org.esupportail.helpdesk.domain.reporting.InvitationSenderImpl"
+        class="cz.upce.helpdesk.domain.reporting.InvitationSenderImplUPa"
         lazy-init="true"
         > 
         <description>A bean used to send invitations.</description>
@@ -70,7 +70,7 @@
 
     <bean id="monitoringSender"
 	    parent="abstractSenderFormatter"
-        class="org.esupportail.helpdesk.domain.reporting.MonitoringSenderImpl"
+        class="cz.upce.helpdesk.domain.reporting.MonitoringSenderImplUPa"
         lazy-init="true"
         > 
         <description>A bean used to send ticket alerts.</description>
@@ -78,7 +78,7 @@
 
     <bean id="ticketPrinter"
     	parent="abstractSenderFormatter"
-        class="org.esupportail.helpdesk.domain.reporting.TicketPrinterImpl"
+        class="cz.upce.helpdesk.domain.reporting.TicketPrinterImplUPa"
         lazy-init="true"
         > 
         <description>A bean used to print tickets.</description>

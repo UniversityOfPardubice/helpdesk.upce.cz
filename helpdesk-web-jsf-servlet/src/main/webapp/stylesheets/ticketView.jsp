@@ -39,14 +39,24 @@
 				</h:panelGroup>
 				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('viewTicketForm:printButton');" >
 					<e:bold value="#{msgs['TICKET_VIEW.BUTTON.PRINT']} " />
-					<t:graphicImage 
-						value="/media/images/print.png" 
-						alt="#{msgs['TICKET_VIEW.BUTTON.PRINT']}" 
+					<t:graphicImage
+						value="/media/images/print.png"
+						alt="#{msgs['TICKET_VIEW.BUTTON.PRINT']}"
 						title="#{msgs['TICKET_VIEW.BUTTON.PRINT']}" />
 				</h:panelGroup>
 				<e:commandButton id="printButton" style="display: none"
-					value="#{msgs['_.BUTTON.BACK']}" 
+					value="#{msgs['_.BUTTON.BACK']}"
 					action="#{ticketController.print}" />
+				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('viewTicketForm:shortPrintButton');" rendered="#{ticketController.userCanChangeLabel}" >
+					<e:bold value="#{msgs['TICKET_VIEW.BUTTON.SHORT_PRINT']} " />
+					<t:graphicImage
+						value="/media/images/print.png"
+						alt="#{msgs['TICKET_VIEW.BUTTON.SHORT_PRINT']}"
+						title="#{msgs['TICKET_VIEW.BUTTON.SHORT_PRINT']}" />
+				</h:panelGroup>
+				<e:commandButton id="shortPrintButton" style="display: none"
+					value="#{msgs['_.BUTTON.BACK']}"
+					action="#{ticketController.shortPrint}" rendered="#{ticketController.userCanChangeLabel}" />
 				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('viewTicketForm:backButton');" >
 					<e:bold value=" #{msgs['_.BUTTON.BACK']} " />
 					<t:graphicImage value="/media/images/back.png" alt="#{msgs['_.BUTTON.BACK']}" title="#{msgs['_.BUTTON.BACK']}" />
@@ -102,13 +112,15 @@
 			</f:facet>
 			<h:panelGroup>
 				<%@include file="_ticketViewProperties.jsp"%> 
+				<t:htmlTag value="hr" rendered="#{not empty ticketController.ticketAttributes}" />
+				<%@include file="_ticketViewAttributes.jsp"%>
 				<t:htmlTag value="hr" />
 				<%@include file="_ticketViewFiles.jsp"%> 
 				<t:htmlTag value="hr" />
 				<%@include file="_ticketViewInvitations.jsp"%> 
 				<t:htmlTag value="hr" />
 				<%@include file="_ticketViewMonitoring.jsp"%> 
-				<t:htmlTag value="hr" />
+				<t:htmlTag value="hr" rendered="#{ticketController.userCanChangeLabel}" />
 				<%@include file="_ticketViewBookmark.jsp"%> 
 				<e:commandButton style="display: none"
 					id="toggleShowAlertsButton"
@@ -131,3 +143,4 @@
     hideElement('viewTicketForm:hideManagerInfo'); 	 
 </script>
 </e:page>
+

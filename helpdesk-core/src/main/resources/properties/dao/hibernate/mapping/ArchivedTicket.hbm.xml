@@ -39,6 +39,11 @@
 		<property name="creationDay" column="crea_day" />
 		<property name="creationDow" column="crea_dow" />
 		<property name="creationHour" column="crea_hour" />
+        <list name="archivedTicketAttributes" lazy="false" inverse="true">
+            <key column="arch_tick_id"/>
+            <index column="orde"/>
+            <one-to-many class="org.esupportail.helpdesk.domain.beans.ArchivedTicketAttribute" />
+        </list>
 	</class>
 
 </hibernate-mapping>

@@ -35,6 +35,11 @@ public final class ArchivedTicket extends AbstractTicket {
     private String categoryLabel;
 
 	/**
+     * The archived ticket attributes
+     */
+    private List<ArchivedTicketAttribute> archivedTicketAttributes;
+
+	/**
 	 * Constructor.
 	 */
 	protected ArchivedTicket() {
@@ -227,6 +232,20 @@ public final class ArchivedTicket extends AbstractTicket {
 	 */
 	public void setArchivingDate(final Timestamp archivingDate) {
 		this.archivingDate = archivingDate;
+	}
+
+	/**
+	 * @return the archived ticket attributes
+	 */
+	public List<ArchivedTicketAttribute> getArchivedTicketAttributes() {
+		return archivedTicketAttributes;
+}
+	
+	/**
+	 * @param archivedTicketAttributes the ticket attributes
+	 */
+	public void setArchivedTicketAttributes(List<ArchivedTicketAttribute> archivedTicketAttributes) {
+		this.archivedTicketAttributes = archivedTicketAttributes;
 	}
 
 }

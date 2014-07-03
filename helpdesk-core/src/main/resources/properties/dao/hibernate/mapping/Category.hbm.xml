@@ -24,7 +24,7 @@
 		<property name="defaultTicketScope" column="defa_tick_scop" />		
 		<property name="defaultTicketPriority" column="tick_temp_prio_leve"/>
 		<property name="defaultTicketLabel" column="tick_temp_labe"/>
-		<property name="defaultTicketMessage" column="tick_temp_mess" length="4096"/>
+		<property name="defaultTicketMessage" column="tick_temp_mess" type="text"/>
 		<property name="inheritMembers" column="inhe_memb" />
 		<property name="effectiveDefaultTicketScope" column="effe_defa_tick_scop" />		
 		<property name="assignmentAlgorithmName" column="assi_algo_name" />
@@ -38,6 +38,12 @@
 		<property name="monitoringLevel" column="moni_leve" />
 		<many-to-one name="icon" column="icon_id" fetch="join"/>
 		<property name="inheritFaqLinks" column="inhe_faq_link" />
+		<property name="inheritAttributes" column="inhe_attr" />
+        <list name="categoryAttributes" lazy="false" inverse="true">
+            <key column="cate_id"/>
+            <index column="orde"/>
+            <one-to-many class="org.esupportail.helpdesk.domain.beans.CategoryAttribute" />
+        </list>
 	</class>
 
 </hibernate-mapping>

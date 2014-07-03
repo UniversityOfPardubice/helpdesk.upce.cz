@@ -13,7 +13,7 @@
 		<property name="label" column="labe" length="1024" />
 		<property name="scope" column="scop" />
 		<property name="order" column="orde" />
-		<property name="content" column="cont" length="32708" />
+		<property name="content" column="cont" type="text" />
 		<property name="lastUpdate" column="last_upda" />
 		<many-to-one name="parent" column="faq_id" not-null="true" fetch="join"/> <!-- JOIN-->
 	</class>

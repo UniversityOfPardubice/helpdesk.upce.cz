@@ -1632,6 +1632,18 @@ public class VersionningServiceImpl extends AbstractDomainAwareBean implements V
 	}
 
 	/**
+	 * Upgrade the database to version 3.29.0 (category attributes).
+	 */
+	public void upgrade3d29d0() {
+		for (Category category : getDomainService().getCategories()) {
+			if (category.getInheritAttributes() == null) {
+				category.setInheritAttributes(category.getParent() != null);
+				getDomainService().updateCategory(category);
+			}
+		}
+	}
+
+	/**
 	 * Upgrade the database to a given version, if needed.
 	 * @param version
 	 * @throws RecallUpgradeException when the transaction should be committed
@@ -1720,6 +1732,7 @@ public class VersionningServiceImpl extends AbstractDomainAwareBean implements V
 			upgradeDatabaseIfNeeded("3.26.0");
 			upgradeDatabaseIfNeeded("3.27.2");
 			upgradeDatabaseIfNeeded("3.28.3");
+			upgradeDatabaseIfNeeded("3.29.0");
 		} catch (RecallUpgradeException e) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("upgradeDatabase(): caught RecallUpgradeException("

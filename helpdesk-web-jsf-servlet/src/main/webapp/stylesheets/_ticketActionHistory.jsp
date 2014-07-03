@@ -40,7 +40,7 @@
 	rowIndexVar="variable" 
 	var="he" >
 	<h:outputText value="function quoteAction#{he.action.id}() {" escape="false" />
-	<h:outputText value="insertTextIntoEditor(&quot;<br />\n" escape="false" />
+	<h:outputText value="insertTextIntoEditor(&quot;<br /> " escape="false" />
 	<h:outputFormat value="#{msgs['TICKET_ACTION.QUOTE']}<br />\n" escape="false" rendered="#{he.action.user != null}">
 		<f:param value="#{userFormatter[he.action.user]}" />
 	</h:outputFormat>

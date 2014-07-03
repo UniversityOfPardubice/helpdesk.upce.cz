@@ -61,6 +61,8 @@
 			</f:facet>
 			<h:panelGroup>
 				<%@include file="_archivedTicketViewProperties.jsp"%> 
+				<t:htmlTag value="hr" rendered="#{not empty archivedTicketController.archivedTicketAttributes}" />
+				<%@include file="_archivedTicketViewAttributes.jsp"%>
 				<t:htmlTag value="hr" />
 				<%@include file="_archivedTicketViewFiles.jsp"%> 
 				<t:htmlTag value="hr" />

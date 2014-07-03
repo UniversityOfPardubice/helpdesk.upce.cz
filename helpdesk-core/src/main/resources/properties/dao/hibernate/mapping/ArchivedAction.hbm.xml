@@ -28,7 +28,7 @@
 		<property name="labelAfter" column="labe_afte"/>
 		<many-to-one name="managerBefore" column="mana_befo_id" fetch="join"/>
 		<many-to-one name="managerAfter" column="mana_afte_id" fetch="join"/>
-		<property name="message" column="mess" length="8192"/>
+		<property name="message" column="mess" type="text"/>
 		<property name="priorityLevelBefore" column="prio_leve_befo"/>
 		<property name="priorityLevelAfter" column="prio_leve_afte"/>
 		<property name="scopeBefore" column="scop_befo"/>

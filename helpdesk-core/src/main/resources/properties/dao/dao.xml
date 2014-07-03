@@ -167,6 +167,15 @@
                 <value>
                     classpath:/properties/dao/hibernate/mapping/FaqEvent.hbm.xml
                 </value>
+                <value>
+                    classpath:/properties/dao/hibernate/mapping/CategoryAttribute.hbm.xml
+                </value>
+                <value>
+                    classpath:/properties/dao/hibernate/mapping/TicketAttribute.hbm.xml
+                </value>
+                <value>
+                    classpath:/properties/dao/hibernate/mapping/ArchivedTicketAttribute.hbm.xml
+                </value>
             </list>
         </property>
     </bean>

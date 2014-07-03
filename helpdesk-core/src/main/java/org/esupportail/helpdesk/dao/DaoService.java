@@ -13,8 +13,10 @@ import org.esupportail.helpdesk.domain.beans.ArchivedAction;
 import org.esupportail.helpdesk.domain.beans.ArchivedFileInfo;
 import org.esupportail.helpdesk.domain.beans.ArchivedInvitation;
 import org.esupportail.helpdesk.domain.beans.ArchivedTicket;
+import org.esupportail.helpdesk.domain.beans.ArchivedTicketAttribute;
 import org.esupportail.helpdesk.domain.beans.Bookmark;
 import org.esupportail.helpdesk.domain.beans.Category;
+import org.esupportail.helpdesk.domain.beans.CategoryAttribute;
 import org.esupportail.helpdesk.domain.beans.CategoryMember;
 import org.esupportail.helpdesk.domain.beans.Config;
 import org.esupportail.helpdesk.domain.beans.DeletedItem;
@@ -38,6 +40,7 @@ import org.esupportail.helpdesk.domain.beans.OldTicketTemplate;
 import org.esupportail.helpdesk.domain.beans.Response;
 import org.esupportail.helpdesk.domain.beans.State;
 import org.esupportail.helpdesk.domain.beans.Ticket;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
 import org.esupportail.helpdesk.domain.beans.TicketMonitoring;
 import org.esupportail.helpdesk.domain.beans.TicketView;
 import org.esupportail.helpdesk.domain.beans.User;
@@ -1692,6 +1695,77 @@ public interface DaoService extends Serializable {
     		Timestamp start,
     		Timestamp end,
     		List<Department> departments);
+
+	//////////////////////////////////////////////////////////////
+	// CategoryAttribute
+	//////////////////////////////////////////////////////////////
+
+	/**
+	 * Get all attributes belonging to given category.
+	 * @param category the category to query attributes
+	 * @return the attributes of the category
+	 */
+	List<CategoryAttribute> getCategoryAttributes(Category category);
+
+	/**
+	 * Get attribute belonging to given category with given order.
+	 * @param category the category to query attribute
+	 * @param order the order of the attribute
+	 * @return the department that corresponds to an order.
+	 */
+	CategoryAttribute getCategoryAttributeByOrder(Category category, int order);
+
+	/**
+	 * Update a category attribute.
+	 * @param categoryAttribute category attribute to update
+	 */
+	void updateCategoryAttribute(CategoryAttribute categoryAttribute);
+
+	/**
+	 * Delete a category attribute.
+	 * @param categoryAttribute category attribute to delete
+	 */
+	void deleteCategoryAttribute(CategoryAttribute categoryAttribute);
+
+	/**
+	 * Counts attributes of given category.
+	 * @param category the category to count attributes  
+	 * @return the count of attributes of a category
+	 */
+	int getCategoryAttributesNumber(Category category);
+
+	/**
+	 * Add a category attribute.
+	 * @param categoryAttribute the new category attribute
+	 */
+	void addCategoryAttribute(CategoryAttribute categoryAttribute);
+
+	//////////////////////////////////////////////////////////////
+	// TicketAttribute
+    //////////////////////////////////////////////////////////////
+	
+	/**
+	 * Add a ticket attribute.
+	 * @param ticketAttribute the new ticket attribute
+	 */
+	void addTicketAttribute(TicketAttribute ticketAttribute);
+
+    /**
+     * Gets all tickets of the attribute
+     * @param ticket the ticket
+     * @return ticket attributes list
+     */
+    List<TicketAttribute> getTicketAttributes(final Ticket ticket);
+
+	//////////////////////////////////////////////////////////////
+	// ArchivedTicketAttribute
+    //////////////////////////////////////////////////////////////
+	
+	/**
+	 * Add a ticket attribute.
+	 * @param archivedTicketAttribute the new archived ticket attribute
+	 */
+	void addArchivedTicketAttribute(ArchivedTicketAttribute archivedTicketAttribute);
 
 	//////////////////////////////////////////////////////////////
 	// Department selection config

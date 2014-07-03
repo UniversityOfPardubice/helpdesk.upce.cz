@@ -32,8 +32,10 @@ import org.esupportail.helpdesk.domain.beans.ArchivedAction;
 import org.esupportail.helpdesk.domain.beans.ArchivedFileInfo;
 import org.esupportail.helpdesk.domain.beans.ArchivedInvitation;
 import org.esupportail.helpdesk.domain.beans.ArchivedTicket;
+import org.esupportail.helpdesk.domain.beans.ArchivedTicketAttribute;
 import org.esupportail.helpdesk.domain.beans.Bookmark;
 import org.esupportail.helpdesk.domain.beans.Category;
+import org.esupportail.helpdesk.domain.beans.CategoryAttribute;
 import org.esupportail.helpdesk.domain.beans.CategoryMember;
 import org.esupportail.helpdesk.domain.beans.Config;
 import org.esupportail.helpdesk.domain.beans.DeletedItem;
@@ -57,6 +59,8 @@ import org.esupportail.helpdesk.domain.beans.OldTicketTemplate;
 import org.esupportail.helpdesk.domain.beans.Response;
 import org.esupportail.helpdesk.domain.beans.State;
 import org.esupportail.helpdesk.domain.beans.Ticket;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
+import org.esupportail.helpdesk.domain.beans.TicketAttributeData;
 import org.esupportail.helpdesk.domain.beans.TicketMonitoring;
 import org.esupportail.helpdesk.domain.beans.TicketView;
 import org.esupportail.helpdesk.domain.beans.User;
@@ -2895,6 +2899,11 @@ public class DomainServiceImpl implements DomainService, InitializingBean {
 			historyItem.setTicket(null);
 			historyItem.setArchivedTicket(archivedTicket);
 			daoService.updateHistoryItem(historyItem);
+		}
+		for (TicketAttribute ticketAttribute : ticket.getTicketAttributes()) {
+			ArchivedTicketAttribute archivedTicketAttribute;
+			archivedTicketAttribute = new ArchivedTicketAttribute(ticketAttribute, archivedTicket);
+			daoService.addArchivedTicketAttribute(archivedTicketAttribute);
 		}
 		deleteTicket(ticket, false);
 	}
@@ -5740,7 +5749,8 @@ public class DomainServiceImpl implements DomainService, InitializingBean {
 	 * @see org.esupportail.helpdesk.domain.DomainService#addWebTicket(
 	 * org.esupportail.helpdesk.domain.beans.User, org.esupportail.helpdesk.domain.beans.User,
 	 * org.esupportail.helpdesk.domain.beans.Department, org.esupportail.helpdesk.domain.beans.Category,
-	 * java.lang.String, java.lang.String, int, java.lang.String, java.lang.String, java.lang.String)
+	 * java.lang.String, java.lang.String, int, java.lang.String, java.lang.String, java.lang.String,
+	 * java.util.List)
 	 */
 	@Override
 	public Ticket addWebTicket(
@@ -5753,7 +5763,8 @@ public class DomainServiceImpl implements DomainService, InitializingBean {
 			final int priorityLevel,
 			final String message,
 			final String ticketScope,
-			final String ticketOrigin) {
+			final String ticketOrigin,
+			final List<TicketAttributeData> ticketAttributesData) {
 		String origin = ticketOrigin;
 		if (origin == null) {
 			origin = getWebOrigin();
@@ -5771,6 +5782,7 @@ public class DomainServiceImpl implements DomainService, InitializingBean {
 		callAssignmentAlgorithm(ticket, null, false, false);
 		addDepartmentInvitedUsers(creationDepartment, ticket);
 		addDepartmentInvitedUsers(ticket.getDepartment(), ticket);
+		addTicketAttributes(ticket, ticketAttributesData);
 		return ticket;
 	}
 
@@ -7851,4 +7863,168 @@ public class DomainServiceImpl implements DomainService, InitializingBean {
 		this.faqReporter = faqReporter;
 	}
 
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#getCategoryAttributes(
+	 * org.esupportail.helpdesk.domain.beans.Category)
+	 */
+	@Override
+	public List<CategoryAttribute> getCategoryAttributes(
+			final Category category) {
+		return this.daoService.getCategoryAttributes(category);
+}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#getInheritedCategoryAttributes(
+	 * org.esupportail.helpdesk.domain.beans.Category)
+	 */
+	@Override
+	@RequestCache
+	public List<CategoryAttribute> getInheritedCategoryAttributes(final Category category) {
+		Category parent = category.getParent();
+		if (parent == null) {
+			return null;
+		}
+		return getCategoryAttributes(parent);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#moveCategoryAttributeUp(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void moveCategoryAttributeUp(final CategoryAttribute categoryAttribute) {
+		CategoryAttribute previousCategoryAttribute = daoService.getCategoryAttributeByOrder(
+				categoryAttribute.getCategory(), categoryAttribute.getOrder() - 1);
+		if (previousCategoryAttribute != null) {
+			categoryAttribute.setOrder(categoryAttribute.getOrder() - 1);
+			updateCategoryAttribute(categoryAttribute);
+			previousCategoryAttribute.setOrder(previousCategoryAttribute.getOrder() + 1);
+			updateCategoryAttribute(previousCategoryAttribute);
+		}
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#moveCategoryAttributeDown(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void moveCategoryAttributeDown(final CategoryAttribute categoryAttribute) {
+		CategoryAttribute nextCategoryAttribute = daoService.getCategoryAttributeByOrder(
+				categoryAttribute.getCategory(), categoryAttribute.getOrder() + 1);
+		if (nextCategoryAttribute != null) {
+			categoryAttribute.setOrder(categoryAttribute.getOrder() + 1);
+			updateCategoryAttribute(categoryAttribute);
+			nextCategoryAttribute.setOrder(nextCategoryAttribute.getOrder() - 1);
+			updateCategoryAttribute(nextCategoryAttribute);
+		}
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#moveCategoryAttributeFirst(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void moveCategoryAttributeFirst(final CategoryAttribute categoryAttributeToMove) {
+		List<CategoryAttribute> categoryAttributes;
+		categoryAttributes = getCategoryAttributes(categoryAttributeToMove.getCategory());
+		for (CategoryAttribute categoryAttribute : categoryAttributes) {
+			if (categoryAttribute.getOrder() < categoryAttributeToMove.getOrder()) {
+				categoryAttribute.setOrder(categoryAttribute.getOrder() + 1);
+				updateCategoryAttribute(categoryAttribute);
+			}
+		}
+		categoryAttributeToMove.setOrder(0);
+		updateCategoryAttribute(categoryAttributeToMove);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#moveCategoryAttributeLast(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void moveCategoryAttributeLast(final CategoryAttribute categoryAttributeToMove) {
+		List<CategoryAttribute> categoryAttributes;
+		categoryAttributes = getCategoryAttributes(categoryAttributeToMove.getCategory());
+		for (CategoryAttribute categoryAttribute : categoryAttributes) {
+			if (categoryAttribute.getOrder() > categoryAttributeToMove.getOrder()) {
+				categoryAttribute.setOrder(categoryAttribute.getOrder() - 1);
+				updateCategoryAttribute(categoryAttribute);
+			}
+		}
+		categoryAttributeToMove.setOrder(categoryAttributes.size() - 1);
+		updateCategoryAttribute(categoryAttributeToMove);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#updateCategoryAttribute(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void updateCategoryAttribute(
+			final CategoryAttribute categoryAttribute) {
+		daoService.updateCategoryAttribute(categoryAttribute);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#deleteCategoryAttribute(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void deleteCategoryAttribute(
+			final CategoryAttribute categoryAttribute) {
+		daoService.deleteCategoryAttribute(categoryAttribute);
+		reorderCategoryAttributes(daoService.getCategoryAttributes(categoryAttribute.getCategory()));
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#reorderCategoryAttributes(java.util.List)
+	 */
+	@Override
+	public void reorderCategoryAttributes(final List<CategoryAttribute> attributes) {
+		int i = 0;
+		for (CategoryAttribute categoryAttribute : attributes) {
+			if (categoryAttribute.getOrder() != i) {
+				categoryAttribute.setOrder(i);
+				daoService.updateCategoryAttribute(categoryAttribute);
+			}
+			i++;
+		}
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.domain.DomainService#addCategoryAttribute(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void addCategoryAttribute(
+			final CategoryAttribute categoryAttribute) {
+		categoryAttribute.setOrder(daoService.getCategoryAttributesNumber(categoryAttribute.getCategory()));
+		this.daoService.addCategoryAttribute(categoryAttribute);
+	}
+
+	/**
+	 * Add ticket attributes for ticket.
+	 * @param ticket the ticket to add attributes to
+     * @param attributesData list of attributes data to add
+	 */
+	protected void addTicketAttributes(
+			final Ticket ticket,
+			final List<TicketAttributeData> attributesData) {
+		List<TicketAttribute> attributesToAdd = new ArrayList<TicketAttribute>();
+		if (attributesData != null) {
+			for (TicketAttributeData ticketAttributeData : attributesData) {
+				TicketAttribute ticketAttribute = new TicketAttribute(ticketAttributeData);
+				ticketAttribute.setTicket(ticket);
+				attributesToAdd.add(ticketAttribute);
+				this.daoService.addTicketAttribute(ticketAttribute);
+			}
+		}
+		ticket.setTicketAttributes(attributesToAdd);
+	}
+
+	@Override
+    public List<TicketAttribute> getTicketAttributes(final Ticket ticket) {
+        return daoService.getTicketAttributes(ticket);
+    }
 }

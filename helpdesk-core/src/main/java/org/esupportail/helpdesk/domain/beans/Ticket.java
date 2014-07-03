@@ -61,6 +61,11 @@ public final class Ticket extends AbstractTicket {
      * The manager's display name.
      */
     private String managerDisplayName;
+
+    /**
+     * The ticket attributes
+     */
+    private List<TicketAttribute> ticketAttributes;
     
 	/**
 	 * Default constructor.
@@ -442,6 +447,20 @@ public final class Ticket extends AbstractTicket {
 		} else {
 			setManagerDisplayName(manager.getDisplayName());
 		}
+	}
+
+	/**
+	 * @return the ticket attributes
+	 */
+	public List<TicketAttribute> getTicketAttributes() {
+		return ticketAttributes;
+	}
+	
+	/**
+	 * @param ticketAttributes the ticket attributes
+	 */
+	public void setTicketAttributes(List<TicketAttribute> ticketAttributes) {
+		this.ticketAttributes = ticketAttributes;
 	}
 
 }

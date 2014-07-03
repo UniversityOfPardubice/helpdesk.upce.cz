@@ -306,6 +306,10 @@
 			<to-view-id>/stylesheets/categoryEdit.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>editCategoryAttributes</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributes.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>editCategoryMembers</from-outcome>
 			<to-view-id>/stylesheets/categoryMembers.jsp</to-view-id>
 		</navigation-case>
@@ -356,6 +360,46 @@
 		<navigation-case>
 			<from-outcome>back</from-outcome>
 			<to-view-id>/stylesheets/categories.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+ 	<navigation-rule>
+		<from-view-id>/stylesheets/categoryAttributes.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributeAdd.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>updateCategoryAttribute</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributeUpdate.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/stylesheets/categories.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/stylesheets/categoryAttributeAdd.jsp</from-view-id>
+        <navigation-case>
+			<from-outcome>categoryAttributeAdded</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributes.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributes.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/stylesheets/categoryAttributeUpdate.jsp</from-view-id>
+        <navigation-case>
+			<from-outcome>categoryAttributeSaved</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributes.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/stylesheets/categoryAttributes.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

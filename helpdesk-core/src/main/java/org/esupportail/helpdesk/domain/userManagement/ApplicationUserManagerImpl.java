@@ -120,7 +120,9 @@ public class ApplicationUserManagerImpl extends AbstractUserManager implements A
 		setUserInfo(user);
 		getDaoService().addUser(user);
 		logger.info("application user [" + user.getRealId() + "] has been added to the database");
+/* Send no password on user creation
 		passwordSender.sendPasswordEmail(user, locale);
+ */
 		return user;
 	}
 

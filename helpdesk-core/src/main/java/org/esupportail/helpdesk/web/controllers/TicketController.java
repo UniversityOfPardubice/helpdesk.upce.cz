@@ -41,6 +41,8 @@ import org.esupportail.helpdesk.domain.beans.FaqLink;
 import org.esupportail.helpdesk.domain.beans.FileInfo;
 import org.esupportail.helpdesk.domain.beans.Invitation;
 import org.esupportail.helpdesk.domain.beans.Ticket;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
+import org.esupportail.helpdesk.domain.beans.TicketAttributeData;
 import org.esupportail.helpdesk.domain.beans.User;
 import org.esupportail.helpdesk.exceptions.ArchivedTicketNotFoundException;
 import org.esupportail.helpdesk.exceptions.DepartmentManagerNotFoundException;
@@ -344,6 +346,11 @@ public class TicketController extends TicketControllerStateHolder implements Lda
 	private Boolean freeTicket;
 
 	/**
+	 * The ticket attributes. 
+	 */
+	private List<TicketAttributeData> ticketAttributes;
+
+	/**
 	 * Bean constructor.
 	 */
 	public TicketController() {
@@ -640,6 +647,14 @@ public class TicketController extends TicketControllerStateHolder implements Lda
 		}
 		if (ticket != null && ticket.getConnectionFaq() != null) {
 			setTargetFaq(ticket.getConnectionFaq());
+		}
+		ticketAttributes = new ArrayList<TicketAttributeData>();
+		if (ticket != null && ticket.getTicketAttributes() != null) {
+			List<TicketAttribute> attrs = ticket.getTicketAttributes();
+			for (TicketAttribute ticketAttribute : attrs) {
+				TicketAttributeData data = new TicketAttributeData(ticketAttribute);
+				ticketAttributes.add(data);
+	}
 		}
 	}
 
@@ -2543,6 +2558,7 @@ public class TicketController extends TicketControllerStateHolder implements Lda
 		setTicketPriority(DomainService.DEFAULT_PRIORITY_VALUE);
 		setTicketScope(TicketScope.DEFAULT);
 		actionMessage = addTargetCategory.getEffectiveDefaultTicketMessage();
+		ticketAttributes = addTargetCategory.getEffectiveTicketAttributes();
 		noAlert = false;
 		refreshAddFaqTree();
 		return "continue";
@@ -2584,7 +2600,7 @@ public class TicketController extends TicketControllerStateHolder implements Lda
 				getCurrentUser(), owner, addTargetDepartment,
 				addTargetCategory, getTicketLabel(), getTicketComputer(),
 				getTicketPriority(), actionMessage,
-				getTicketScope(), origin);
+				getTicketScope(), origin, ticketAttributes);
 		if (!handleTempUploadedFiles(newTicket)) {
 			return null;
 		}
@@ -3607,4 +3623,10 @@ public class TicketController extends TicketControllerStateHolder implements Lda
 		this.freeTicket = freeTicket;
 	}
 
+	/**
+	 * @return the ticket attributes
+	 */
+	public List<TicketAttributeData> getTicketAttributes() {
+		return ticketAttributes;
+	}
 }

@@ -31,8 +31,10 @@ import org.esupportail.helpdesk.domain.beans.ArchivedAction;
 import org.esupportail.helpdesk.domain.beans.ArchivedFileInfo;
 import org.esupportail.helpdesk.domain.beans.ArchivedInvitation;
 import org.esupportail.helpdesk.domain.beans.ArchivedTicket;
+import org.esupportail.helpdesk.domain.beans.ArchivedTicketAttribute;
 import org.esupportail.helpdesk.domain.beans.Bookmark;
 import org.esupportail.helpdesk.domain.beans.Category;
+import org.esupportail.helpdesk.domain.beans.CategoryAttribute;
 import org.esupportail.helpdesk.domain.beans.CategoryMember;
 import org.esupportail.helpdesk.domain.beans.Config;
 import org.esupportail.helpdesk.domain.beans.DeletedItem;
@@ -56,6 +58,7 @@ import org.esupportail.helpdesk.domain.beans.OldTicketTemplate;
 import org.esupportail.helpdesk.domain.beans.Response;
 import org.esupportail.helpdesk.domain.beans.State;
 import org.esupportail.helpdesk.domain.beans.Ticket;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
 import org.esupportail.helpdesk.domain.beans.TicketMonitoring;
 import org.esupportail.helpdesk.domain.beans.TicketView;
 import org.esupportail.helpdesk.domain.beans.User;
@@ -91,6 +94,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.util.StringUtils;
+
+import com.mchange.v2.sql.SqlUtils;
 
 /**
  * The Hiberate implementation of the DAO service.
@@ -850,6 +855,9 @@ implements DaoService {
 		executeUpdate(HqlUtils.deleteWhere(
 				FaqLink.class.getSimpleName() + " fl",
 				HqlUtils.equals("fl.category.id", category.getId())));
+		executeUpdate(HqlUtils.deleteWhere(
+				CategoryAttribute.class.getSimpleName() + " ca",
+				HqlUtils.equals("ca.category.id", category.getId())));
 		deleteObject(category);
 	}
 
@@ -1598,6 +1606,12 @@ implements DaoService {
 		executeUpdate(HqlUtils.deleteWhere(
 				HistoryItem.class.getSimpleName() + " hi",
 				HqlUtils.equals("hi.ticket.id", ticket.getId())));
+		executeUpdate(HqlUtils.deleteWhere(
+				TicketAttribute.class.getSimpleName() + " ta", 
+				HqlUtils.equals("ta.ticket.id", ticket.getId())));
+		executeUpdate(HqlUtils.deleteWhere(
+				TicketAttribute.class.getSimpleName() + " ta",
+				HqlUtils.equals("ta.ticket.id", ticket.getId())));
 		deleteObject(ticket);
 	}
 
@@ -2197,6 +2211,9 @@ implements DaoService {
 		executeUpdate(HqlUtils.deleteWhere(
 				HistoryItem.class.getSimpleName() + " hi",
 				HqlUtils.equals("hi.archivedTicket.id", archivedTicket.getId())));
+		executeUpdate(HqlUtils.deleteWhere(
+				ArchivedTicketAttribute.class.getSimpleName() + " ta", 
+				HqlUtils.equals("ta.ticket.id", archivedTicket.getId())));
 		deleteObject(archivedTicket);
 	}
 
@@ -4556,6 +4573,130 @@ implements DaoService {
 	public void deleteFaqLink(final FaqLink faqLink) {
 		deleteObject(faqLink);
 	}
+
+    /** Eclipse outline delimiter. */
+	@SuppressWarnings("unused")
+	private void _______________CATEGORY_ATTRIBUTE() {
+		//
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#getCategoryAttributes(
+	 * org.esupportail.helpdesk.domain.beans.Category)
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	@RequestCache
+	public List<CategoryAttribute> getCategoryAttributes(final Category category) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(CategoryAttribute.class);
+		criteria.addOrder(Order.asc(ORDER_ATTRIBUTE));
+		criteria.add(Restrictions.eq(CATEGORY_ATTRIBUTE, category));
+		return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#getCategoryAttributeByOrder(
+	 * org.esupportail.helpdesk.domain.beans.Category, int)
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	@RequestCache
+	public CategoryAttribute getCategoryAttributeByOrder(
+			final Category category,
+			final int i) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(CategoryAttribute.class);
+		criteria.add(Restrictions.eq(CATEGORY_ATTRIBUTE, category));
+		criteria.add(Restrictions.eq(ORDER_ATTRIBUTE, new Integer(i)));
+		List<CategoryAttribute> categoryAttributes = getHibernateTemplate().findByCriteria(criteria);
+		if (categoryAttributes.isEmpty()) {
+			return null;
+		}
+		return categoryAttributes.get(0);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#updateCategoryAttribute(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void updateCategoryAttribute(final CategoryAttribute categoryAttribute) {
+		updateObject(categoryAttribute);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#deleteCategoryAttribute(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void deleteCategoryAttribute(final CategoryAttribute categoryAttribute) {
+		deleteObject(categoryAttribute);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#getCategoryAttributesNumber(
+	 * org.esupportail.helpdesk.domain.beans.Category)
+	 */
+	@Override
+	@RequestCache
+	public int getCategoryAttributesNumber(final Category category) {
+		String queryStr = HqlUtils.selectCountAllFromWhere(
+				CategoryAttribute.class.getSimpleName() + HqlUtils.AS_KEYWORD + "categoryAttribute",
+				HqlUtils.equals("category.id", category.getId()));
+		return getQueryIntResult(queryStr);
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#addCategoryAttribute(
+	 * org.esupportail.helpdesk.domain.beans.CategoryAttribute)
+	 */
+	@Override
+	public void addCategoryAttribute(final CategoryAttribute categoryAttribute) {
+		addObject(categoryAttribute);
+	}
+
+    /** Eclipse outline delimiter. */
+	@SuppressWarnings("unused")
+	private void _______________TICKET_ATTRIBUTE() {
+		//
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#addTicketAttribute(
+	 * org.esupportail.helpdesk.domain.beans.TicketAttribute)
+	 */
+	@Override
+    public void addTicketAttribute(TicketAttribute ticketAttribute) {
+        addObject(ticketAttribute);
+    }
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#getTicketAttributes(
+	 * org.esupportail.helpdesk.domain.beans.Ticket)
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	@RequestCache
+	public List<TicketAttribute> getTicketAttributes(final Ticket ticket) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(TicketAttribute.class);
+		criteria.add(Restrictions.eq(TICKET_ATTRIBUTE, ticket));
+		criteria.addOrder(Order.asc(ORDER_ATTRIBUTE));
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
+    
+    /** Eclipse outline delimiter. */
+	@SuppressWarnings("unused")
+	private void _______________ARCHIVED_TICKET_ATTRIBUTE() {
+		//
+	}
+
+	/**
+	 * @see org.esupportail.helpdesk.dao.DaoService#addArchivedTicketAttribute(
+	 * org.esupportail.helpdesk.domain.beans.ArchivedTicketAttribute)
+	 */
+	@Override
+    public void addArchivedTicketAttribute(ArchivedTicketAttribute archivedTicketAttribute) {
+        addObject(archivedTicketAttribute);
+    }
 
     /** Eclipse outline delimiter. */
 	@SuppressWarnings("unused")

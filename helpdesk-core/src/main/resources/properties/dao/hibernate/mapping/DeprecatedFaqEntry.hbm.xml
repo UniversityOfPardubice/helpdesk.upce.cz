@@ -15,7 +15,7 @@
 		<property name="label" column="labe" length="1024" not-null="true"/>
 		<property name="scope" column="scop" not-null="true"/>
 		<property name="order" column="orde" not-null="true"/>
-		<property name="content" column="cont" length="32708" not-null="true"/>
+		<property name="content" column="cont" type="text" not-null="true"/>
 		<property name="lastUpdate" column="last_upda" not-null="false"/>
 		<many-to-one name="parent" column="faq_id" fetch="join" not-null="true"/> <!-- JOIN-->
 		<property name="effectiveScope" column="effe_scop" not-null="true"/>

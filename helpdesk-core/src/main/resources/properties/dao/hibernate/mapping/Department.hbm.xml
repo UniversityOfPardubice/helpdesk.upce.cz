@@ -24,7 +24,7 @@
 		<property name="effectiveDefaultTicketScope" column="effe_defa_tick_scop" />		
 		<property name="defaultTicketPriority" column="tick_temp_prio_leve"/>
 		<property name="defaultTicketLabel" column="tick_temp_labe"/>
-		<property name="defaultTicketMessage" column="tick_temp_mess" length="4096"/>
+		<property name="defaultTicketMessage" column="tick_temp_mess" type="text"/>
 		<property name="defaultFaqScope" column="defa_faq_scop" />		
 		<property name="effectiveDefaultFaqScope" column="effe_defa_faq_scop" />		
 		<many-to-one name="realDepartment" column="real_depa_id" fetch="join"/>

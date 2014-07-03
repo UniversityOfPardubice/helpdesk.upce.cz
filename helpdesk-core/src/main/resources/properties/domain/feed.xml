@@ -12,8 +12,17 @@
 		>
 		<property name="mailReaders" >
 			<list>
-                <ref bean="accountReader" />
+                <ref bean="accountReader1" />
+                <ref bean="accountReader2" />
+                <ref bean="accountReader3" />
+                <ref bean="accountReader4" />
+                <ref bean="accountReader5" />
+                <ref bean="accountReader6" />
+                <ref bean="accountReader7" />
+                <ref bean="accountReader8" />
+                <ref bean="accountReader9" />
  				<ref bean="replyToReader" />
+ 				<ref bean="amiAccountReader" />
 			</list>
 		</property> 
 	</bean>
@@ -44,22 +53,117 @@
 	</bean>
 
 	<bean 
-		id="accountReader"
+		id="abstractAccountReader"
 		class="org.esupportail.helpdesk.services.feed.imap.TicketAccountReaderImpl"
 		lazy-init="true"
 		>
 		<property name="enabled" value="${feed.imap.use}" />
-		<property name="address" value="${feed.imap.address}" />
 		<property name="server" value="${feed.imap.server}" />
-		<property name="account" value="${feed.imap.account}" />
-		<property name="password" value="${feed.imap.password}" />
-		<property name="categoryId" value="${feed.imap.categoryId}" />
 		<property name="folder" value="${feed.imap.folder}" />
 		<property name="spamFilter" ref="${feed.imap.spamFilterBean}" />
 		<property name="deleteSpam" value="${feed.imap.deleteSpam}" />
 		<property name="spamCategoryId" value="${feed.imap.spamCategoryId}" />
 		<property name="messageReader" ref="ticketMessageReader" />
 		<property name="domainService" ref="domainService" />
+	</bean>
+
+	<bean 
+		id="accountReader1"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address1}" />
+		<property name="account" value="${feed.imap.account1}" />
+		<property name="password" value="${feed.imap.password1}" />
+		<property name="categoryId" value="${feed.imap.categoryId1}" />
+	</bean>
+
+	<bean 
+		id="accountReader2"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address2}" />
+		<property name="account" value="${feed.imap.account2}" />
+		<property name="password" value="${feed.imap.password2}" />
+		<property name="categoryId" value="${feed.imap.categoryId2}" />
+	</bean>
+
+	<bean 
+		id="accountReader3"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address3}" />
+		<property name="account" value="${feed.imap.account3}" />
+		<property name="password" value="${feed.imap.password3}" />
+		<property name="categoryId" value="${feed.imap.categoryId3}" />
+	</bean>
+
+	<bean 
+		id="accountReader4"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address4}" />
+		<property name="account" value="${feed.imap.account4}" />
+		<property name="password" value="${feed.imap.password4}" />
+		<property name="categoryId" value="${feed.imap.categoryId4}" />
+	</bean>
+
+	<bean 
+		id="accountReader5"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address5}" />
+		<property name="account" value="${feed.imap.account5}" />
+		<property name="password" value="${feed.imap.password5}" />
+		<property name="categoryId" value="${feed.imap.categoryId5}" />
+	</bean>
+
+	<bean 
+		id="accountReader6"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address6}" />
+		<property name="account" value="${feed.imap.account6}" />
+		<property name="password" value="${feed.imap.password6}" />
+		<property name="categoryId" value="${feed.imap.categoryId6}" />
+	</bean>
+
+	<bean 
+		id="accountReader7"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address7}" />
+		<property name="account" value="${feed.imap.account7}" />
+		<property name="password" value="${feed.imap.password7}" />
+		<property name="categoryId" value="${feed.imap.categoryId7}" />
+	</bean>
+
+	<bean 
+		id="accountReader8"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address8}" />
+		<property name="account" value="${feed.imap.account8}" />
+		<property name="password" value="${feed.imap.password8}" />
+		<property name="categoryId" value="${feed.imap.categoryId8}" />
+	</bean>
+
+	<bean 
+		id="accountReader9"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address9}" />
+		<property name="account" value="${feed.imap.account9}" />
+		<property name="password" value="${feed.imap.password9}" />
+		<property name="categoryId" value="${feed.imap.categoryId9}" />
 	</bean>
 
 	<bean 
@@ -108,5 +212,28 @@
         >
         <property name="fromEmail" value="${smtp.fromEmail}" />
     </bean>
+
+	<bean
+		id="amiAccountReader"
+		class="cz.upce.helpdesk.services.feed.imap.ami.TicketAccountReaderImplAmi"
+		lazy-init="true"
+		>
+        <property name="enabled" value="${feed.ami.use}" />
+		<property name="domainService" ref="domainService" />
+		<property name="server" value="${feed.imap.server}" />
+		<property name="folder" value="${feed.imap.folder}" />
+        <property name="account" value="${feed.ami.account}" />
+        <property name="password" value="${feed.ami.password}" />
+        <property name="messageReader" ref="amiTicketMessageReader" />
+	</bean>
+
+	<bean
+		id="amiTicketMessageReader"
+		class="cz.upce.helpdesk.services.feed.imap.ami.TicketMessageReaderImplAmi"
+		lazy-init="true"
+		>
+        <property name="amiConnector" ref="amiConnector" />
+		<property name="domainService" ref="domainService" />
+	</bean>
 
 </beans>

@@ -3,6 +3,9 @@
  */
 package org.esupportail.helpdesk.domain.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.esupportail.helpdesk.domain.DomainService;
 import org.esupportail.helpdesk.domain.TicketScope;
  
@@ -60,6 +63,19 @@ public class Category extends AbstractTicketContainer {
     private Boolean inheritFaqLinks;
     
 	/**
+     * True if the attributes are inherited (from its parent).
+     */
+    private Boolean inheritAttributes;
+    /**
+     * Ticket attributes belonging to ticket of the category.
+     */
+    private List<TicketAttributeData> ticketAttributes;
+    /**
+     * Category attributes. 
+     */
+    private List<CategoryAttribute> categoryAttributes;
+
+    /**
      * Bean constructor.
      */
     public Category() {
@@ -67,6 +83,7 @@ public class Category extends AbstractTicketContainer {
     	this.oldDefaultPriorityLevel = 0;
     	this.inheritMembers = Boolean.TRUE;
     	this.inheritFaqLinks = Boolean.TRUE;
+        this.inheritAttributes = null;
     }
 
     /**
@@ -83,6 +100,7 @@ public class Category extends AbstractTicketContainer {
     	this.inheritFaqLinks = c.inheritFaqLinks;
     	this.assignmentAlgorithmState = c.assignmentAlgorithmState;
     	this.addNewTickets = c.addNewTickets;
+        this.inheritAttributes = c.inheritAttributes;
     }
 
 	/**
@@ -117,6 +135,7 @@ public class Category extends AbstractTicketContainer {
 		+ ", assignmentAlgorithmState=[" + assignmentAlgorithmState + "]"
 		+ ", inheritMembers=[" + inheritMembers + "]"
 		+ ", inheritFaqLinks=[" + inheritFaqLinks + "]"
+                + ", inheritAttributes=[" + inheritAttributes + "]"
 		+ "]";
 	}
 
@@ -422,4 +441,82 @@ public class Category extends AbstractTicketContainer {
 		this.inheritFaqLinks = inheritFaqLinks;
 	}
 
+    /**
+     * @return the inheritAttributes
+     */
+    public Boolean getInheritAttributes() {
+        if (inheritAttributes == null) {
+            return (parent != null);
+        }
+        return inheritAttributes;
+    }
+
+    /**
+     * @param inheritAttributes the inheritAttributes to set
+     */
+    public void setInheritAttributes(final Boolean inheritAttributes) {
+        this.inheritAttributes = inheritAttributes;
+    }
+
+    /**
+     * Returns list of ticket attributes for displaying belonging to the current
+     * category.
+     * @return the effective ticket attributes.
+     */
+    public List<TicketAttributeData> getEffectiveTicketAttributes() {
+        if (!getInheritAttributes()) {
+            return getTicketAttributes();
+        }
+        if (parent != null) {
+            return parent.getEffectiveTicketAttributes();
+        }
+        return null;
+    }
+
+    /**
+     * Returns ticket attributes for displaying belonging to the current category.
+     * @return ticket attributes
+     */
+    public List<TicketAttributeData> getTicketAttributes() {
+        if (ticketAttributes == null) {
+            ticketAttributes = new ArrayList<TicketAttributeData>();
+            for (CategoryAttribute categoryAttribute : categoryAttributes) {
+                TicketAttributeData ticketAttribute;
+                ticketAttribute = new TicketAttributeData(categoryAttribute);
+                ticketAttributes.add(ticketAttribute.getOrder(), ticketAttribute);
+            }
+        }
+        return ticketAttributes;
+    }
+
+    /**
+     * Set category attributes.
+     * @param categoryAttributes the category attributes
+     */
+    public void setCategoryAttributes(List<CategoryAttribute> categoryAttributes) {
+        this.categoryAttributes = categoryAttributes;
+    }
+
+    /**
+     * Gets category attributes.
+     * @return the category attributes
+     */
+    public List<CategoryAttribute> getCategoryAttributes() {
+        return categoryAttributes;
+    }
+
+    /**
+     * Returns list of catetgory attributes for displaying belonging to the current
+     * category.
+     * @return the category attributes
+     */
+    public List<CategoryAttribute> getEffectiveCategoryAttributes() {
+        if (!getInheritAttributes()) {
+            return getCategoryAttributes();
+        }
+        if (parent != null) {
+            return parent.getEffectiveCategoryAttributes();
+        }
+        return null;
+    }
 }

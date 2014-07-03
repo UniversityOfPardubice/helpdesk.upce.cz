@@ -20,6 +20,7 @@ import org.esupportail.helpdesk.domain.beans.ArchivedInvitation;
 import org.esupportail.helpdesk.domain.beans.ArchivedTicket;
 import org.esupportail.helpdesk.domain.beans.Bookmark;
 import org.esupportail.helpdesk.domain.beans.Category;
+import org.esupportail.helpdesk.domain.beans.CategoryAttribute;
 import org.esupportail.helpdesk.domain.beans.CategoryMember;
 import org.esupportail.helpdesk.domain.beans.DeletedItem;
 import org.esupportail.helpdesk.domain.beans.Department;
@@ -41,6 +42,8 @@ import org.esupportail.helpdesk.domain.beans.OldFileInfo;
 import org.esupportail.helpdesk.domain.beans.OldTicketTemplate;
 import org.esupportail.helpdesk.domain.beans.Response;
 import org.esupportail.helpdesk.domain.beans.Ticket;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
+import org.esupportail.helpdesk.domain.beans.TicketAttributeData;
 import org.esupportail.helpdesk.domain.beans.TicketMonitoring;
 import org.esupportail.helpdesk.domain.beans.User;
 import org.esupportail.helpdesk.domain.userManagement.UserStore;
@@ -1128,6 +1131,7 @@ public interface DomainService extends Serializable {
 	 * @param message
 	 * @param ticketScope
 	 * @param ticketOrigin
+	 * @param ticketAttributesData 
 	 * @return the ticket created.
 	 */
 	Ticket addWebTicket(
@@ -1140,7 +1144,8 @@ public interface DomainService extends Serializable {
 			int priorityLevel,
 			String message,
 			String ticketScope,
-			String ticketOrigin);
+			String ticketOrigin,
+			List<TicketAttributeData> ticketAttributesData);
 
 	/**
 	 * Add a ticket through the web interface.
@@ -2798,6 +2803,72 @@ public interface DomainService extends Serializable {
 	 * Send FAQ reports.
 	 */
 	void sendFaqReports();
+
+	/**
+	 * Get all attributes belonging to given category.
+	 * @param category the category to query attributes
+	 * @return the attributes of the category
+	 */
+	List<CategoryAttribute> getCategoryAttributes(Category category);
+
+	/**
+	 * Get inherited attributes belonging to given category.
+	 * @param category the category to query inherited attributes
+	 * @return the inherited attributes of the category.
+	 */
+	List<CategoryAttribute> getInheritedCategoryAttributes(Category category);
+
+	/**
+	 * Change the order of a category attribute.
+	 * @param categoryAttribute the category to move
+	 */
+	void moveCategoryAttributeUp(CategoryAttribute categoryAttribute);
+
+	/**
+	 * Change the order of a category attribute.
+	 * @param categoryAttribute the category to move
+	 */
+	void moveCategoryAttributeDown(CategoryAttribute categoryAttribute);
+
+	/**
+	 * Change the order of a category attribute.
+	 * @param categoryAttribute the category to move
+	 */
+	void moveCategoryAttributeFirst(CategoryAttribute categoryAttribute);
+
+	/**
+	 * Change the order of a category attribute.
+	 * @param categoryAttribute the category to move
+	 */
+	void moveCategoryAttributeLast(CategoryAttribute categoryAttribute);
+
+	/**
+	 * Delete a category attribute.
+	 * @param categoryAttribute the category to delete
+	 */
+	void deleteCategoryAttribute(
+			CategoryAttribute categoryAttribute);
+
+	/**
+	 * Update a category attribute.
+	 * @param categoryAttribute the category to update
+	 */
+	void updateCategoryAttribute(
+			CategoryAttribute categoryAttribute);
+
+	/**
+	 * Reorder a list of category attributes.
+	 * @param categoryAttributes list of attributes to reorder
+	 */
+	void reorderCategoryAttributes(List<CategoryAttribute> categoryAttributes);
+
+	/**
+	 * Add a department.
+	 * @param categoryAttribute attribute to add
+	 */
+	void addCategoryAttribute(CategoryAttribute categoryAttribute);
+
+    public List<TicketAttribute> getTicketAttributes(Ticket ticket);
 
 	//////////////////////////////////////////////////////////////
 	// Deprecated

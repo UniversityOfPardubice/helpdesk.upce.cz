@@ -15,7 +15,7 @@
 		<many-to-one name="user" column="user_id" fetch="join"/> <!-- JOIN-->
 		<many-to-one name="department" column="depa_id" fetch="join"/> <!-- JOIN-->
 		<property name="label" column="labe" not-null="true"/>
-		<property name="message" column="mess" length="4096" not-null="true"/>
+		<property name="message" column="mess" type="text" not-null="true"/>
 	</class>
 
 </hibernate-mapping>

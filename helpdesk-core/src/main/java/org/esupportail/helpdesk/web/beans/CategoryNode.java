@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.esupportail.helpdesk.domain.beans.Category;
+import org.esupportail.helpdesk.domain.beans.CategoryAttribute;
 import org.esupportail.helpdesk.domain.beans.CategoryMember;
 import org.esupportail.helpdesk.domain.beans.Department;
 import org.esupportail.helpdesk.domain.beans.DepartmentManager;
@@ -54,6 +55,11 @@ public class CategoryNode extends AbstractFirstLastNode {
 	private List<FaqLink> faqLinks;
 
 	/**
+	 * The attributes of the node.
+	 */
+	private List<CategoryAttribute> attributes;
+
+	/**
 	 * Bean constructor.
 	 */
 	public CategoryNode() {
@@ -72,7 +78,7 @@ public class CategoryNode extends AbstractFirstLastNode {
 	/**
 	 * Bean constructor.
 	 * @param category 
-	 * @param categoryLabel 
+         * @param categoryLabel
 	 */
 	public CategoryNode(final Category category, final String categoryLabel) {
 		this(category.getDepartment(), category, categoryLabel);
@@ -82,12 +88,12 @@ public class CategoryNode extends AbstractFirstLastNode {
 	 * Bean constructor.
 	 * @param department
 	 * @param category 
-	 * @param categoryLabel 
+         * @param categoryLabel
 	 */
 	public CategoryNode(
 			final Department department,
 			final Category category,
-			final String categoryLabel) {
+                        final String categoryLabel) {
 		super("category", categoryLabel, true);
 		this.category = category;
 		this.department = department;
@@ -240,5 +246,27 @@ public class CategoryNode extends AbstractFirstLastNode {
 		return result;
 	}
 
+	/**
+	 * @return the attributes
+	 */
+	public List<CategoryAttribute> getAttributes() {
+		return attributes;
 }
 
+	/**
+	 * @param attributes the members to set
+	 */
+	public void setCategoryAttributes(final List<CategoryAttribute> attributes) {
+		this.attributes = attributes;
+	}
+
+	/**
+	 * @return the number of attributes
+	 */
+	public int getAttributesNumber() {
+		if (attributes == null) {
+			return 0;
+		}
+		return attributes.size();
+	}
+}

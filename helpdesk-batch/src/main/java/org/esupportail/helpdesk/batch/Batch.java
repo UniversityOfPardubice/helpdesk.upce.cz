@@ -572,7 +572,7 @@ public class Batch {
 	 * Dispatch depending on the arguments.
 	 * @param args
 	 */
-	protected static void dispatch(final String[] args) {
+	public static void dispatch(final String[] args) {
 		switch (args.length) {
 		case 0:
 			syntax();

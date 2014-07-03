@@ -68,7 +68,7 @@
 			<component-family>javax.faces.Output</component-family>
 			<renderer-type>org.esupportail.FooterRenderer</renderer-type>
 			<renderer-class>
-				org.esupportail.commons.web.renderers.FooterRenderer
+				cz.upce.helpdesk.web.renderers.FooterRendererUPa
 			</renderer-class>
 		</renderer>
 		<renderer>

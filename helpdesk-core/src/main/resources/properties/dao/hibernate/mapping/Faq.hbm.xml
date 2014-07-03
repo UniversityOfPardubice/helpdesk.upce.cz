@@ -15,7 +15,7 @@
 		<property name="label" column="labe" length="1024" not-null="true"/>
 		<property name="scope" column="scop" not-null="true"/>
 		<property name="order" column="orde" index="i_faq2_order" not-null="true"/>
-		<property name="content" column="cont" length="32708" />
+		<property name="content" column="cont" type="text" />
 		<property name="lastUpdate" column="last_upda" not-null="false"/>
 		<many-to-one name="department" column="depa_id" index="i_faq2_order" fetch="join" not-null="false"/> <!-- JOIN-->
 		<many-to-one name="parent" column="pare_id" index="i_faq2_order" fetch="join" not-null="false"/> <!-- JOIN-->

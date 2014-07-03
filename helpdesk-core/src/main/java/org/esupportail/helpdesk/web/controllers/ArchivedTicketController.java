@@ -13,8 +13,11 @@ import org.esupportail.helpdesk.domain.beans.ArchivedAction;
 import org.esupportail.helpdesk.domain.beans.ArchivedFileInfo;
 import org.esupportail.helpdesk.domain.beans.ArchivedInvitation;
 import org.esupportail.helpdesk.domain.beans.ArchivedTicket;
+import org.esupportail.helpdesk.domain.beans.ArchivedTicketAttribute;
 import org.esupportail.helpdesk.domain.beans.Bookmark;
 import org.esupportail.helpdesk.domain.beans.Department;
+import org.esupportail.helpdesk.domain.beans.TicketAttribute;
+import org.esupportail.helpdesk.domain.beans.TicketAttributeData;
 import org.esupportail.helpdesk.exceptions.FileException;
 import org.esupportail.helpdesk.web.beans.ArchivedFileInfoEntry;
 import org.esupportail.helpdesk.web.beans.ArchivedTicketHistoryEntry;
@@ -148,6 +151,11 @@ public class ArchivedTicketController extends AbstractContextAwareController {
      * The download id.
      */
     private Long downloadId;
+
+	/**
+	 * The archived ticket attributes. 
+	 */
+	private List<ArchivedTicketAttribute> archivedTicketAttributes;
 
 	/**
 	 * Bean constructor.
@@ -286,6 +294,7 @@ public class ArchivedTicketController extends AbstractContextAwareController {
 			invited = false;
 			archivedInvitations = null;
 			bookmark = null;
+			archivedTicketAttributes = null;
 		} else {
 			this.archivedTicket = new ArchivedTicket(archivedTicket);
 			getDomainService().addHistoryItem(getCurrentUser(), archivedTicket);
@@ -329,6 +338,7 @@ public class ArchivedTicketController extends AbstractContextAwareController {
 						faqViewVisibleDepartments);
 			}
 			bookmark = getDomainService().getBookmark(getCurrentUser(), archivedTicket);
+			archivedTicketAttributes = archivedTicket.getArchivedTicketAttributes();
 		}
 	}
 
@@ -525,4 +535,11 @@ public class ArchivedTicketController extends AbstractContextAwareController {
 		return id;
 	}
 
+
+	/**
+	 * @return the archived ticket attributes
+	 */
+	public List<ArchivedTicketAttribute> getArchivedTicketAttributes() {
+		return archivedTicketAttributes;
+	}
 }

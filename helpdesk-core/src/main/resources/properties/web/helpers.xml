@@ -182,7 +182,18 @@
 		<property name="sessionController" ref="sessionController" />
 	</bean>
 
-	<bean id="iconUrlProvider"
+	<bean id="categoryAttributeTypeFormatter"
+		class="org.esupportail.helpdesk.web.beans.CategoryAttributeTypeFormatter"
+		lazy-init="true"
+		>
+		<description>
+			A bean to format users.
+		</description>
+		<property name="i18nService" ref="i18nService" />
+		<property name="sessionController" ref="sessionController" />
+	</bean>
+
+        <bean id="iconUrlProvider"
 		class="org.esupportail.helpdesk.web.beans.IconUrlProvider"
 		lazy-init="true"
 		>
@@ -241,4 +252,17 @@
 		<property name="applicationService" ref="applicationService" />
 	</bean>
 
+    <bean id="managerController"
+        class="cz.upce.helpdesk.web.controllers.ManagerController"
+        lazy-init="true">
+        <property name="i18nService" ref="i18nService" />
+        <property name="sessionController" ref="sessionController" />
+        <property name="jndiContext" value="java:comp/env" />
+        <property name="jndiSource" value="jdbc/ora-ost-aladin" />
+        <property name="query" value="select DOV_DATUM_OD, DOV_DATUM_DO, CP_DATUM_OD, CP_DATUM_DO from OSOBY where AD_LOGIN=? and (DOV_DATUM_OD is not null or CP_DATUM_OD is not null)" />
+        <property name="dovolenaOdAttribute" value="DOV_DATUM_OD" />
+        <property name="dovolenaDoAttribute" value="DOV_DATUM_DO" />
+        <property name="sluzebniCestaOdAttribute" value="CP_DATUM_OD" />
+        <property name="sluzebniCestaDoAttribute" value="CP_DATUM_DO" />
+    </bean>
 </beans>

@@ -1,5 +1,5 @@
 <%@include file="_include.jsp"%>
-<e:panelGrid columns="2" columnClasses="colLeftNowrap,colRightNowrap">
+<e:panelGrid columns="2" columnClasses="colLeftNowrap,colRightNowrap" rendered="#{ticketController.userCanChangeLabel}" >
 	<e:subSection value="#{msgs['TICKET_VIEW.MONITORING.HEADER']}" >
 		<f:param value="#{ticketController.monitoringUsersNumber}" />
 	</e:subSection>
@@ -14,7 +14,7 @@
 		</h:panelGroup>
 	</h:panelGroup>
 </e:panelGrid>
-<h:panelGroup id="monitoringUsers" style="display: none" >
+<h:panelGroup id="monitoringUsers" style="display: none" rendered="#{ticketController.userCanChangeLabel}" >
 	<e:selectBooleanCheckbox 
 		value="#{ticketController.userMonitorsTicket}" 
 		onchange="javascript:{simulateLinkClick('viewTicketForm:updateButton');}" >

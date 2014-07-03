@@ -62,6 +62,7 @@ public abstract class AbstractAlertSender extends AbstractSenderFormatter {
 			htmlContent += getReplyToContent(user, ticket);
 		}
 		htmlContent += getEmailOrPrintHistory(user, ticket);
+		htmlContent += getEmailOrPrintAttributes(user, ticket);
 		htmlContent += getEmailQuickLinks(authTypeIfNullUser, user, ticket);
 		htmlContent += getEmailOrPrintProperties(user, ticket);
 		htmlContent += getEmailOrPrintFiles(user, ticket);

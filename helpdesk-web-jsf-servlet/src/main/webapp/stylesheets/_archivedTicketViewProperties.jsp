@@ -1,8 +1,8 @@
 <%@include file="_include.jsp"%>
 <e:panelGrid columns="2" columnClasses="colRightNowrap,colLeftMaxNowrap" width="100%" 
 	alternateColors="true" cellpadding="5" cellspacing="0" >
-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " />
-	<h:panelGroup>
+	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " rendered="#{(sessionController.currentUser eq archivedTicketController.archivedTicket.owner) || (sessionController.currentUser eq archivedTicketController.archivedTicket.manager)}"/>
+	<h:panelGroup rendered="#{(sessionController.currentUser eq archivedTicketController.archivedTicket.owner) || (sessionController.currentUser eq archivedTicketController.archivedTicket.manager)}">
 		<t:graphicImage value="/media/images/user.png" />
 		<e:bold value=" #{userFormatter[archivedTicketController.archivedTicket.owner]} " />
 	</h:panelGroup>

@@ -1,0 +1,1394 @@
+Index: media/custom.css
+===================================================================
+--- media/custom.css	(.../orig/webapp)	(revision 275)
++++ media/custom.css	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1 @@
++@import url('upce/custom.css');
+Index: media/images/login.ppt
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/images/login.ppt
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: media/upce/slogan_pilotni.jpg
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/upce/slogan_pilotni.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: media/upce/custom.css
+===================================================================
+--- media/upce/custom.css	(.../orig/webapp)	(revision 0)
++++ media/upce/custom.css	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,189 @@
++form {
++  margin: 0px;
++  padding: 0px;
++  border: none;
++}
++
++body {
++    background-image:url('background.gif');
++}
++
++#navigationForm {
++    margin-bottom: 20px;
++}
++
++div.body {
++    background-color:white;
++    margin-top: 0px;
++    padding-top: 0px;
++}
++
++a, a:visited {
++  color: #dd291e;
++}
++
++a:hover, a:active {
++  color: black;
++}
++
++div.header {
++  height: 143px;
++  color: white;
++  background-color: #8da2cc;
++  border-bottom: black 1px solid;
++  margin-bottom: 0px;
++  padding-bottom: 0px;
++  position: relative;
++  overflow: hidden;
++}
++
++.header a.logo {
++  background-image: url('logoUPCE.gif');
++  height: 143px;
++  width: 277px;
++  ddisplay: block;
++  font-size: 1px;
++  color: #dd291e;
++  position: absolute;
++  top: 0px;
++  left: 0px;
++}
++
++.header div.slogan {
++  background-image: url('slogan.gif');
++  background-repeat: no-repeat;
++  width: 100%;
++  height: 143px;
++  position: absolute;
++  top: 0px;
++  left: 277px;
++}
++
++ul.portlet-menu {
++  background-image: none;
++  background-color: #dd291e;
++  text-align: left;
++  border-bottom: solid 6px #c50000;
++}
++
++ul.portlet-menu li {
++  border-width: 6px 15px 11px 15px;
++}
++
++ul.portlet-menu {
++  padding-left: 15px;
++}
++
++ul.portlet-menu li input {
++  color: white;
++  margin: 0px 5px;
++  padding: 3px 10px 4px 10px;
++  overflow: visible;
++}
++
++.portlet-menu-item-selected input {
++  background-color: #3c3c3c;
++  border-color: #3c3c3c;
++  border-style: solid;
++  color: white;
++}
++
++ul.portlet-menu span {
++  vertical-align: bottom;
++}
++
++ul.portlet-menu span img {
++  position: relative;
++  bottom: 5px;
++}
++
++div.portlet-menu {
++  background-image: none;
++  background-color: #ededed;
++  line-height: 30px;
++  vertical-align: middle;
++  color: #474747;
++  padding-left: 50px;
++  border-top: 1px solid #bfbfbf;
++  border-bottom: 6px solid #bfbfbf;
++  text-align: left;
++  font-size: 11px;
++}
++
++.portlet-section-header {
++  color: black;
++}
++
++.portlet-section-subheader {
++  color: black;
++}
++
++.portlet-table-header,
++.portlet-table-header span,
++.portlet-table-footer,
++.portlet-table-footer span {
++    background-color: #c0c0c0;
++}
++
++.portlet-table-alternate {
++  background-color: #ededed;
++}
++
++
++.priority1 {
++  color: #797944;
++}
++
++.priority2 {
++  color: #b49950;
++}
++
++.priority3 {
++  color: #dd8e28;
++}
++
++.priority4 {
++  color: #ff761a;
++}
++
++.priority5 {
++  color: #e61a1f;
++}
++
++.ticket-postpone td {
++  font-size: 12px;
++  padding: 3px;
++}
++
++table.ticket-postpone,
++table.ticket-postpone tr,
++table.ticket-postpone th,
++table.ticket-postpone td {
++  border-collapse: collapse;
++  border: solid black 1px;
++  text-align: center;
++}
++
++table.ticket-postpone {
++  border-width: 2px;
++}
++
++.ticket-postpone-month {
++  font-weight: bold;
++}
++
++.ticket-postpone-week td {
++  font-weight: bold;
++}
++
++.ticket-postpone-today {
++  background-color: #BFBFBF;
++}
++
++.portlet-msg-error {
++  font-size: 20px;
++  text-decoration: none;
++  font-weight: bolder;
++  background-color: red;
++  color: white;
++}
+Index: media/upce/logoUPCE.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/upce/logoUPCE.gif
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: media/upce/background.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/upce/background.gif
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: media/upce/slogan.gif
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/upce/slogan.gif
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: media/upce/index_helpdesk.png
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/upce/index_helpdesk.png
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: media/upce/slogan_zkusebni.jpg
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: media/upce/slogan_zkusebni.jpg
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: logout.jsp
+===================================================================
+--- logout.jsp	(.../orig/webapp)	(revision 0)
++++ logout.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,12 @@
++<html>
++<head>
++</head>
++<body>
++<h1>LOGOUT</h1>
++<%
++	HttpSession sessionHelpdesk = request.getSession();
++	session.invalidate();
++	response.sendRedirect("index.jsp");
++%>
++</body>
++</html>
+\ No newline at end of file
+Index: WEB-INF/lib/postgresql-9.1-901.jdbc4.jar
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: WEB-INF/lib/postgresql-9.1-901.jdbc4.jar
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+Index: WEB-INF/lib/ojdbc6.jar
+===================================================================
+Cannot display: file marked as a binary type.
+svn:mime-type = application/octet-stream
+
+Property changes on: WEB-INF/lib/ojdbc6.jar
+___________________________________________________________________
+Added: svn:mime-type
+   + application/octet-stream
+
+
+Property changes on: WEB-INF/lib
+___________________________________________________________________
+Added: svn:ignore
+   + *
+
+
+Index: WEB-INF/esup-commons.tld
+===================================================================
+--- WEB-INF/esup-commons.tld	(.../orig/webapp)	(revision 275)
++++ WEB-INF/esup-commons.tld	(.../upa/webapp)	(revision 275)
+@@ -419,7 +419,7 @@
+ 	<!-- page -->
+ 	<tag>
+ 		<name>page</name>
+-		<tag-class>org.esupportail.commons.web.tags.PageTag</tag-class>
++		<tag-class>cz.upce.helpdesk.web.tags.PageTagUPa</tag-class>
+ 		<body-content>JSP</body-content>
+ 		<description>The ESUP-Portail page tag.</description>
+ 		<attribute>
+Index: stylesheets/_archivedTicketViewProperties.jsp
+===================================================================
+--- stylesheets/_archivedTicketViewProperties.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/_archivedTicketViewProperties.jsp	(.../upa/webapp)	(revision 275)
+@@ -1,8 +1,8 @@
+ <%@include file="_include.jsp"%>
+ <e:panelGrid columns="2" columnClasses="colRightNowrap,colLeftMaxNowrap" width="100%" 
+ 	alternateColors="true" cellpadding="5" cellspacing="0" >
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " />
+-	<h:panelGroup>
++	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " rendered="#{(sessionController.currentUser eq archivedTicketController.archivedTicket.owner) || (sessionController.currentUser eq archivedTicketController.archivedTicket.manager)}"/>
++	<h:panelGroup rendered="#{(sessionController.currentUser eq archivedTicketController.archivedTicket.owner) || (sessionController.currentUser eq archivedTicketController.archivedTicket.manager)}">
+ 		<t:graphicImage value="/media/images/user.png" />
+ 		<e:bold value=" #{userFormatter[archivedTicketController.archivedTicket.owner]} " />
+ 	</h:panelGroup>
+Index: stylesheets/categoryAttributeAdd.jsp
+===================================================================
+--- stylesheets/categoryAttributeAdd.jsp	(.../orig/webapp)	(revision 0)
++++ stylesheets/categoryAttributeAdd.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,143 @@
++<%@include file="_include.jsp"%>
++<e:page stringsVar="msgs" menuItem="departments" locale="#{sessionController.locale}"
++	authorized="#{departmentsController.currentUserCanManageDepartmentCategories}">
++	<script type="text/javascript">
++function typeChanged(select) {
++    select = document.getElementById('categoryAttributesAddForm:type');
++    switch (select.value) {
++        case 'TEXT':
++            hideElement('categoryAttributesAddForm:panelValues');
++            hideElement('categoryAttributesAddForm:panelDbConnection');
++            break;
++        case 'SELECT':
++            showElement('categoryAttributesAddForm:panelValues');
++            hideElement('categoryAttributesAddForm:panelDbConnection');
++            break;
++        case 'DB':
++            hideElement('categoryAttributesAddForm:panelValues');
++            showElement('categoryAttributesAddForm:panelDbConnection');
++            break;
++    }
++}
++</script>
++
++    <%@include file="_navigation.jsp"%>
++
++	<e:form 
++		freezeScreenOnSubmit="#{sessionController.freezeScreenOnSubmit}" 
++		showSubmitPopupText="#{sessionController.showSubmitPopupText}" 
++		showSubmitPopupImage="#{sessionController.showSubmitPopupImage}" 
++		id="categoryAttributesAddForm">
++		<e:panelGrid columns="2" columnClasses="colLeft,colRight" width="100%">
++			<e:section value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TITLE']}">
++				<f:param value="#{departmentsController.categoryToUpdate.department.label}" />
++				<f:param value="#{departmentsController.categoryToUpdate.label}" />
++			</e:section>
++			<h:panelGroup>
++				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributesAddForm:cancelButton');" >
++					<e:bold value="#{msgs['_.BUTTON.CANCEL']} " />
++					<t:graphicImage value="/media/images/back.png"
++						alt="#{msgs['_.BUTTON.CANCEL']}"
++						title="#{msgs['_.BUTTON.CANCEL']}" />
++				</h:panelGroup>
++				<e:commandButton id="cancelButton" action="cancel" style="display: none"
++					value="#{msgs['_.BUTTON.CANCEL']}" immediate="true" />
++			</h:panelGroup>
++		</e:panelGrid>
++
++		<e:messages />
++
++        <h:panelGroup >
++            <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
++                <e:outputLabel for="name"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.NAME']}" />
++                <h:panelGroup>
++                    <e:inputText id="name"
++                        required="true"
++                        value="#{departmentsController.categoryAttributeToAdd.name}" />
++                    <e:message for="name" />
++                    <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.NAME_HELP']}" />
++                </h:panelGroup>
++                <e:outputLabel for="label"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.LABEL']}" />
++                <h:panelGroup>
++                    <e:inputText id="label"
++                        required="true"
++                        value="#{departmentsController.categoryAttributeToAdd.label}" />
++                    <e:message for="label" />
++                    <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.LABEL_HELP']}" />
++                </h:panelGroup>
++                <e:outputLabel for="type"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.TYPE']}" />
++                <h:panelGroup>
++                    <e:selectOneMenu id="type"
++                        value="#{departmentsController.categoryAttributeToAdd.type}"
++                        onchange="typeChanged();">
++                        <f:selectItems value="#{departmentsController.categoryAttributeTypes}" />
++                    </e:selectOneMenu>
++                    <e:message for="type" />
++                    <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.TYPE_HELP']}" />
++                </h:panelGroup>
++            </e:panelGrid>
++
++            <h:panelGroup id="panelValues" style="display:none">
++                <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.PARAMETERS']} " />
++                <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
++                    <e:outputLabel for="values"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.VALUES']}" />
++                    <h:panelGroup>
++                        <e:inputText id="values"
++                            value="#{departmentsController.categoryAttributeToAdd.values}" />
++                        <e:message for="values" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.VALUES_HELP']}" />
++                    </h:panelGroup>
++                </e:panelGrid>
++            </h:panelGroup>
++            <h:panelGroup id="panelDbConnection" style="display:none">
++                <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.PARAMETERS']} " />
++                <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
++                    <e:outputLabel for="dbConnectionContext"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.DB_CONNECTION_CTX']}" />
++                    <h:panelGroup>
++                        <e:inputText id="dbConnectionContext"
++                            value="#{departmentsController.categoryAttributeToAdd.dbConnectionContext}" />
++                        <e:message for="dbConnectionContext" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.DB_CONNECTION_CTX_HELP']}" />
++                    </h:panelGroup>
++                    <e:outputLabel for="dbConnectionJndi"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.DB_CONNECTION_JNDI']}" />
++                    <h:panelGroup>
++                        <e:inputText id="dbConnectionJndi"
++                            value="#{departmentsController.categoryAttributeToAdd.dbConnectionJndi}" />
++                        <e:message for="dbConnectionJndi" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.DB_CONNECTION_JNDI_HELP']}" />
++                    </h:panelGroup>
++                    <e:outputLabel for="dbConnectionSql"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.DB_CONNECTION_SQL']}" />
++                    <h:panelGroup>
++                        <e:inputText id="dbConnectionSql"
++                            value="#{departmentsController.categoryAttributeToAdd.dbConnectionSql}" />
++                        <e:message for="dbConnectionSql" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.DB_CONNECTION_SQL_HELP']}" />
++                    </h:panelGroup>
++                </e:panelGrid>
++            </h:panelGroup>
++            <h:panelGroup>
++                <h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributesAddForm:addButton');" >
++                    <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_ADD.BUTTON.ADD']} " />
++                    <t:graphicImage value="/media/images/add.png"
++                        alt="#{msgs['CATEGORY_ATTRIBUTE_ADD.BUTTON.ADD']}"
++                        title="#{msgs['CATEGORY_ATTRIBUTE_ADD.BUTTON.ADD']}" />
++                </h:panelGroup>
++                <e:commandButton id="addButton" action="#{departmentsController.addCategoryAttribute}"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_ADD.BUTTON.ADD']}" style="display: none" />
++            </h:panelGroup>
++        </h:panelGroup>
++	</e:form>
++	<t:aliasBean alias="#{controller}" value="#{null}" >
++		<%@include file="_signature.jsp"%>
++	</t:aliasBean>
++	<script type="text/javascript">
++		typeChanged();
++	</script>
++</e:page>
+Index: stylesheets/archivedTicketView.jsp
+===================================================================
+--- stylesheets/archivedTicketView.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/archivedTicketView.jsp	(.../upa/webapp)	(revision 275)
+@@ -61,6 +61,8 @@
+ 			</f:facet>
+ 			<h:panelGroup>
+ 				<%@include file="_archivedTicketViewProperties.jsp"%> 
++				<t:htmlTag value="hr" rendered="#{not empty archivedTicketController.archivedTicketAttributes}" />
++				<%@include file="_archivedTicketViewAttributes.jsp"%>
+ 				<t:htmlTag value="hr" />
+ 				<%@include file="_archivedTicketViewFiles.jsp"%> 
+ 				<t:htmlTag value="hr" />
+Index: stylesheets/_ticketViewProperties.jsp
+===================================================================
+--- stylesheets/_ticketViewProperties.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/_ticketViewProperties.jsp	(.../upa/webapp)	(revision 275)
+@@ -6,8 +6,8 @@
+ 		<f:param value="#{ticketController.ticket.department.label}" />
+ 		<f:param value="#{ticketController.ticket.category.label}" />
+ 	</e:bold>
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " />
+-	<h:panelGroup>
++	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.OWNER']} " rendered="#{(sessionController.currentUser eq ticketController.ticket.owner) || (sessionController.currentUser eq ticketController.ticket.manager)}"/>
++	<h:panelGroup rendered="#{(sessionController.currentUser eq ticketController.ticket.owner) || (sessionController.currentUser eq ticketController.ticket.manager)}">
+ 		<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftMaxNowrap" >
+ 			<h:panelGroup>
+ 				<h:panelGroup rendered="#{ticketController.ownerInfo != null}" >
+@@ -44,7 +44,7 @@
+ 				value="#{ticketController.ownerInfo}" />
+ 		</h:panelGroup>
+ 	</h:panelGroup>
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.MANAGER']} " />
++        <e:text value="#{msgs['TICKET_VIEW.PROPERTIES.MANAGER']} " />
+ 	<h:panelGroup>
+ 		<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftMaxNowrap" >
+ 			<h:panelGroup>
+@@ -64,6 +64,7 @@
+ 					<e:bold value=" #{msgs['TICKET_VIEW.PROPERTIES.USER']} " >
+ 						<f:param value="#{userFormatter[ticketController.ticket.manager]}" />
+ 					</e:bold>
++                                        <e:bold style="color: red; display: block" value=" #{managerController[ticketController.ticket.manager]}" />
+ 				</h:panelGroup>
+ 				<e:italic 
+ 					rendered="#{ticketController.ticket.manager == null}" 
+@@ -274,8 +275,8 @@
+ 			action="#{ticketController.move}" 
+ 			rendered="#{ticketController.userCanMove}" />
+ 	</h:panelGroup>
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SCOPE']}" />
+-	<h:panelGroup>
++	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SCOPE']}" rendered="#{ticketController.userCanChangeScope}" />
++	<h:panelGroup rendered="#{ticketController.userCanChangeScope}" >
+ 		<h:panelGroup
+ 			style="#{ticketController.userCanChangeScope ? 'cursor: pointer' : ''}" 
+ 			onclick="showHideElement('viewTicketForm:editTicketScope');" >
+@@ -312,7 +313,7 @@
+ 			/>
+ 		</h:panelGroup >
+ 	</h:panelGroup>
+-	<h:panelGroup>
++	<h:panelGroup rendered="#{ticketController.userCanChangeScope}" >
+ 		<h:panelGroup
+ 			style="cursor: pointer" 
+ 			onclick="showHideElement('viewTicketForm:editTicketScope');" 
+@@ -321,8 +322,8 @@
+ 			<t:graphicImage value="/media/images/edit.png" />
+ 		</h:panelGroup>
+ 	</h:panelGroup>
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PRIORITY']}" />
+-	<h:panelGroup>
++	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PRIORITY']}" rendered="#{ticketController.userCanChangePriority}" />
++	<h:panelGroup rendered="#{ticketController.userCanChangePriority}" >
+ 		<h:panelGroup
+ 			style="#{ticketController.userCanChangePriority ? 'cursor: pointer' : ''}" 
+ 			onclick="showHideElement('viewTicketForm:editTicketPriority');" >
+@@ -356,7 +357,7 @@
+ 			/>
+ 		</h:panelGroup >
+ 	</h:panelGroup>
+-	<h:panelGroup>
++	<h:panelGroup rendered="#{ticketController.userCanChangePriority}" >
+ 		<h:panelGroup
+ 			style="cursor: pointer" 
+ 			onclick="showHideElement('viewTicketForm:editTicketPriority');" 
+@@ -414,8 +415,8 @@
+ 				<t:graphicImage value="/media/images/edit.png" />
+ 		</h:panelGroup>
+ 	</h:panelGroup>
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SPENT_TIME']}" />
+-	<h:panelGroup>
++	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.SPENT_TIME']}" rendered="#{ticketController.userCanChangeSpentTime}" />
++	<h:panelGroup rendered="#{ticketController.userCanChangeSpentTime}" >
+ 		<h:panelGroup
+ 			style="#{ticketController.userCanChangeSpentTime ? 'cursor: pointer' : ''}" 
+ 			onclick="showHideElement('viewTicketForm:editTicketSpentTime');" >
+@@ -446,7 +447,7 @@
+ 			</h:panelGroup>
+ 		</h:panelGroup >
+ 	</h:panelGroup> 
+-	<h:panelGroup>
++	<h:panelGroup rendered="#{ticketController.userCanChangeSpentTime}" >
+ 		<h:panelGroup
+ 			style="#{ticketController.userCanChangeSpentTime ? 'cursor: pointer' : ''}" 
+ 			onclick="showHideElement('viewTicketForm:editTicketSpentTime');" 
+@@ -513,8 +514,8 @@
+ 		<e:bold value="#{elapsedTimeI18nFormatter[ticketController.ticket.closureTime]}" />
+ 	</h:panelGroup>
+ 	<h:panelGroup rendered="#{ticketController.ticket.closureTime != null}" />
+-	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PERM_LINKS']}" />
+-	<h:panelGroup >
++	<e:text value="#{msgs['TICKET_VIEW.PROPERTIES.PERM_LINKS']}" rendered="#{ticketController.userCanChangeScope}" />
++	<h:panelGroup rendered="#{ticketController.userCanChangeScope}" >
+ 		<e:text value=" #{msgs['COMMON.PERM_LINKS.APPLICATION']}" escape="false" >
+ 			<f:param value="#{ticketController.applicationPermLink}" />
+ 		</e:text>
+@@ -525,6 +526,6 @@
+ 			<f:param value="#{ticketController.shibbolethPermLink}" />
+ 		</e:text>
+ 	</h:panelGroup>
+-	<h:panelGroup />
++	<h:panelGroup  rendered="#{ticketController.userCanChangeScope}" />
+ </e:panelGrid>
+-
++
+Index: stylesheets/categoryAttributes.jsp
+===================================================================
+--- stylesheets/categoryAttributes.jsp	(.../orig/webapp)	(revision 0)
++++ stylesheets/categoryAttributes.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,199 @@
++<%@include file="_include.jsp"%>
++<e:page stringsVar="msgs" menuItem="departments" locale="#{sessionController.locale}"
++	authorized="#{departmentsController.currentUserCanManageDepartmentCategories}">
++	<%@include file="_navigation.jsp"%>
++
++	<e:form 
++		freezeScreenOnSubmit="#{sessionController.freezeScreenOnSubmit}" 
++		showSubmitPopupText="#{sessionController.showSubmitPopupText}" 
++		showSubmitPopupImage="#{sessionController.showSubmitPopupImage}" 
++		id="categoryAttributesForm">
++		<e:panelGrid columns="2" columnClasses="colLeft,colRight" width="100%">
++			<e:section value="#{msgs['CATEGORY_ATTRIBUTES.TITLE']}">
++				<f:param value="#{departmentsController.categoryToUpdate.department.label}" />
++				<f:param value="#{departmentsController.categoryToUpdate.label}" />
++			</e:section>
++			<h:panelGroup>
++				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributesForm:cancelButton');" >
++					<e:bold value="#{msgs['_.BUTTON.BACK']} " />
++					<t:graphicImage value="/media/images/back.png"
++						alt="#{msgs['_.BUTTON.BACK']}" 
++						title="#{msgs['_.BUTTON.BACK']}" />
++				</h:panelGroup>
++				<e:commandButton id="cancelButton" action="back" style="display: none"
++					value="#{msgs['_.BUTTON.BACK']}" immediate="true" />
++			</h:panelGroup>
++		</e:panelGrid>
++
++		<e:messages />
++
++		<h:panelGroup rendered="#{departmentsController.categoryToUpdate.inheritAttributes && (departmentsController.categoryToUpdate.parent != null)}" >
++			<e:paragraph 
++				value="#{msgs['CATEGORY_ATTRIBUTES.TEXT.INHERIT']}" />
++			<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributesForm:doNotInheritButton');" >
++				<e:bold value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.DO_NOT_INHERIT']} " />
++				<t:graphicImage value="/media/images/cancel.png"
++					alt="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.DO_NOT_INHERIT']}"
++					title="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.DO_NOT_INHERIT']}" />
++			</h:panelGroup>
++			<e:commandButton id="doNotInheritButton" style="display: none"
++				action="#{departmentsController.toggleInheritCategoryAttributes}"
++				value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.DO_NOT_INHERIT']}" />
++			<e:paragraph 
++				value="#{msgs['CATEGORY_ATTRIBUTES.TEXT.NO_INHERITED_ATTRIBUTE']}"
++				rendered="#{empty departmentsController.inheritedCategoryAttributes}" />
++			<e:paragraph 
++				value="#{msgs['CATEGORY_ATTRIBUTES.TEXT.INHERITED_ATTRIBUTES']}"
++				rendered="#{not empty departmentsController.inheritedCategoryAttributes}" />
++			<t:dataList
++				value="#{departmentsController.inheritedCategoryAttributes}"
++				var="categoryAttribute" >
++				<e:li value="#{categoryAttribute.label}" />
++			</t:dataList>
++		</h:panelGroup>
++		<h:panelGroup rendered="#{not departmentsController.categoryToUpdate.inheritAttributes}" >
++			<h:panelGroup rendered="#{departmentsController.categoryToUpdate.parent != null}" >
++				<e:paragraph value="#{msgs['CATEGORY_ATTRIBUTES.TEXT.NO_INHERIT_CATEGORY']}" />
++				<h:panelGroup style="cursor: pointer" 
++					onclick="simulateLinkClick('categoryAttributesForm:inheritCategoryButton');" >
++					<e:bold value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.INHERIT_CATEGORY']} " />
++					<t:graphicImage value="/media/images/add.png" />
++				</h:panelGroup>
++				<e:commandButton id="inheritCategoryButton" style="display: none"
++					action="#{departmentsController.toggleInheritCategoryAttributes}"
++					value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.INHERIT_CATEGORY']}" />
++			</h:panelGroup>
++			<e:paragraph 
++				value="#{msgs['CATEGORY_ATTRIBUTES.TEXT.NO_ATTRIBUTE']}"
++				rendered="#{empty departmentsController.categoryAttributes}"
++				/>
++			<h:panelGroup rendered="#{not empty departmentsController.categoryAttributes}" >
++				<e:paragraph value="#{msgs['CATEGORY_ATTRIBUTES.TEXT.ATTRIBUTES']}" />
++                <e:dataTable
++					id="attributeData" rowIndexVar="variable"
++					value="#{departmentsController.categoryAttributes}"
++					var="attribute" border="0" cellspacing="0"
++					cellpadding="0">
++                    <f:facet name="header">
++                        <t:htmlTag value="hr" />
++                    </f:facet>
++					<t:column>
++						<e:bold value="#{attribute.name}" />
++					</t:column>
++					<t:column>
++						<e:bold value="#{attribute.label}" />
++					</t:column>
++                    <t:column style="padding: 0px 10px">
++                        <e:text value="#{categoryAttributeTypeFormatter[attribute.type]}" />
++                    </t:column>
++					<t:column>
++						<h:panelGroup style="cursor: pointer"
++							onclick="simulateLinkClick('categoryAttributesForm:attributeData:#{variable}:deleteButton');" >
++							<t:graphicImage value="/media/images/delete.png"
++								alt="-" title="-" />
++						</h:panelGroup>
++						<e:commandButton id="deleteButton" value="-" style="display: none"
++							action="#{departmentsController.deleteCategoryAttribute}" >
++							<t:updateActionListener value="#{attribute}"
++								property="#{departmentsController.categoryAttributeToDelete}" />
++						</e:commandButton>
++					</t:column>
++					<t:column>
++						<h:panelGroup style="cursor: pointer"
++							onclick="simulateLinkClick('categoryAttributesForm:attributeData:#{variable}:editButton');" >
++							<t:graphicImage value="/media/images/edit.png"
++								alt="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.EDIT']}"
++                                title="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.EDIT']}" />
++						</h:panelGroup>
++						<e:commandButton id="editButton" value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.EDIT']}"
++                            style="display: none"
++							action="#{departmentsController.updateCategoryAttribute}" >
++							<t:updateActionListener value="#{attribute}"
++								property="#{departmentsController.categoryAttributeToUpdate}" />
++						</e:commandButton>
++					</t:column>
++					<t:column>
++						<h:panelGroup
++							rendered="#{variable != departmentsController.categoryAttributesNumber - 1}" >
++							<h:panelGroup style="cursor: pointer"
++								onclick="simulateLinkClick('categoryAttributesForm:attributeData:#{variable}:moveLastButton');" >
++								<t:graphicImage value="/media/images/arrow_last.png"
++									alt="vv" title="vv" />
++							</h:panelGroup>
++							<e:commandButton id="moveLastButton" value="vv" style="display: none"
++								action="#{departmentsController.moveCategoryAttributeLast}"
++								>
++								<t:updateActionListener value="#{attribute}"
++									property="#{departmentsController.categoryAttributeToMove}" />
++							</e:commandButton>
++						</h:panelGroup>
++					</t:column>
++					<t:column>
++						<h:panelGroup
++							rendered="#{variable != departmentsController.categoryAttributesNumber - 1}" >
++							<h:panelGroup style="cursor: pointer"
++								onclick="simulateLinkClick('categoryAttributesForm:attributeData:#{variable}:moveDownButton');" >
++								<t:graphicImage value="/media/images/arrow_down.png"
++									alt="v" title="v" />
++							</h:panelGroup>
++							<e:commandButton id="moveDownButton" value="v" style="display: none"
++								action="#{departmentsController.moveCategoryAttributeDown}"
++								>
++								<t:updateActionListener value="#{attribute}"
++									property="#{departmentsController.categoryAttributeToMove}" />
++							</e:commandButton>
++						</h:panelGroup>
++					</t:column>
++					<t:column>
++						<h:panelGroup
++							rendered="#{variable != 0}" >
++							<h:panelGroup style="cursor: pointer"
++								onclick="simulateLinkClick('categoryAttributesForm:attributeData:#{variable}:moveUpButton');" >
++								<t:graphicImage value="/media/images/arrow_up.png"
++									alt="^" title="^" />
++							</h:panelGroup>
++							<e:commandButton id="moveUpButton" value="^" style="display: none"
++								action="#{departmentsController.moveCategoryAttributeUp}"
++								>
++								<t:updateActionListener value="#{attribute}"
++									property="#{departmentsController.categoryAttributeToMove}" />
++							</e:commandButton>
++						</h:panelGroup>
++					</t:column>
++					<t:column>
++						<h:panelGroup
++							rendered="#{variable != 0}" >
++							<h:panelGroup style="cursor: pointer"
++								onclick="simulateLinkClick('categoryAttributesForm:attributeData:#{variable}:moveFirstButton');" >
++								<t:graphicImage value="/media/images/arrow_first.png"
++									alt="^^" title="^^" />
++							</h:panelGroup>
++							<e:commandButton id="moveFirstButton" value="^^" style="display: none"
++								action="#{departmentsController.moveCategoryAttributeFirst}"
++								>
++								<t:updateActionListener value="#{attribute}"
++									property="#{departmentsController.categoryAttributeToMove}" />
++							</e:commandButton>
++						</h:panelGroup>
++					</t:column>
++					<f:facet name="footer">
++						<t:htmlTag value="hr" />
++					</f:facet>
++                </e:dataTable>
++			</h:panelGroup>
++            <h:panelGroup>
++                <h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributesForm:addButton');" >
++                    <e:bold value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.ADD']}" />
++                    <t:graphicImage value="/media/images/add.png"
++                        alt="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.ADD']}"
++                        title="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.ADD']}" />
++                </h:panelGroup>
++                <e:commandButton id="addButton" action="add"
++                    value="#{msgs['CATEGORY_ATTRIBUTES.BUTTON.ADD']}" style="display: none" />
++            </h:panelGroup>
++		</h:panelGroup>
++	</e:form>
++	<t:aliasBean alias="#{controller}" value="#{null}" >
++		<%@include file="_signature.jsp"%>
++	</t:aliasBean>
++</e:page>
+Index: stylesheets/welcome.jsp
+===================================================================
+--- stylesheets/welcome.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/welcome.jsp	(.../upa/webapp)	(revision 275)
+@@ -11,8 +11,8 @@
+ 		id="welcomeForm" >
+ 			<e:section value="#{msgs['WELCOME.TITLE']}" />
+ 			<e:messages />
+-			<e:paragraph value="#{msgs['WELCOME.TEXT.WELCOME']}" />
+-			<e:paragraph value="#{msgs['WELCOME.TEXT.SHORTCUTS']}" />
++			<e:paragraph value="#{msgs['WELCOME.TEXT.WELCOME']}" escape="false" />
++			<e:paragraph value="#{msgs['WELCOME.TEXT.SHORTCUTS']}" escape="false" />
+ 	 		<e:panelGrid columns="2" cellpadding="5" cellspacing="0" columnClasses="colRight,colLeft" >
+ 				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('welcomeForm:addTicketButton');" >
+ 					<t:graphicImage value="/media/images/ticket.png" />
+@@ -57,7 +57,7 @@
+ 						value="#{msgs['WELCOME.BUTTON.SEARCH']}" immediate="true" />
+ 				</h:panelGroup>
+ 	 		</e:panelGrid>
+-			<e:paragraph value="#{msgs['WELCOME.TEXT.BOOKMARKS']}" />
++			<e:paragraph value="#{msgs['WELCOME.TEXT.BOOKMARKS']}" escape="false" />
+ 		</e:form>
+ 	</h:panelGroup>
+ 
+Index: stylesheets/ticketAdd.jsp
+===================================================================
+--- stylesheets/ticketAdd.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/ticketAdd.jsp	(.../upa/webapp)	(revision 275)
+@@ -75,7 +75,7 @@
+ 					<f:facet name="department">
+ 						<h:panelGroup>
+ 							<t:graphicImage value="#{departmentIconUrlProvider[node.department]}" />
+-							<e:text value=" #{msgs['TICKET_ACTION.TEXT.ADD.DEPARTMENT_LABEL']}">
++							<e:text value=" #{msgs['TICKET_ACTION.TEXT.ADD.DEPARTMENT_LABEL']}" escape="false" >
+ 								<f:param value="#{node.department.label}" />
+ 								<f:param value="#{node.department.xlabel}" />
+ 							</e:text>
+@@ -157,7 +157,7 @@
+ 						</t:tree2>
+ 						<t:htmlTag value="hr" />
+ 					</h:panelGroup>
+-					<e:panelGrid columns="1" columnClasses="colRightMaxNowrap" width="100%" >
++					<e:panelGrid columns="1" columnClasses="colRightMaxNowrap" width="100%" rendered="#{ticketController.userCanSetOrigin}" >
+ 						<h:panelGroup style="cursor: pointer" 
+ 							onclick="javascript:{showHideElement('ticketActionForm:advanced');showHideElement('ticketActionForm:showAdvanced');showHideElement('ticketActionForm:hideAdvanced');return false;}" >
+ 							<h:panelGroup id="showAdvanced" >
+@@ -170,7 +170,7 @@
+ 							</h:panelGroup>
+ 						</h:panelGroup>
+ 					</e:panelGrid>
+-					<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftNowrap" id="advanced" style="display: none" >
++					<e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeftNowrap" id="advanced" style="display: none" rendered="#{ticketController.userCanSetOrigin}" >
+ 						<e:outputLabel for="scope" value="#{msgs['TICKET_ACTION.TEXT.ADD.SCOPE_PROMPT']} " />
+ 						<h:panelGroup>
+ 							<e:selectOneMenu id="scope" 
+@@ -237,6 +237,22 @@
+ 					</e:panelGrid>
+ 				</h:panelGroup>
+ 			</e:panelGrid>
++
++            <h:panelGroup rendered="#{not empty ticketController.ticketAttributes}">
++                <t:htmlTag value="hr" />
++                <h:dataTable value="#{ticketController.ticketAttributes}" var="attribute">
++                    <h:column>
++                        <e:bold value="#{attribute.label}"/>
++                    </h:column>
++                    <h:column>
++                        <e:inputText value="#{attribute.value}" rendered="#{attribute.type == 'TEXT'}"/>
++                        <e:selectOneMenu value="#{attribute.value}" rendered="#{(attribute.type == 'SELECT') || (attribute.type == 'DB')}">
++                            <f:selectItems value="#{attribute.values}" />
++                        </e:selectOneMenu>
++                    </h:column>
++                </h:dataTable>
++            </h:panelGroup>
++
+ 			<t:htmlTag value="hr" />
+ 			<e:panelGrid columns="2" width="100%" columnClasses="colLeftMax,colRightNowrap">
+ 				<h:panelGroup>
+Index: stylesheets/_ticketViewMonitoring.jsp
+===================================================================
+--- stylesheets/_ticketViewMonitoring.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/_ticketViewMonitoring.jsp	(.../upa/webapp)	(revision 275)
+@@ -1,5 +1,5 @@
+ <%@include file="_include.jsp"%>
+-<e:panelGrid columns="2" columnClasses="colLeftNowrap,colRightNowrap">
++<e:panelGrid columns="2" columnClasses="colLeftNowrap,colRightNowrap" rendered="#{ticketController.userCanChangeLabel}" >
+ 	<e:subSection value="#{msgs['TICKET_VIEW.MONITORING.HEADER']}" >
+ 		<f:param value="#{ticketController.monitoringUsersNumber}" />
+ 	</e:subSection>
+@@ -14,7 +14,7 @@
+ 		</h:panelGroup>
+ 	</h:panelGroup>
+ </e:panelGrid>
+-<h:panelGroup id="monitoringUsers" style="display: none" >
++<h:panelGroup id="monitoringUsers" style="display: none" rendered="#{ticketController.userCanChangeLabel}" >
+ 	<e:selectBooleanCheckbox 
+ 		value="#{ticketController.userMonitorsTicket}" 
+ 		onchange="javascript:{simulateLinkClick('viewTicketForm:updateButton');}" >
+Index: stylesheets/_ticketActionHistory.jsp
+===================================================================
+--- stylesheets/_ticketActionHistory.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/_ticketActionHistory.jsp	(.../upa/webapp)	(revision 275)
+@@ -40,7 +40,7 @@
+ 	rowIndexVar="variable" 
+ 	var="he" >
+ 	<h:outputText value="function quoteAction#{he.action.id}() {" escape="false" />
+-	<h:outputText value="insertTextIntoEditor(&quot;<br />\n" escape="false" />
++	<h:outputText value="insertTextIntoEditor(&quot;<br /> " escape="false" />
+ 	<h:outputFormat value="#{msgs['TICKET_ACTION.QUOTE']}<br />\n" escape="false" rendered="#{he.action.user != null}">
+ 		<f:param value="#{userFormatter[he.action.user]}" />
+ 	</h:outputFormat>
+Index: stylesheets/ticketPostpone.jsp
+===================================================================
+--- stylesheets/ticketPostpone.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/ticketPostpone.jsp	(.../upa/webapp)	(revision 275)
+@@ -26,6 +26,10 @@
+ 				<h:panelGroup>
+ 					<e:paragraph value="#{msgs['TICKET_ACTION.TEXT.POSTPONE.AUTO_HELP']}" />
+ 					<t:inputCalendar 
++						styleClass="ticket-postpone"
++						monthYearRowClass="ticket-postpone-month"
++						weekRowClass="ticket-postpone-week"
++						currentDayCellClass="ticket-postpone-today"
+ 						value="#{ticketController.postponeDate}" />
+ 				</h:panelGroup>
+ 				<h:panelGroup>
+Index: stylesheets/_navigation.jsp
+===================================================================
+--- stylesheets/_navigation.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/_navigation.jsp	(.../upa/webapp)	(revision 275)
+@@ -1,4 +1,5 @@
+ <%@include file="_include.jsp"%>
++<%@include file="upce_header.jsp"%>
+ <e:form 
+ 	freezeScreenOnSubmit="#{sessionController.freezeScreenOnSubmit}" 
+ 	showSubmitPopupText="#{sessionController.showSubmitPopupText}" 
+Index: stylesheets/_archivedTicketViewAttributes.jsp
+===================================================================
+--- stylesheets/_archivedTicketViewAttributes.jsp	(.../orig/webapp)	(revision 0)
++++ stylesheets/_archivedTicketViewAttributes.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,12 @@
++<%@include file="_include.jsp"%>
++<e:panelGrid columns="1" columnClasses="colLeftNowrap" rendered="#{not empty archivedTicketController.archivedTicketAttributes}">
++    <e:subSection value="#{msgs['TICKET_VIEW.ATTRIBUTES.HEADER']}" />
++    <h:dataTable value="#{archivedTicketController.archivedTicketAttributes}" var="attribute">
++        <h:column>
++            <e:bold value="#{attribute.label}"/>
++        </h:column>
++        <h:column>
++            <e:text value="#{attribute.value}"/>
++        </h:column>
++    </h:dataTable>
++</e:panelGrid>
+\ No newline at end of file
+Index: stylesheets/about.jsp
+===================================================================
+--- stylesheets/about.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/about.jsp	(.../upa/webapp)	(revision 275)
+@@ -20,7 +20,7 @@
+ 	</e:ul>
+ 
+ 	<e:subSection value="#{msgs['ABOUT.SUBTITLE.COPYRIGHT']}" />
+-	<e:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}">
++	<e:paragraph value="#{msgs['ABOUT.TEXT.COPYRIGHT']}" escape="false" >
+ 		<f:param value="#{applicationService.name}" />
+ 		<f:param value="#{applicationService.version}" />
+ 		<f:param value="#{applicationService.copyright}" />
+Index: stylesheets/ticketView.jsp
+===================================================================
+--- stylesheets/ticketView.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/ticketView.jsp	(.../upa/webapp)	(revision 275)
+@@ -39,14 +39,24 @@
+ 				</h:panelGroup>
+ 				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('viewTicketForm:printButton');" >
+ 					<e:bold value="#{msgs['TICKET_VIEW.BUTTON.PRINT']} " />
+-					<t:graphicImage 
+-						value="/media/images/print.png" 
+-						alt="#{msgs['TICKET_VIEW.BUTTON.PRINT']}" 
++					<t:graphicImage
++						value="/media/images/print.png"
++						alt="#{msgs['TICKET_VIEW.BUTTON.PRINT']}"
+ 						title="#{msgs['TICKET_VIEW.BUTTON.PRINT']}" />
+ 				</h:panelGroup>
+ 				<e:commandButton id="printButton" style="display: none"
+-					value="#{msgs['_.BUTTON.BACK']}" 
++					value="#{msgs['_.BUTTON.BACK']}"
+ 					action="#{ticketController.print}" />
++				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('viewTicketForm:shortPrintButton');" rendered="#{ticketController.userCanChangeLabel}" >
++					<e:bold value="#{msgs['TICKET_VIEW.BUTTON.SHORT_PRINT']} " />
++					<t:graphicImage
++						value="/media/images/print.png"
++						alt="#{msgs['TICKET_VIEW.BUTTON.SHORT_PRINT']}"
++						title="#{msgs['TICKET_VIEW.BUTTON.SHORT_PRINT']}" />
++				</h:panelGroup>
++				<e:commandButton id="shortPrintButton" style="display: none"
++					value="#{msgs['_.BUTTON.BACK']}"
++					action="#{ticketController.shortPrint}" rendered="#{ticketController.userCanChangeLabel}" />
+ 				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('viewTicketForm:backButton');" >
+ 					<e:bold value=" #{msgs['_.BUTTON.BACK']} " />
+ 					<t:graphicImage value="/media/images/back.png" alt="#{msgs['_.BUTTON.BACK']}" title="#{msgs['_.BUTTON.BACK']}" />
+@@ -102,13 +112,15 @@
+ 			</f:facet>
+ 			<h:panelGroup>
+ 				<%@include file="_ticketViewProperties.jsp"%> 
++				<t:htmlTag value="hr" rendered="#{not empty ticketController.ticketAttributes}" />
++				<%@include file="_ticketViewAttributes.jsp"%>
+ 				<t:htmlTag value="hr" />
+ 				<%@include file="_ticketViewFiles.jsp"%> 
+ 				<t:htmlTag value="hr" />
+ 				<%@include file="_ticketViewInvitations.jsp"%> 
+ 				<t:htmlTag value="hr" />
+ 				<%@include file="_ticketViewMonitoring.jsp"%> 
+-				<t:htmlTag value="hr" />
++				<t:htmlTag value="hr" rendered="#{ticketController.userCanChangeLabel}" />
+ 				<%@include file="_ticketViewBookmark.jsp"%> 
+ 				<e:commandButton style="display: none"
+ 					id="toggleShowAlertsButton"
+@@ -131,3 +143,4 @@
+     hideElement('viewTicketForm:hideManagerInfo'); 	 
+ </script>
+ </e:page>
++
+Index: stylesheets/_ticketViewAttributes.jsp
+===================================================================
+--- stylesheets/_ticketViewAttributes.jsp	(.../orig/webapp)	(revision 0)
++++ stylesheets/_ticketViewAttributes.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,12 @@
++<%@include file="_include.jsp"%>
++<e:panelGrid columns="1" columnClasses="colLeftNowrap" rendered="#{not empty ticketController.ticketAttributes}">
++    <e:subSection value="#{msgs['TICKET_VIEW.ATTRIBUTES.HEADER']}" />
++    <h:dataTable value="#{ticketController.ticketAttributes}" var="attribute">
++        <h:column>
++            <e:bold value="#{attribute.label}"/>
++        </h:column>
++        <h:column>
++            <e:text value="#{attribute.value}"/>
++        </h:column>
++    </h:dataTable>
++</e:panelGrid>
+\ No newline at end of file
+Index: stylesheets/categories.jsp
+===================================================================
+--- stylesheets/categories.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/categories.jsp	(.../upa/webapp)	(revision 275)
+@@ -56,6 +56,10 @@
+ 						<t:graphicImage value="/media/images/faq-links.png" />
+ 						<e:text value=" #{msgs['CATEGORIES.TEXT.LEGEND.FAQ_LINKS']}" />
+ 					</h:panelGroup>
++					<h:panelGroup rendered="#{departmentsController.categoriesAction == 'ATTRIBUTES'}" >
++						<t:graphicImage value="/media/images/edit.png" />
++						<e:text value=" #{msgs['CATEGORIES.TEXT.LEGEND.ATTRIBUTES']}" />
++					</h:panelGroup>
+ 				</h:panelGroup>
+ 			</h:panelGroup>
+ 			<h:panelGroup >
+@@ -433,6 +437,47 @@
+ 								</t:dataList>
+ 							</h:panelGroup>
+ 						</h:panelGroup>
++						<h:panelGroup rendered="#{departmentsController.categoriesAction == 'ATTRIBUTES'}" >
++							<h:panelGroup rendered="#{not node.category.inheritAttributes}">
++								<h:panelGroup
++									style="cursor: pointer"
++									onclick="showHideElement('categoriesForm:tree:#{node.identifier}:attributes');"
++									rendered="#{node.attributesNumber != 0}" >
++									<e:bold value=" #{msgs['CATEGORIES.TEXT.ATTRIBUTES_NUMBER']}">
++										<f:param value="#{node.attributesNumber}" />
++									</e:bold>
++									<t:graphicImage value="/media/images/show.png" />
++								</h:panelGroup>
++								<e:text rendered="#{node.attributesNumber == 0}"
++									value=" #{msgs['CATEGORIES.TEXT.NO_ATTRIBUTES']}" />
++							</h:panelGroup>
++							<h:panelGroup rendered="#{departmentsController.currentUserCanManageDepartmentCategories}" >
++								<e:bold value=" " />
++								<t:graphicImage value="/media/images/edit.png"
++									alt="#{msgs['CATEGORIES.ALT.EDIT_ATTRIBUTES']}"
++									title="#{msgs['CATEGORIES.ALT.EDIT_ATTRIBUTES']}"
++									style="cursor: pointer"
++									onclick="simulateLinkClick('categoriesForm:tree:#{node.identifier}:editAttributesButton');" />
++								<e:commandButton value="#{msgs['CATEGORIES.BUTTON.EDIT_ATTRIBUTES']}"
++									id="editAttributesButton" style="display: none"
++									action="#{departmentsController.editCategoryAttributes}" >
++									<t:updateActionListener value="#{node.category}"
++										property="#{departmentsController.categoryToUpdate}" />
++								</e:commandButton>
++							</h:panelGroup>
++							<h:panelGroup id="attributes"
++								rendered="#{not node.category.inheritAttributes and node.attributesNumber != 0}"
++								style="display: none" >
++								<t:dataList value="#{node.attributes}" var="attribute"
++									rowIndexVar="attributeIndex">
++									<e:italic value="#{msgs['CATEGORIES.TEXT.ATTRIBUTE_SEPARATOR']}"
++										rendered="#{attributeIndex != 0}" />
++									<e:italic value="#{msgs['CATEGORIES.TEXT.ATTRIBUTE']}" >
++										<f:param value="#{attribute.label}" />
++									</e:italic>
++								</t:dataList>
++							</h:panelGroup>
++						</h:panelGroup>
+ 					</h:panelGroup>
+ 				</f:facet>
+ 			</t:tree2>
+Index: stylesheets/ticketAssign.jsp
+===================================================================
+--- stylesheets/ticketAssign.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/ticketAssign.jsp	(.../upa/webapp)	(revision 275)
+@@ -57,6 +57,7 @@
+ 							<e:bold value=" #{msgs['TICKET_ACTION.TEXT.ASSIGN.USER']}" >
+ 								<f:param value="#{userFormatter[departmentManager.user]}" />
+ 							</e:bold>
++                                                        <e:bold style="color: red" value=" #{managerController[departmentManager.user]}" />
+ 						</h:panelGroup>
+ 					</t:column>
+ 					<t:column>
+@@ -100,6 +101,7 @@
+ 							<e:bold value=" #{msgs['TICKET_ACTION.TEXT.ASSIGN.USER']}" >
+ 								<f:param value="#{userFormatter[departmentManager.user]}" />
+ 							</e:bold>
++                                                        <e:bold style="color: red" value=" #{managerController[departmentManager.user]}" />
+ 						</h:panelGroup>
+ 					</t:column>
+ 					<t:column>
+Index: stylesheets/categoryAttributeUpdate.jsp
+===================================================================
+--- stylesheets/categoryAttributeUpdate.jsp	(.../orig/webapp)	(revision 0)
++++ stylesheets/categoryAttributeUpdate.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,141 @@
++<%@include file="_include.jsp"%>
++<e:page stringsVar="msgs" menuItem="departments" locale="#{sessionController.locale}"
++	authorized="#{departmentsController.currentUserCanManageDepartmentCategories}">
++	<script type="text/javascript">
++function typeChanged() {
++    select = document.getElementById('categoryAttributeUpdateForm:type');
++    switch (select.value) {
++        case 'TEXT':
++            hideElement('categoryAttributeUpdateForm:panelValues');
++            hideElement('categoryAttributeUpdateForm:panelDbConnection');
++            break;
++        case 'SELECT':
++            showElement('categoryAttributeUpdateForm:panelValues');
++            hideElement('categoryAttributeUpdateForm:panelDbConnection');
++            break;
++        case 'DB':
++            hideElement('categoryAttributeUpdateForm:panelValues');
++            showElement('categoryAttributeUpdateForm:panelDbConnection');
++            break;
++    }
++}
++</script>
++
++	<%@include file="_navigation.jsp"%>
++
++	<e:form 
++		freezeScreenOnSubmit="#{sessionController.freezeScreenOnSubmit}" 
++		showSubmitPopupText="#{sessionController.showSubmitPopupText}" 
++		showSubmitPopupImage="#{sessionController.showSubmitPopupImage}" 
++		id="categoryAttributeUpdateForm">
++		<e:panelGrid columns="2" columnClasses="colLeft,colRight" width="100%">
++			<e:section value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TITLE']}">
++				<f:param value="#{departmentsController.categoryToUpdate.department.label}" />
++				<f:param value="#{departmentsController.categoryToUpdate.label}" />
++			</e:section>
++			<h:panelGroup>
++				<h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributeUpdateForm:cancelButton');" >
++					<e:bold value="#{msgs['_.BUTTON.CANCEL']} " />
++					<t:graphicImage value="/media/images/back.png"
++						alt="#{msgs['_.BUTTON.CANCEL']}"
++						title="#{msgs['_.BUTTON.CANCEL']}" />
++				</h:panelGroup>
++				<e:commandButton id="cancelButton" action="cancel" style="display: none"
++					value="#{msgs['_.BUTTON.CANCEL']}" immediate="true" />
++			</h:panelGroup>
++		</e:panelGrid>
++
++		<e:messages />
++
++        <h:panelGroup >
++            <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
++                <e:outputLabel for="name"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.NAME']}" />
++                <h:panelGroup>
++                    <e:inputText id="name"
++                                 value="#{departmentsController.categoryAttributeToUpdate.name}" />
++                    <e:message for="name" />
++                    <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.NAME_HELP']}" />
++                </h:panelGroup>
++                <e:outputLabel for="label"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.LABEL']}" />
++                <h:panelGroup>
++                    <e:inputText id="label"
++                                 value="#{departmentsController.categoryAttributeToUpdate.label}" />
++                    <e:message for="label" />
++                    <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.LABEL_HELP']}" />
++                </h:panelGroup>
++                <e:outputLabel for="type"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.TYPE']}" />
++                <h:panelGroup>
++                    <e:selectOneMenu id="type"
++                        value="#{departmentsController.categoryAttributeToUpdate.type}"
++                        onchange="typeChanged();">
++                        <f:selectItems value="#{departmentsController.categoryAttributeTypes}" />
++                    </e:selectOneMenu>
++                    <e:message for="type" />
++                    <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.TYPE_HELP']}" />
++                </h:panelGroup>
++            </e:panelGrid>
++
++            <h:panelGroup id="panelValues" style="display:none">
++                <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.PARAMETERS']} " />
++                <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
++                    <e:outputLabel for="values"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.VALUES']}" />
++                    <h:panelGroup>
++                        <e:inputText id="values"
++                            value="#{departmentsController.categoryAttributeToUpdate.values}" />
++                        <e:message for="values" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.VALUES_HELP']}" />
++                    </h:panelGroup>
++                </e:panelGrid>
++            </h:panelGroup>
++            <h:panelGroup id="panelDbConnection" style="display:none">
++                <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.PARAMETERS']} " />
++                <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
++                    <e:outputLabel for="dbConnectionContext"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.DB_CONNECTION_CTX']}" />
++                    <h:panelGroup>
++                        <e:inputText id="dbConnectionContext"
++                            value="#{departmentsController.categoryAttributeToUpdate.dbConnectionContext}" />
++                        <e:message for="dbConnectionContext" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.DB_CONNECTION_CTX_HELP']}" />
++                    </h:panelGroup>
++                    <e:outputLabel for="dbConnectionJndi"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.DB_CONNECTION_JNDI']}" />
++                    <h:panelGroup>
++                        <e:inputText id="dbConnectionJndi"
++                            value="#{departmentsController.categoryAttributeToUpdate.dbConnectionJndi}" />
++                        <e:message for="dbConnectionJndi" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.DB_CONNECTION_JNDI_HELP']}" />
++                    </h:panelGroup>
++                    <e:outputLabel for="dbConnectionSql"
++                        value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.DB_CONNECTION_SQL']}" />
++                    <h:panelGroup>
++                        <e:inputText id="dbConnectionSql"
++                            value="#{departmentsController.categoryAttributeToUpdate.dbConnectionSql}" />
++                        <e:message for="dbConnectionSql" />
++                        <e:italic value=" #{msgs['CATEGORY_ATTRIBUTE_UPDATE.TEXT.DB_CONNECTION_SQL_HELP']}" />
++                    </h:panelGroup>
++                </e:panelGrid>
++            </h:panelGroup>
++            <h:panelGroup>
++                <h:panelGroup style="cursor: pointer" onclick="simulateLinkClick('categoryAttributeUpdateForm:saveButton');" >
++                    <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.BUTTON.UPDATE']} " />
++                    <t:graphicImage value="/media/images/save.png"
++                        alt="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.BUTTON.UPDATE']}"
++                        title="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.BUTTON.UPDATE']}" />
++                </h:panelGroup>
++                <e:commandButton id="saveButton" action="#{departmentsController.saveCategoryAttribute}"
++                    value="#{msgs['CATEGORY_ATTRIBUTE_UPDATE.BUTTON.UPDATE']}" style="display: none" />
++            </h:panelGroup>
++        </h:panelGroup>
++	</e:form>
++	<t:aliasBean alias="#{controller}" value="#{null}" >
++		<%@include file="_signature.jsp"%>
++	</t:aliasBean>
++	<script type="text/javascript">
++		typeChanged();
++	</script>
++</e:page>
+Index: stylesheets/upce_header.jsp
+===================================================================
+--- stylesheets/upce_header.jsp	(.../orig/webapp)	(revision 0)
++++ stylesheets/upce_header.jsp	(.../upa/webapp)	(revision 275)
+@@ -0,0 +1,6 @@
++<div class="header">
++  <a href="/" class="logo">Hlavn&iacute; str&aacute;nka Helpdesku</a>
++  <div class="slogan"></div>
++</div>
++<div class="body">
++
+Index: stylesheets/_controlPanelColumnContent.jsp
+===================================================================
+--- stylesheets/_controlPanelColumnContent.jsp	(.../orig/webapp)	(revision 275)
++++ stylesheets/_controlPanelColumnContent.jsp	(.../upa/webapp)	(revision 275)
+@@ -8,70 +8,75 @@
+ 		value="#{cpe.ticket.id} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'DEPARTMENT'}" 
+ 		value="#{cpe.ticket.department.label} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'CREATION_DEPARTMENT'}"
+ 		value="#{cpe.ticket.creationDepartment.label} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'CATEGORY'}"
+ 		value="#{cpe.ticket.category.label} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'LABEL'}"
+ 		value="#{controlPanelSubjectTruncator[cpe.ticket.label]} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'STATUS'}"
+ 		value="#{msgs[ticketStatusI18nKeyProvider[cpe.ticket.status]]} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'PRIORITY'}"
+ 		value="#{msgs[priorityI18nKeyProvider[cpe.ticket.effectivePriorityLevel]]} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'CREATION_DATE_TIME'}"
+ 		value="#{cpe.ticket.creationDate}" >
+ 		<f:convertDateTime timeZone="#{sessionController.timezone}" type="both" dateStyle="short" locale="#{sessionController.locale}" />
+ 	</h:outputText>
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'CREATION_DATE'}"
+ 		value="#{cpe.ticket.creationDate}" >
+ 		<f:convertDateTime timeZone="#{sessionController.timezone}" type="date" dateStyle="short" locale="#{sessionController.locale}"/>
+ 	</h:outputText>
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'CHANGE_DATE_TIME'}"
+ 		value="#{cpe.ticket.lastActionDate}" >
+ 		<f:convertDateTime timeZone="#{sessionController.timezone}" type="both" dateStyle="short" locale="#{sessionController.locale}"/>
+ 	</h:outputText>
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'CHANGE_DATE'}"
+ 		value="#{cpe.ticket.lastActionDate}" >
+ 		<f:convertDateTime timeZone="#{sessionController.timezone}" type="date" dateStyle="short" locale="#{sessionController.locale}"/>
+ 	</h:outputText>
+-	<h:outputText 
+-		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
++	<h:outputText
++		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}"
+ 		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
+-		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'OWNER'}"
++		rendered="#{(controlPanelController.columnsOrderer[columnIndex] == 'OWNER') && (not controlPanelController.currentUserDepartmentManager || controlPanelController.currentUser.controlPanelUserInterface)}"
++		value=" --- " />
++	<h:outputText
++		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		rendered="#{(controlPanelController.columnsOrderer[columnIndex] == 'OWNER') && controlPanelController.currentUserDepartmentManager && not controlPanelController.currentUser.controlPanelUserInterface}"
+ 		value="#{userFormatter[cpe.ticket.owner]} " />
+ 	<h:outputText 
+ 		styleClass="#{cpe.ticket.opened && !cpe.ticket.postponed ? priorityStyleClassProvider[cpe.ticket.effectivePriorityLevel] : ''}" 
+-		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};"
++		style="font-weight: #{cpe.viewed ? 'normal' : 'bold'}; font-style: #{(cpe.ticket.opened && !cpe.ticket.postponed) ? 'normal' : 'italic'};" 
+ 		rendered="#{controlPanelController.columnsOrderer[columnIndex] == 'MANAGER'}"
+ 		value="#{userFormatter[cpe.ticket.manager]} " />
+ </h:panelGroup>

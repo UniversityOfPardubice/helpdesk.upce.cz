@@ -19,7 +19,7 @@
 		<property name="statusBefore" column="stat_befo" not-null="true"/>
 		<property name="statusAfter" column="stat_afte" not-null="true"/>
 		<property name="scope" column="scop" not-null="true"/>
-		<property name="message" column="mess" length="8192"/>
+		<property name="message" column="mess" type="text"/>
 		<many-to-one name="oldFileInfo" column="file_id" fetch="join"/> <!-- JOIN-->
 		<many-to-one name="ticketOwnerBefore" column="tick_owne_befo_id" fetch="join"/> <!-- JOIN-->
 		<many-to-one name="ticketOwnerAfter" column="tick_owne_afte_id" fetch="join"/> <!-- JOIN-->

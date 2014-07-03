@@ -56,6 +56,10 @@
 						<t:graphicImage value="/media/images/faq-links.png" />
 						<e:text value=" #{msgs['CATEGORIES.TEXT.LEGEND.FAQ_LINKS']}" />
 					</h:panelGroup>
+					<h:panelGroup rendered="#{departmentsController.categoriesAction == 'ATTRIBUTES'}" >
+						<t:graphicImage value="/media/images/edit.png" />
+						<e:text value=" #{msgs['CATEGORIES.TEXT.LEGEND.ATTRIBUTES']}" />
+					</h:panelGroup>
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup >
@@ -430,6 +434,47 @@
 										rendered="#{faqLinkIndex != 0}" />
 									<t:graphicImage value="/media/images/faq-link.png" />
 									<e:italic value=" #{faqLink.faq.label}" />
+								</t:dataList>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{departmentsController.categoriesAction == 'ATTRIBUTES'}" >
+							<h:panelGroup rendered="#{not node.category.inheritAttributes}">
+								<h:panelGroup
+									style="cursor: pointer"
+									onclick="showHideElement('categoriesForm:tree:#{node.identifier}:attributes');"
+									rendered="#{node.attributesNumber != 0}" >
+									<e:bold value=" #{msgs['CATEGORIES.TEXT.ATTRIBUTES_NUMBER']}">
+										<f:param value="#{node.attributesNumber}" />
+									</e:bold>
+									<t:graphicImage value="/media/images/show.png" />
+								</h:panelGroup>
+								<e:text rendered="#{node.attributesNumber == 0}"
+									value=" #{msgs['CATEGORIES.TEXT.NO_ATTRIBUTES']}" />
+							</h:panelGroup>
+							<h:panelGroup rendered="#{departmentsController.currentUserCanManageDepartmentCategories}" >
+								<e:bold value=" " />
+								<t:graphicImage value="/media/images/edit.png"
+									alt="#{msgs['CATEGORIES.ALT.EDIT_ATTRIBUTES']}"
+									title="#{msgs['CATEGORIES.ALT.EDIT_ATTRIBUTES']}"
+									style="cursor: pointer"
+									onclick="simulateLinkClick('categoriesForm:tree:#{node.identifier}:editAttributesButton');" />
+								<e:commandButton value="#{msgs['CATEGORIES.BUTTON.EDIT_ATTRIBUTES']}"
+									id="editAttributesButton" style="display: none"
+									action="#{departmentsController.editCategoryAttributes}" >
+									<t:updateActionListener value="#{node.category}"
+										property="#{departmentsController.categoryToUpdate}" />
+								</e:commandButton>
+							</h:panelGroup>
+							<h:panelGroup id="attributes"
+								rendered="#{not node.category.inheritAttributes and node.attributesNumber != 0}"
+								style="display: none" >
+								<t:dataList value="#{node.attributes}" var="attribute"
+									rowIndexVar="attributeIndex">
+									<e:italic value="#{msgs['CATEGORIES.TEXT.ATTRIBUTE_SEPARATOR']}"
+										rendered="#{attributeIndex != 0}" />
+									<e:italic value="#{msgs['CATEGORIES.TEXT.ATTRIBUTE']}" >
+										<f:param value="#{attribute.label}" />
+									</e:italic>
 								</t:dataList>
 							</h:panelGroup>
 						</h:panelGroup>

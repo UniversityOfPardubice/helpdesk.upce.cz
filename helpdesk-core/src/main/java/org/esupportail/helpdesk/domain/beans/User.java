@@ -1101,8 +1101,7 @@ public class User implements Serializable, Comparable<User> {
 	 * @return true to show the submit popup image.
 	 */
 	public boolean isShowSubmitPopupText() {
-		return pageTransition == null
-		|| PAGE_TRANSITION_TEXT.equals(pageTransition)
+		return PAGE_TRANSITION_TEXT.equals(pageTransition)
 		|| PAGE_TRANSITION_TEXT_IMAGE.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_TEXT.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_TEXT_IMAGE.equals(pageTransition);
@@ -1112,8 +1111,7 @@ public class User implements Serializable, Comparable<User> {
 	 * @return true to show the submit popup image.
 	 */
 	public boolean isShowSubmitPopupImage() {
-		return pageTransition == null
-		|| PAGE_TRANSITION_IMAGE.equals(pageTransition)
+		return PAGE_TRANSITION_IMAGE.equals(pageTransition)
 		|| PAGE_TRANSITION_TEXT_IMAGE.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_IMAGE.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_TEXT_IMAGE.equals(pageTransition);
@@ -1123,8 +1121,7 @@ public class User implements Serializable, Comparable<User> {
 	 * @return true to freeze the screen on submit.
 	 */
 	public boolean isFreezeScreenOnSubmit() {
-		return pageTransition == null
-		|| PAGE_TRANSITION_FREEZE.equals(pageTransition)
+		return PAGE_TRANSITION_FREEZE.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_TEXT.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_IMAGE.equals(pageTransition)
 		|| PAGE_TRANSITION_FREEZE_TEXT_IMAGE.equals(pageTransition);

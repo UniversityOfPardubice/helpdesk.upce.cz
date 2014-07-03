@@ -26,6 +26,10 @@
 				<h:panelGroup>
 					<e:paragraph value="#{msgs['TICKET_ACTION.TEXT.POSTPONE.AUTO_HELP']}" />
 					<t:inputCalendar 
+						styleClass="ticket-postpone"
+						monthYearRowClass="ticket-postpone-month"
+						weekRowClass="ticket-postpone-week"
+						currentDayCellClass="ticket-postpone-today"
 						value="#{ticketController.postponeDate}" />
 				</h:panelGroup>
 				<h:panelGroup>
