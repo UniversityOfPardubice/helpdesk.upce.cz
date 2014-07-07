@@ -3,6 +3,7 @@
  */
 package org.esupportail.helpdesk.batch;
 
+import cz.upce.helpdesk.services.feed.imap.ami.TicketAccountReaderImplAmi;
 import org.esupportail.commons.batch.BatchException;
 import org.esupportail.commons.exceptions.ConfigException;
 import org.esupportail.commons.services.application.ApplicationService;
@@ -567,7 +568,120 @@ public class Batch {
 			throw new BatchException(t);
 		}
 	}
-	
+
+    private static void amiFeedAll() {
+        try {
+            boolean versionChecked = false;
+            TicketAccountReaderImplAmi reader = (TicketAccountReaderImplAmi) BeanUtils.getBean("amiAccountReader");
+            ErrorHolder errorHolder = new ErrorHolder();
+            DatabaseUtils.open();
+            DatabaseUtils.begin();
+            if (!versionChecked) {
+                VersionningUtils.checkVersion(true, false);
+                versionChecked = true;
+            }
+            boolean commit = reader.readAll(errorHolder);
+            if (commit) {
+                DatabaseUtils.commit();
+            } else {
+                DatabaseUtils.rollback();
+            }
+            DatabaseUtils.close();
+            if (errorHolder.hasErrors()) {
+                errorHolder.addInfo(errorHolder.getErrorNumber() + " total error(s) found");
+                LOG.error(errorHolder.getStrings());
+            } else {
+                errorHolder.addInfo("no error found");
+                LOG.info(errorHolder.getStrings());
+            }
+        } catch (Throwable t) {
+            DatabaseUtils.rollback();
+            DatabaseUtils.close();
+            throw new BatchException(t);
+        }
+    }
+
+    private static void syncMissingToAmi(Long ticketNumber) {
+        try {
+            TicketAccountReaderImplAmi reader = (TicketAccountReaderImplAmi) BeanUtils.getBean("amiAccountReader");
+            ErrorHolder errorHolder = new ErrorHolder();
+            DatabaseUtils.open();
+            DatabaseUtils.begin();
+            boolean commit = reader.syncMissingToAmi(ticketNumber, errorHolder);
+            if (commit) {
+                DatabaseUtils.commit();
+            } else {
+                DatabaseUtils.rollback();
+            }
+            DatabaseUtils.close();
+            if (errorHolder.hasErrors()) {
+                errorHolder.addInfo(errorHolder.getErrorNumber() + " total error(s) found");
+                LOG.error(errorHolder.getStrings());
+            } else {
+                errorHolder.addInfo("no error found");
+                LOG.info(errorHolder.getStrings());
+            }
+        } catch (Throwable t) {
+            DatabaseUtils.rollback();
+            DatabaseUtils.close();
+            throw new BatchException(t);
+        }
+    }
+
+    private static void syncMissingToAmi(boolean includeArchived) {
+        try {
+            TicketAccountReaderImplAmi reader = (TicketAccountReaderImplAmi) BeanUtils.getBean("amiAccountReader");
+            ErrorHolder errorHolder = new ErrorHolder();
+            DatabaseUtils.open();
+            DatabaseUtils.begin();
+            boolean commit = reader.syncMissingToAmi(errorHolder, includeArchived);
+            if (commit) {
+                DatabaseUtils.commit();
+            } else {
+                DatabaseUtils.rollback();
+            }
+            DatabaseUtils.close();
+            if (errorHolder.hasErrors()) {
+                errorHolder.addInfo(errorHolder.getErrorNumber() + " total error(s) found");
+                LOG.error(errorHolder.getStrings());
+            } else {
+                errorHolder.addInfo("no error found");
+                LOG.info(errorHolder.getStrings());
+            }
+        } catch (Throwable t) {
+            DatabaseUtils.rollback();
+            DatabaseUtils.close();
+            throw new BatchException(t);
+        }
+    }
+
+    private static void syncMissingCommunication() {
+        try {
+            TicketAccountReaderImplAmi reader = (TicketAccountReaderImplAmi) BeanUtils.getBean("amiAccountReader");
+            ErrorHolder errorHolder = new ErrorHolder();
+            DatabaseUtils.open();
+            DatabaseUtils.begin();
+            boolean commit = reader.syncMissingCommunication(errorHolder);
+            if (commit) {
+                DatabaseUtils.commit();
+            } else {
+                DatabaseUtils.rollback();
+            }
+            DatabaseUtils.close();
+            if (errorHolder.hasErrors()) {
+                errorHolder.addInfo(errorHolder.getErrorNumber() + " total error(s) found");
+                LOG.error(errorHolder.getStrings());
+            } else {
+                errorHolder.addInfo("no error found");
+                LOG.info(errorHolder.getStrings());
+            }
+        } catch (Throwable t) {
+            DatabaseUtils.rollback();
+            DatabaseUtils.close();
+            throw new BatchException(t);
+        }
+    }
+        
 	/**
 	 * Dispatch depending on the arguments.
 	 * @param args
@@ -621,6 +735,14 @@ public class Batch {
 				testConsistency();
 			} else if ("delete-all-tickets".equals(args[0])) {
 				deleteAllTickets();
+                        } else if ("ami-fetchall".equals(args[0])) {
+                            amiFeedAll();
+                        } else if ("ami-syncmissing-all".equals(args[0])) {
+                            syncMissingToAmi(true);
+                        } else  if ("ami-syncmissing".equals(args[0])) {
+                            syncMissingToAmi(false);
+                        } else if ("ami-synccommunication".equals(args[0])) {
+                            syncMissingCommunication();
 			} else {
 				syntax();
 			}
