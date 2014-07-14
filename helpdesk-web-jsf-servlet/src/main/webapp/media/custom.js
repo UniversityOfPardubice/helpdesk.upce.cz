@@ -8,7 +8,7 @@
     
     var Attributes = {
         init: function() {
-            $.timepicker.setDefaults($.timepicker.regional[$('html').attr('lang')]);
+            $.datepicker.setDefaults($.datepicker.regional[$('html').attr('lang')]);
             $('.attribute-datepicker').datepicker();
         }
     };
