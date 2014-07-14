@@ -21,8 +21,8 @@ public class TicketAttribute implements Serializable {
 	 */
     private static final long serialVersionUID = 7061904911180071467L;
     private static final String CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME = "categoryAttributeTypeFormatter";
-    private static final CategoryAttributeTypeFormatter CATEGORY_ATTRIBUTE_TYPE_FORMATTER = (CategoryAttributeTypeFormatter) BeanUtils.getBean(CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME);
     private static final DateFormat UNIVERSAL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private final CategoryAttributeTypeFormatter categoryAttributeTypeFormatter = (CategoryAttributeTypeFormatter) BeanUtils.getBean(CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME);
 
     /**
      * The ID.
@@ -197,7 +197,7 @@ public class TicketAttribute implements Serializable {
      * @return the value
      */
     public String getDateValue() throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat(CATEGORY_ATTRIBUTE_TYPE_FORMATTER.get("DATE_FORMAT"));
+        DateFormat dateFormat = new SimpleDateFormat(categoryAttributeTypeFormatter.get("DATE_FORMAT"));
         return dateFormat.format(UNIVERSAL_DATE_FORMAT.parse(value));
     }
 
@@ -205,7 +205,7 @@ public class TicketAttribute implements Serializable {
      * @param value the value
      */
     public void setDateValue(String value) throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat(CATEGORY_ATTRIBUTE_TYPE_FORMATTER.get("DATE_FORMAT"));
+        DateFormat dateFormat = new SimpleDateFormat(categoryAttributeTypeFormatter.get("DATE_FORMAT"));
         this.value = UNIVERSAL_DATE_FORMAT.format(dateFormat.parse(value));
     }
 
