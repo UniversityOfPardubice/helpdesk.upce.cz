@@ -246,7 +246,7 @@
                     </h:column>
                     <h:column>
                         <e:inputText value="#{attribute.value}" rendered="#{attribute.type == 'TEXT'}"/>
-                        <e:inputText value="#{attribute.value}" styleClass="attribute-datepicker" rendered="#{attribute.type == 'DATE'}"/>
+                        <e:inputText value="#{attribute.dateValue}" styleClass="attribute-datepicker" rendered="#{attribute.type == 'DATE'}"/>
                         <e:selectOneMenu value="#{attribute.value}" rendered="#{(attribute.type == 'SELECT') || (attribute.type == 'DB')}">
                             <f:selectItems value="#{attribute.values}" />
                         </e:selectOneMenu>

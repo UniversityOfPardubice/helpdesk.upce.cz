@@ -4,6 +4,11 @@
 package org.esupportail.helpdesk.domain.beans;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import org.esupportail.commons.utils.BeanUtils;
+import org.esupportail.helpdesk.web.beans.CategoryAttributeTypeFormatter;
 
 
 /**
@@ -15,6 +20,9 @@ public class TicketAttribute implements Serializable {
 	 * The serialization id.
 	 */
     private static final long serialVersionUID = 7061904911180071467L;
+    private static final String CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME = "categoryAttributeTypeFormatter";
+    private static final CategoryAttributeTypeFormatter CATEGORY_ATTRIBUTE_TYPE_FORMATTER = (CategoryAttributeTypeFormatter) BeanUtils.getBean(CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME);
+    private static final DateFormat UNIVERSAL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * The ID.
@@ -183,6 +191,22 @@ public class TicketAttribute implements Serializable {
      */
     public void setValue(String value) {
         this.value = value;
+    }
+
+    /**
+     * @return the value
+     */
+    public String getDateValue() throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(CATEGORY_ATTRIBUTE_TYPE_FORMATTER.get("DATE_FORMAT"));
+        return dateFormat.format(UNIVERSAL_DATE_FORMAT.parse(value));
+    }
+
+    /**
+     * @param value the value
+     */
+    public void setDateValue(String value) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(CATEGORY_ATTRIBUTE_TYPE_FORMATTER.get("DATE_FORMAT"));
+        this.value = UNIVERSAL_DATE_FORMAT.format(dateFormat.parse(value));
     }
 
 }

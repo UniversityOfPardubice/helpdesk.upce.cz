@@ -18,7 +18,7 @@ import org.springframework.beans.factory.InitializingBean;
  * A session-scoped bean used to format users.
  */ 
 public class CategoryAttributeTypeFormatter 
-extends HashMap<User, String> implements InitializingBean {
+extends HashMap<String, String> implements InitializingBean {
 	
 	/**
 	 * The serialization id.
