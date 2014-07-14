@@ -19,12 +19,16 @@ public class CategoryAttribute implements Serializable {
 	public static final String SELECT = "SELECT";
 	/** category attribute - DB query. */
 	public static final String DB = "DB";
+        /** category attribute - Date input. */
+        public static final String DATE = "DATE";
+        /** category attribute - label. */
+        public static final String LABEL = "LABEL";
     
 	/**
 	 * The serialization id.
 	 */
-    private static final long serialVersionUID = 4258345851003073808L;
-
+//    private static final long serialVersionUID = 4258345851003073808L;
+    
     /**
      * The ID of category attribute.
      */

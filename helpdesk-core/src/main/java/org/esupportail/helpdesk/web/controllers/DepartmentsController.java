@@ -3092,6 +3092,8 @@ public class DepartmentsController extends AbstractContextAwareController implem
 		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.TEXT);
 		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.SELECT);
 		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.DB);
+		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.LABEL);
+		addCategoryAttributeType(categoryAttributeTypes, CategoryAttribute.DATE);
 		return categoryAttributeTypes;
 	}
 

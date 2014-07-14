@@ -6,15 +6,17 @@ function typeChanged(select) {
     select = document.getElementById('categoryAttributesAddForm:type');
     switch (select.value) {
         case 'TEXT':
-            hideElement('categoryAttributesAddForm:panelValues');
+        case 'DATE':
+        case 'LABEL':
+            hideElement('categoryAttributesAddForm:panelSelect');
             hideElement('categoryAttributesAddForm:panelDbConnection');
             break;
         case 'SELECT':
-            showElement('categoryAttributesAddForm:panelValues');
+            showElement('categoryAttributesAddForm:panelSelect');
             hideElement('categoryAttributesAddForm:panelDbConnection');
             break;
         case 'DB':
-            hideElement('categoryAttributesAddForm:panelValues');
+            hideElement('categoryAttributesAddForm:panelSelect');
             showElement('categoryAttributesAddForm:panelDbConnection');
             break;
     }
@@ -80,7 +82,7 @@ function typeChanged(select) {
                 </h:panelGroup>
             </e:panelGrid>
 
-            <h:panelGroup id="panelValues" style="display:none">
+            <h:panelGroup id="panelSelect" style="display:none">
                 <e:bold value="#{msgs['CATEGORY_ATTRIBUTE_ADD.TEXT.PARAMETERS']} " />
                 <e:panelGrid columns="2" columnClasses="colLeftNowrap,colLeft" >
                     <e:outputLabel for="values"
