@@ -10,15 +10,14 @@ import java.text.SimpleDateFormat;
 import org.esupportail.commons.utils.BeanUtils;
 import org.esupportail.helpdesk.web.beans.CategoryAttributeTypeFormatter;
 
-
 /**
  * The class that represents ticket attributes.
  */
 public class TicketAttribute implements Serializable {
-    
-	/**
-	 * The serialization id.
-	 */
+
+    /**
+     * The serialization id.
+     */
     private static final long serialVersionUID = 7061904911180071468L;
     private static final String CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME = "categoryAttributeTypeFormatter";
     private static final DateFormat UNIVERSAL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,12 +27,12 @@ public class TicketAttribute implements Serializable {
      * The ID.
      */
     private long id;
-    
+
     /**
      * The ticket.
      */
     private Ticket ticket;
-    
+
     /**
      * The order of the attribute.
      */
@@ -43,26 +42,27 @@ public class TicketAttribute implements Serializable {
      * The name.
      */
     private String name;
-    
+
     /**
      * The label.
      */
     private String label;
-    
+
     /**
      * The value.
      */
     private String value;
 
-	/**
+    /**
      * Bean constructor.
      */
     public TicketAttribute() {
-    	super();
+        super();
     }
 
     /**
      * Copy constructor.
+     *
      * @param c the ticket attribute to copy
      */
     public TicketAttribute(final TicketAttribute c) {
@@ -70,48 +70,48 @@ public class TicketAttribute implements Serializable {
         this.ticket = c.ticket;
         this.order = c.order;
         this.name = c.name;
-    	this.label = c.label;
+        this.label = c.label;
         this.value = c.value;
     }
 
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(final Object obj) {
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof TicketAttribute)) {
-			return false;
-		}
-		return ((TicketAttribute) obj).getId() == getId();
-	}
-
-	/**
-	 * @see java.lang.Object#hashCode() 
-	 */
-	@Override
-	public int hashCode() {
-		return (int) getId();
-	}
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-    public String toString() {
-		return getClass().getSimpleName() + "#" + hashCode() + "[" +
-				"id=[" + id + "]"+
-                ", name=[" + name + "]" +
-                ", label=[" + label + "]" +
-                ", value=[" + value + "]" +
-                "]";
+    /**
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof TicketAttribute)) {
+            return false;
+        }
+        return ((TicketAttribute) obj).getId() == getId();
     }
 
-	/**
-	 * @return the ID
-	 */
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return (int) getId();
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "#" + hashCode() + "["
+                + "id=[" + id + "]"
+                + ", name=[" + name + "]"
+                + ", label=[" + label + "]"
+                + ", value=[" + value + "]"
+                + "]";
+    }
+
+    /**
+     * @return the ID
+     */
     public long getId() {
         return id;
     }
@@ -196,17 +196,27 @@ public class TicketAttribute implements Serializable {
     /**
      * @return the value
      */
-    public String getDateValue() throws ParseException {
+    public String getDateValue() {
         DateFormat dateFormat = new SimpleDateFormat(categoryAttributeTypeFormatter.get("DATE_FORMAT"));
-        return dateFormat.format(UNIVERSAL_DATE_FORMAT.parse(value));
+        if (value == null) {
+            return null;
+        }
+        try {
+            return dateFormat.format(UNIVERSAL_DATE_FORMAT.parse(value));
+        } catch (ParseException ex) {
+            return null;
+        }
     }
 
     /**
      * @param value the value
      */
-    public void setDateValue(String value) throws ParseException {
+    public void setDateValue(String value) {
         DateFormat dateFormat = new SimpleDateFormat(categoryAttributeTypeFormatter.get("DATE_FORMAT"));
-        this.value = UNIVERSAL_DATE_FORMAT.format(dateFormat.parse(value));
+        try {
+            this.value = UNIVERSAL_DATE_FORMAT.format(dateFormat.parse(value));
+        } catch (ParseException ex) {
+        }
     }
 
 }
