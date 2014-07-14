@@ -83,6 +83,7 @@
                         <value>//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js</value>
                         <value>//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/i18n/jquery-ui-i18n.js</value>
     			<value>functions.js</value>
+    			<value>custom.js</value>
     			<value>ga.js</value>
     		</list>
     	</property>

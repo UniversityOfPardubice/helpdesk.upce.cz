@@ -4,7 +4,14 @@
     
     Custom = {
         init: function() {
-            console.info('Custom.init');
+            Attributes.init();
+        }
+    };
+    
+    Attributes = {
+        init: function() {
+            $.timepicker.setDefaults($.timepicker.regional[$('html').attr('lang')]);
+            $('.attribute-datepicker').datepicker();
         }
     };
 }());
