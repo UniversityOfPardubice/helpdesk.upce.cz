@@ -1,17 +1,17 @@
 "strict";
 (function(){
-    $(document).ready(Custom.init);
-    
-    Custom = {
+    var Custom = {
         init: function() {
             Attributes.init();
         }
     };
     
-    Attributes = {
+    var Attributes = {
         init: function() {
             $.timepicker.setDefaults($.timepicker.regional[$('html').attr('lang')]);
             $('.attribute-datepicker').datepicker();
         }
     };
+
+    $(document).ready(Custom.init);
 }());
