@@ -79,7 +79,11 @@
     			URLs are prefixed by property portletMediaPath or servletMediaPath.
     		</description>
     		<list>
+                        <value>//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js</value>
+                        <value>//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js</value>
+                        <value>//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/i18n/jquery-ui-i18n.js</value>
     			<value>functions.js</value>
+    			<value>ga.js</value>
     		</list>
     	</property>
     	<property name="stylesheets" >
