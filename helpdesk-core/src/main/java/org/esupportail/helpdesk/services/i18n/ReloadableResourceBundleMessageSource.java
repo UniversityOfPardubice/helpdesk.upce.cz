@@ -6,11 +6,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import org.esupportail.commons.aop.cache.SessionCache;
 import org.esupportail.commons.services.i18n.I18nUtils;
 
 public class ReloadableResourceBundleMessageSource extends
         org.springframework.context.support.ReloadableResourceBundleMessageSource implements Map<String, String> {
 
+    @SessionCache
     public Map<String, String> getStrings(Locale locale) {
         Map<String, String> ret = new HashMap<String, String>();
         PropertiesHolder propertiesHolder = getMergedProperties(locale);
