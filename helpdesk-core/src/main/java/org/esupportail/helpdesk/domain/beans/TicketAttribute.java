@@ -19,7 +19,7 @@ public class TicketAttribute implements Serializable {
 	/**
 	 * The serialization id.
 	 */
-    private static final long serialVersionUID = 7061904911180071467L;
+    private static final long serialVersionUID = 7061904911180071468L;
     private static final String CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME = "categoryAttributeTypeFormatter";
     private static final DateFormat UNIVERSAL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private final CategoryAttributeTypeFormatter categoryAttributeTypeFormatter = (CategoryAttributeTypeFormatter) BeanUtils.getBean(CATEGORY_ATTRIBUTE_TYPE_FORMATTER_NAME);
