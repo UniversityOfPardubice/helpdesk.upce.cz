@@ -110,6 +110,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
   <modules>
+    <module>ck-faces</module>
     <module>helpdesk-batch</module>
     <module>helpdesk-core</module>
     <module>helpdesk-web-jsf-servlet</module>

@@ -245,9 +245,9 @@
 			<version>1.2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>net.sf.fck-faces</groupId>
-			<artifactId>fck-faces</artifactId>
-			<version>1.8</version>
+			<groupId>cz.upce.owad</groupId>
+			<artifactId>ck-faces</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
