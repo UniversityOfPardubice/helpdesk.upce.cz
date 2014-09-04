@@ -1,5 +1,5 @@
 CKEDITOR.editorConfig = function(config) {
-    config.toolbar["actionMessage"] = [
+    config.toolbar_actionMessage = [
         ['Undo', 'Redo'],
         ['Cut', 'Copy', 'Paste', 'PasteText'],
         ['FontFormat', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Subscript', 'Superscript', 'TextColor', '-', 'RemoveFormat'],
@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function(config) {
         ['Link', 'Unlink'],
         ['SpecialChar', 'Smiley', '-', 'FitWindow', 'Source']
     ];
-    config.toolbar["faqContent"] = [
+    config.toolbar_faqContent = [
         ['Undo', 'Redo'],
         ['Cut', 'Copy', 'Paste', 'PasteText'],
         ['FontFormat', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Subscript', 'Superscript', 'TextColor', '-', 'RemoveFormat'],
