@@ -2,18 +2,18 @@ CKEDITOR.editorConfig = function(config) {
     config.toolbar_actionMessage = [
         ['Undo', 'Redo'],
         ['Cut', 'Copy', 'Paste', 'PasteText'],
-        ['FontFormat', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Subscript', 'Superscript', 'TextColor', '-', 'RemoveFormat'],
-        ['OrderedList', 'UnorderedList', '-', 'Outdent', 'Indent'],
+        ['Format', 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', 'TextColor', '-', 'RemoveFormat'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
         ['Link', 'Unlink'],
-        ['SpecialChar', 'Smiley', '-', 'FitWindow', 'Source']
+        ['SpecialChar', 'Smiley', '-', 'Maximize', 'Source']
     ];
     config.toolbar_faqContent = [
         ['Undo', 'Redo'],
         ['Cut', 'Copy', 'Paste', 'PasteText'],
-        ['FontFormat', 'Bold', 'Italic', 'Underline', 'StrikeThrough', '-', 'Subscript', 'Superscript', 'TextColor', '-', 'RemoveFormat'],
-        ['OrderedList', 'UnorderedList', '-', 'Outdent', 'Indent'],
+        ['Format', 'Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript', 'TextColor', '-', 'RemoveFormat'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
         ['Link', 'Unlink'],
-        ['SpecialChar', 'Smiley', '-', 'FitWindow', 'Source']
+        ['SpecialChar', 'Smiley', '-', 'Maximize', 'Source']
     ];
     config.entities = false;
     config.entities_latin = false;
