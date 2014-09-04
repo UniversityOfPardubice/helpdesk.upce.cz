@@ -86,7 +86,7 @@ public class FCKFaceEditor extends HtmlInputTextarea {
                     heightJS +
                     widthJS +
                     configPathJS +
-                    " toolbar = '" + toolBar + "'\r\n" +
+                    " toolbar: '" + toolBar + "'\r\n" +
                     " };" +
                     " var oCKEditor = CKEDITOR.replace('" + this.getClientId(context) + "', config);" +
                     //??? " var sBasePath = '" + Util.internalPath("/FCKeditor/") + "';\r\n" +
