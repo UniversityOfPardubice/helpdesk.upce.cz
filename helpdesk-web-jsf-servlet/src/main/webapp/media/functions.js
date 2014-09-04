@@ -212,9 +212,9 @@ function focusElement(id) {
  * focus an fck editor.
  */
 function focusFckEditor(id) {
-	var element = FCKeditorAPI.GetInstance(id) ;
+	var element = CKEDITOR.instances[id] ;
 	if (element != null) {
-		element.Focus();
+		element.focus();
 	} else if (debug) {
 		alert("FCK editor [" + id + "] not found, could not focus");
 	}

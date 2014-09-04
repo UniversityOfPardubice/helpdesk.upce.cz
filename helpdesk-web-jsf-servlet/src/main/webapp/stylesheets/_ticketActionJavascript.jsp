@@ -2,11 +2,11 @@
 //this function quotes a message in the FCK editor
 function insertTextIntoEditor(message) {
     var textAreaId = "ticketActionForm:actionMessage";
-    var fckEditor = FCKeditorAPI.GetInstance(textAreaId);
+    var fckEditor = CKEDITOR.instances[textAreaId];
     if (fckEditor == null) {
         alert("FCK editor [" + textAreaId + "] not found");
     } else {
-	    fckEditor.InsertHtml(message);
+	    fckEditor.insertHtml(message);
     }
 }
 function insertResponse() {
@@ -17,8 +17,7 @@ function insertResponse() {
 	}
 }
 fadeAndUnfade("ticketActionForm:mainButtonGroup", 1000, 2, 500);
-function FCKeditor_OnComplete( editorInstance )
-{
-    editorInstance.Focus();
-}
+CKEDITOR.on('instanceReady', function(evt){
+    evt.editor.focus();
+});
 </script>

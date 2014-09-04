@@ -29,7 +29,7 @@
 				value="#{msgs['RESPONSE_EDIT.TEXT.LABEL']}" />
 			<e:inputText id="label"
 				value="#{responsesController.responseToUpdate.label}" 
-				onkeypress="if (event.keyCode == 13) { FCKeditorAPI.GetInstance('responseEditForm:message').Focus(); return false;}" />
+				onkeypress="if (event.keyCode == 13) { CKEDITOR.instances['responseEditForm:message'].focus(); return false;}" />
 			<e:outputLabel for="message"
 				value="#{msgs['RESPONSE_EDIT.TEXT.MESSAGE']}" />
 			<fck:editor  
