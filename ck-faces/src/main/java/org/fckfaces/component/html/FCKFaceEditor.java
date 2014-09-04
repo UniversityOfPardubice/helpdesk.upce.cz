@@ -54,7 +54,7 @@ public class FCKFaceEditor extends HtmlInputTextarea {
 		//Initial JS link
 		writer.startElement("script", this.getParent());
 		writer.writeAttribute("type", "text/javascript", null);
-		writer.writeAttribute("src", Util.internalPath("/FCKeditor/fckeditor.js"), null);
+		writer.writeAttribute("src", "//www.upce.cz/libs/ckeditor/ckeditor.js", null);
 		writer.endElement("script");
 		
 		writer.startElement("script", this.getParent());
@@ -69,44 +69,29 @@ public class FCKFaceEditor extends HtmlInputTextarea {
 		String configPathJS = "";
 		
 		if(StringUtils.isNotBlank(height)) {
-			heightJS = "oFCKeditor.Height = '" + height + "';\r\n";
+			heightJS = "height: '" + height + "',\r\n";
 		}
 		
 		if(StringUtils.isNotBlank(width)) {
-			widthJS = "oFCKeditor.Width = '" + width + "';\r\n";
+			 widthJS = "width: '" + width + "',\r\n";
 		}
 		
 		if (StringUtils.isNotBlank(cstConfigPathParam) ) {
 			cstConfigPathParam = Util.externalPath(cstConfigPathParam);
-			configPathJS = "   oFCKeditor.Config['CustomConfigurationsPath']='"+cstConfigPathParam+"';\r\n";
+			configPathJS = "customConfig: '" + cstConfigPathParam + "',\r\n";
 		}
 
-		String js = 
-		"function applyEditor" + this.getId() +"() {" +
-		"	var sBasePath = '" + Util.internalPath("/FCKeditor/") + "';\r\n" +
-		"	var sTextAreaName = '" + this.getClientId(context) + "';\r\n" +
-		"	var oFCKeditor = new FCKeditor( sTextAreaName ) ;\r\n" + 
-		configPathJS +
-		"	oFCKeditor.BasePath	= sBasePath ;\r\n" +
-		"	oFCKeditor.ToolbarSet='" + toolBar + "';\r\n" +
-		heightJS +
-		widthJS + 
-		"	oFCKeditor.ReplaceTextarea(); \r\n" +
-		"	var oTextbox = document.getElementById(sTextAreaName);\r\n" +
-		"	if(oTextbox.hasChildNodes()) {\r\n" +
-		"		var oTextNode;\r\n" +
-		"		var oParentNode = oTextbox.parentNode;\r\n" +
-		"		if(oTextbox.childNodes.length > 1) {\r\n" +
-		"			for(var i = 0; i < oTextbox.childNodes.length; i++) {\r\n" +
-		"				if(oTextbox.childNodes.item(i).nodeType != 3 ) { //Not a Text node\r\n" +
-		"					oParentNode.appendChild(oTextbox.removeChild(oTextbox.childNodes.item(i)));\r\n" +
-		"					i = i - 1;\r\n" +
-		"				}\r\n" +
-		"			}\r\n" +
-		"		}\r\n" +
-		"	}\r\n" +
-		"}" +
-		"applyEditor" + this.getId() +"();";
+                String js = "function applyEditor" + this.getId() + "() { \n" +
+                    " var config = {" +
+                    heightJS +
+                    widthJS +
+                    configPathJS +
+                    " toolbar = '" + toolBar + "'\r\n" +
+                    " };" +
+                    " var oCKEditor = CKEDITOR.replace('" + this.getClientId(context) + "', config);" +
+                    //??? " var sBasePath = '" + Util.internalPath("/FCKeditor/") + "';\r\n" +
+                    "}\r\n"+
+                "applyEditor" + this.getId() +"();";
 		
 		writer.writeText(js, null);
 		writer.endElement("script");
