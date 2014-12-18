@@ -22,6 +22,7 @@
                 <ref bean="accountReader8" />
                 <ref bean="accountReader9" />
                 <ref bean="accountReader10" />
+                <ref bean="accountReader11" />
  				<ref bean="replyToReader" />
  				<ref bean="amiAccountReader" />
 			</list>
@@ -176,6 +177,17 @@
 		<property name="account" value="${feed.imap.account10}" />
 		<property name="password" value="${feed.imap.password10}" />
 		<property name="categoryId" value="${feed.imap.categoryId10}" />
+	</bean>
+
+	<bean 
+		id="accountReader11"
+		parent="abstractAccountReader"
+		lazy-init="true"
+		>
+		<property name="address" value="${feed.imap.address11}" />
+		<property name="account" value="${feed.imap.account11}" />
+		<property name="password" value="${feed.imap.password11}" />
+		<property name="categoryId" value="${feed.imap.categoryId11}" />
 	</bean>
 
 	<bean 
