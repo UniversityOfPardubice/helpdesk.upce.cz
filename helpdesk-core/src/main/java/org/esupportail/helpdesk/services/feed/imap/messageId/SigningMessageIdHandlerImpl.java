@@ -6,6 +6,7 @@ package org.esupportail.helpdesk.services.feed.imap.messageId;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +32,7 @@ public class SigningMessageIdHandlerImpl extends AbstractMessageIdHandler implem
 	/**
 	 * Regular expression patter to find ticket number.
 	 */
-	private static final Pattern TICKET_ID_PATTERN = Pattern.compile(".*<ticketId\\.(\\d+)\\.([0-9a-z]+)@[^>]*>.*", Pattern.DOTALL);
+	private static final Pattern TICKET_ID_PATTERN = Pattern.compile(".*<ticketId\\.(\\d+)\\.([0-9a-z]+).*@[^>]*>.*", Pattern.DOTALL);
 
 	/**
 	 * The base used to hash.
@@ -105,16 +106,17 @@ public class SigningMessageIdHandlerImpl extends AbstractMessageIdHandler implem
      */
     @Override
 	public String genMessageId(final Ticket ticket) {
+    	String uniqueId = new Date().getTime() + "-" + Math.abs(new Random().nextLong());
     	if (ticket == null) {
             // Message-ID according to RFC 822 in form "<yyyyyyyyy@domain>",
             // where yyyyyyyyy is a random number
-            return "<" + Math.abs(new Random().nextLong()) + "@" + emailDomain + ">";
+            return "<" + uniqueId + "@" + emailDomain + ">";
     	}
         // Message-ID according to RFC 822 in form "<ticketId.xxx.yyy@domain>",
         // 		where xxx is the ticket id and and yyy is hash.
     	long ticketId = ticket.getId();
     	String hash = getHash(ticketId);
-        return "<" + "ticketId." + ticketId + "." + hash + "@" + emailDomain + ">";
+        return "<" + "ticketId." + ticketId + "." + hash + "." + uniqueId + "@" + emailDomain + ">";
     }
 
     /**
@@ -128,7 +130,7 @@ public class SigningMessageIdHandlerImpl extends AbstractMessageIdHandler implem
         Matcher messageIdMatcher = TICKET_ID_PATTERN.matcher(messageId);
     	if (!messageIdMatcher.matches()) {
     		throw new MessageIdException(
-    				"messageId does not match pattern [ticketId.<id>.<hash>@"
+    				"messageId does not match pattern [ticketId.<id>.<hash>.<random>@"
     				+ emailDomain + "]");
     	}
 		long ticketId;
