@@ -308,7 +308,7 @@
 		</servlet-class>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>${encoding}</param-value>
+			<param-value>UTF-8</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
