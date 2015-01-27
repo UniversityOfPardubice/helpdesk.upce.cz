@@ -4,7 +4,7 @@
     <parent>
         <artifactId>helpdesk</artifactId>
         <groupId>org.esupportail</groupId>
-        <version>3.30.8-upa-SNAPSHOT</version>
+        <version>3.30.9-upa-SNAPSHOT</version>
     </parent>
     <artifactId>helpdesk-core</artifactId>
     <build>
@@ -97,8 +97,17 @@
 					<artifactId>geronimo-spec-javamail</artifactId>
 					<groupId>geronimo-spec</groupId>
 				</exclusion>
+                <exclusion>
+                    <artifactId>commons-validator</artifactId>
+                    <groupId>commons-validator</groupId>
+                </exclusion>
 			</exclusions>
 		</dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.0</version>
+        </dependency>
 		<dependency>
 			<groupId>org.apache.fulcrum</groupId>
 			<artifactId>fulcrum-yaafi</artifactId>
@@ -228,11 +237,6 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.4</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-validator</groupId>
-			<artifactId>commons-validator</artifactId>
-			<version>1.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>
@@ -421,7 +425,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>3.1.12</version>
+			<version>5.1.32</version>
 		</dependency>
                 <dependency>
                     <groupId>postgresql</groupId>

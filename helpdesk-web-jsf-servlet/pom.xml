@@ -4,7 +4,7 @@
     <parent>
         <artifactId>helpdesk</artifactId>
         <groupId>org.esupportail</groupId>
-        <version>3.30.8-upa-SNAPSHOT</version>
+        <version>3.30.9-upa-SNAPSHOT</version>
     </parent>
     <artifactId>helpdesk-web-jsf-servlet</artifactId>
     <packaging>war</packaging>
@@ -42,14 +42,22 @@
                         <version>1.4</version>
                     </dependency>
                 </dependencies>
-            </plugin>          
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                <path>/</path>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
         <dependency>
             <groupId>org.esupportail</groupId>
             <artifactId>helpdesk-core</artifactId>
-            <version>3.30.8-upa-SNAPSHOT</version>
+            <version>3.30.9-upa-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
