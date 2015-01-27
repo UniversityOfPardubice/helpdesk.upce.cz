@@ -787,19 +787,26 @@ public class AmiConnector implements InitializingBean {
     public Boolean processAllMessages(DomainService domainService, ErrorHolder errorHolder) throws Exception {
         List<Long> amiIds = getAmiTicketIds();
         for (Long amiId : amiIds) {
-            errorHolder.addInfo("Synchronizing AMI ticket id=" + amiId);
-            try {
-                processNewComments(amiId, domainService, errorHolder);
-            } catch (Exception e) {
-                errorHolder.addInfo("Error processing comment ID=" + amiId);
-            }
-            try {
-                processStateChange(amiId, domainService, errorHolder);
-            } catch (Exception e) {
-                errorHolder.addInfo("Error processing state ID=" + amiId);
-            }
+            synchronizeTicket(domainService, errorHolder, amiId);
         }
         return Boolean.TRUE;
+    }
+
+    public boolean synchronizeTicket(DomainService domainService, ErrorHolder errorHolder, long amiId) {
+        errorHolder.addInfo("Synchronizing AMI ticket id=" + amiId);
+        try {
+            processNewComments(amiId, domainService, errorHolder);
+        } catch (Exception e) {
+            errorHolder.addInfo("Error processing comment ID=" + amiId);
+            return false;
+        }
+        try {
+            processStateChange(amiId, domainService, errorHolder);
+        } catch (Exception e) {
+            errorHolder.addInfo("Error processing state ID=" + amiId);
+            return false;
+        }
+        return true;
     }
 
     private Collection<ArchivedTicket> getArchivedTickets(final DomainService domainService, final Department department, Collection<Long> cats) {
