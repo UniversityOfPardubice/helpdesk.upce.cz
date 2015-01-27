@@ -3,6 +3,7 @@
  */
 package org.esupportail.helpdesk.batch;
 
+import cz.upce.helpdesk.domain.ami.DbFeeder;
 import cz.upce.helpdesk.services.feed.imap.ami.TicketAccountReaderImplAmi;
 import org.esupportail.commons.batch.BatchException;
 import org.esupportail.commons.exceptions.ConfigException;
@@ -655,6 +656,33 @@ public class Batch {
         }
     }
 
+    private static void amiFetchDb() {
+        try {
+            DbFeeder feeder = (DbFeeder) BeanUtils.getBean("amiDbFeeder");
+            ErrorHolder errorHolder = new ErrorHolder();
+            DatabaseUtils.open();
+            DatabaseUtils.begin();
+            boolean commit = feeder.feedFromDb(errorHolder);
+            if (commit) {
+                DatabaseUtils.commit();
+            } else {
+                DatabaseUtils.rollback();
+            }
+            DatabaseUtils.close();
+            if (errorHolder.hasErrors()) {
+                errorHolder.addInfo(errorHolder.getErrorNumber() + " total error(s) found");
+                LOG.error(errorHolder.getStrings());
+            } else {
+                errorHolder.addInfo("no error found");
+                LOG.info(errorHolder.getStrings());
+            }
+        } catch (Throwable t) {
+            DatabaseUtils.rollback();
+            DatabaseUtils.close();
+            throw new BatchException(t);
+        }
+    }
+
     private static void syncMissingCommunication() {
         try {
             TicketAccountReaderImplAmi reader = (TicketAccountReaderImplAmi) BeanUtils.getBean("amiAccountReader");
@@ -743,6 +771,8 @@ public class Batch {
                             syncMissingToAmi(false);
                         } else if ("ami-synccommunication".equals(args[0])) {
                             syncMissingCommunication();
+                        } else if ("ami-fetch-db".equals(args[0])) {
+                            amiFetchDb();
 			} else {
 				syntax();
 			}

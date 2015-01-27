@@ -201,5 +201,12 @@
         <property name="jdbcUsername" value="${feed.ami.jdbcUsername}" />
         <property name="jdbcPassword" value="${feed.ami.jdbcPassword}" />
     </bean>
+    
+    <bean id="amiDbFeeder"
+        class="cz.upce.helpdesk.domain.ami.DbFeeder"
+        lazy-init="true">
+        <property name="amiConnector" ref="amiConnector"/>
+        <property name="domainService" ref="domainService"/>
+    </bean>
 
 </beans>
